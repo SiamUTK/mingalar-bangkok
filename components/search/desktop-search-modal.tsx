@@ -1,27 +1,27 @@
-'use client'
+"use client";
 
-import { useEffect } from 'react'
-import { X, Search } from 'lucide-react'
-import { Button, Input } from '@/components/ui'
-import { RecentSearches } from './recent-searches'
-import { PopularSearches } from './popular-searches'
-import { TrendingCategories } from './trending-categories'
-import { TrendingBusinesses } from './trending-businesses'
+import { useEffect } from "react";
+import { X, Search } from "lucide-react";
+import { Button } from "@/components/ui";
+import { RecentSearches } from "./recent-searches";
+import { PopularSearches } from "./popular-searches";
+import { TrendingCategories } from "./trending-categories";
+import { TrendingBusinesses } from "./trending-businesses";
 
 interface DesktopSearchModalProps {
-  query: string
-  onQueryChange: (query: string) => void
-  onClose: () => void
+  query: string;
+  onQueryChange: (query: string) => void;
+  onClose: () => void;
 }
 
 export function DesktopSearchModal({ query, onQueryChange, onClose }: DesktopSearchModalProps) {
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-    window.addEventListener('keydown', handleEscape)
-    return () => window.removeEventListener('keydown', handleEscape)
-  }, [onClose])
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [onClose]);
 
   return (
     <>
@@ -64,12 +64,11 @@ export function DesktopSearchModal({ query, onQueryChange, onClose }: DesktopSea
             </div>
           ) : (
             <div className="text-center text-muted-foreground">
-              <p>Search results for "{query}" will appear here</p>
+              <p>Search results for &quot;{query}&quot; will appear here</p>
             </div>
           )}
         </div>
       </div>
     </>
-  )
+  );
 }
-

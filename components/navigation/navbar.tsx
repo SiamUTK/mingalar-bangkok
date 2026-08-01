@@ -1,199 +1,164 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { cn } from '@/lib/utils'
-import { Menu, X } from 'lucide-react'
-import { Button } from '@/components/ui'
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Menu, X } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { LanguageSwitcher } from "./language-switcher";
+import { useNavigationState } from "./navigation-state";
 
 export interface NavItem {
-  label: string
-  href: string
-  icon?: React.ReactNode
+  label: string;
+  href: string;
+  icon?: React.ReactNode;
 }
 
 interface NavbarProps {
-  brand?: string
-  items?: NavItem[]
-  onMobileMenuToggle?: (open: boolean) => void
-  className?: string
+  brand?: string;
+  items?: NavItem[];
+  onMobileMenuToggle?: (open: boolean) => void;
+  className?: string;
 }
 
 export function Navbar({
-  brand = 'Mingalar Bangkok',
+  brand = "Mingalar Bangkok",
   items = [],
   onMobileMenuToggle,
   className,
 }: NavbarProps) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { isMobileDrawerOpen, setIsMobileDrawerOpen } = useNavigationState();
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  const toggleMobileMenu = () => {
-    const newState = !mobileMenuOpen
-    setMobileMenuOpen(newState)
-    onMobileMenuToggle?.(newState)
+  function toggleMobileMenu() {
+    const open = !isMobileDrawerOpen;
+    setIsMobileDrawerOpen(open);
+    onMobileMenuToggle?.(open);
   }
 
-  const [language, setLanguage] = useState('english')
+  function closeMobileMenu() {
+    setIsMobileDrawerOpen(false);
+    onMobileMenuToggle?.(false);
+  }
 
   return (
-    <nav className={cn('sticky top-0 z-40 border-b border-border bg-card', className)}>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          {/* Brand/Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-sm font-bold text-white">
-              M
-            </div>
-            <span className="hidden font-semibold text-foreground sm:inline">{brand}</span>
-          </Link>
+    <header
+      className={cn(
+        "sticky top-0 z-50 border-b border-border/60 bg-background/70 backdrop-blur-xl transition-all duration-300",
+        isScrolled ? "shadow-sm" : "shadow-none",
+        className
+      )}
+      onMouseEnter={() => setIsScrolled(true)}
+      onMouseLeave={() => setIsScrolled(false)}
+    >
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-3">
+          <Image
+            src="/logo/logo-navbar.svg"
+            alt="Mingalar Bangkok"
+            width={180}
+            height={40}
+            priority
+            sizes="(max-width: 640px) 144px, 180px"
+            className="h-9 w-auto shrink-0 sm:h-10"
+          />
 
-          {/* Desktop Navigation */}
-          <div className="hidden items-center gap-8 md:flex">
+          <div className="hidden sm:block">
+            <p className="text-base font-bold text-foreground transition-transform duration-300">
+              {brand}
+            </p>
+            <p className="text-xs text-muted-foreground">Myanmar Community Platform</p>
+          </div>
+        </Link>
+
+        {/* Desktop Menu */}
+        <nav
+          className={cn(
+            "hidden items-center gap-8 lg:flex transition-opacity duration-300",
+            isScrolled ? "opacity-70" : "opacity-100"
+          )}
+        >
+          {items.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="text-sm font-medium text-foreground transition-colors hover:text-primary"
+            >
+              <span className="flex items-center gap-2">
+                {item.icon}
+                {item.label}
+              </span>
+            </Link>
+          ))}
+        </nav>
+
+        {/* Desktop Right */}
+        <div
+          className={cn(
+            "hidden items-center gap-3 lg:flex transition-opacity duration-300",
+            isScrolled ? "opacity-70" : "opacity-100"
+          )}
+        >
+          <LanguageSwitcher variant="dropdown" />
+
+          <Button variant="ghost" size="sm">
+            <Link href="/login">Sign In</Link>
+          </Button>
+
+          <Button size="sm">
+            <Link href="/register">Get Started</Link>
+          </Button>
+        </div>
+
+        {/* Mobile Button */}
+        <button
+          type="button"
+          onClick={toggleMobileMenu}
+          className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          aria-label={isMobileDrawerOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isMobileDrawerOpen}
+        >
+          {isMobileDrawerOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+      </div>
+
+      {/* Mobile Menu */}
+      {isMobileDrawerOpen && (
+        <div className="border-t border-border bg-background lg:hidden">
+          <div className="space-y-2 p-4">
             {items.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={cn(
-                  'flex items-center gap-2 text-sm font-medium transition-colors',
-                  'text-foreground hover:text-primary',
-                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
-                )}
+                onClick={closeMobileMenu}
+                className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-colors hover:bg-muted"
               >
-                {item.icon && <span className="flex h-4 w-4 items-center justify-center">{item.icon}</span>}
+                {item.icon}
                 {item.label}
               </Link>
             ))}
-          </div>
 
-          {/* Desktop Actions */}
-          <div className="hidden items-center gap-3 md:flex">
-            {/* Language Switcher - Desktop */}
-            <div className="flex items-center border border-border rounded-lg p-1">
-              <button
-                onClick={() => setLanguage('myanmar')}
-                className={cn(
-                  'px-3 py-1 rounded text-sm font-medium transition-colors',
-                  language === 'myanmar'
-                    ? 'bg-primary text-white'
-                    : 'text-foreground hover:text-primary',
-                )}
-              >
-                🇲🇲
-              </button>
-              <button
-                onClick={() => setLanguage('thai')}
-                className={cn(
-                  'px-3 py-1 rounded text-sm font-medium transition-colors',
-                  language === 'thai'
-                    ? 'bg-primary text-white'
-                    : 'text-foreground hover:text-primary',
-                )}
-              >
-                🇹🇭
-              </button>
-              <button
-                onClick={() => setLanguage('english')}
-                className={cn(
-                  'px-3 py-1 rounded text-sm font-medium transition-colors',
-                  language === 'english'
-                    ? 'bg-primary text-white'
-                    : 'text-foreground hover:text-primary',
-                )}
-              >
-                🇬🇧
-              </button>
+            <div className="border-t border-border pt-4">
+              <LanguageSwitcher variant="mobile" />
             </div>
-            <Button variant="ghost" size="sm">
-              Sign In
-            </Button>
-            <Button size="sm">Get Started</Button>
-          </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={toggleMobileMenu}
-            className={cn(
-              'md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg',
-              'text-foreground hover:bg-muted active:bg-muted/80',
-              'transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
-            )}
-            aria-label="Toggle mobile menu"
-          >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+            <div className="space-y-2 pt-4">
+              <Link href="/login" onClick={closeMobileMenu}>
+                <Button variant="ghost" className="w-full">
+                  Sign In
+                </Button>
+              </Link>
+
+              <Link href="/register" onClick={closeMobileMenu}>
+                <Button className="w-full">Get Started</Button>
+              </Link>
+            </div>
+          </div>
         </div>
-
-        {/* Mobile Navigation */}
-        {mobileMenuOpen && (
-          <div className="border-t border-border md:hidden">
-            <div className="space-y-1 px-2 py-4">
-              {items.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium',
-                    'text-foreground hover:bg-muted active:bg-muted/80',
-                    'transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
-                  )}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.icon && <span className="flex h-4 w-4 items-center justify-center">{item.icon}</span>}
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-            {/* Language Switcher - Mobile */}
-            <div className="border-t border-border px-2 py-3">
-              <p className="text-xs font-medium text-muted-foreground px-3 mb-2">Language</p>
-              <div className="flex items-center border border-border rounded-lg p-1 mx-3">
-                <button
-                  onClick={() => setLanguage('myanmar')}
-                  className={cn(
-                    'flex-1 px-2 py-1 rounded text-sm font-medium transition-colors',
-                    language === 'myanmar'
-                      ? 'bg-primary text-white'
-                      : 'text-foreground hover:text-primary',
-                  )}
-                >
-                  🇲🇲
-                </button>
-                <button
-                  onClick={() => setLanguage('thai')}
-                  className={cn(
-                    'flex-1 px-2 py-1 rounded text-sm font-medium transition-colors',
-                    language === 'thai'
-                      ? 'bg-primary text-white'
-                      : 'text-foreground hover:text-primary',
-                  )}
-                >
-                  🇹🇭
-                </button>
-                <button
-                  onClick={() => setLanguage('english')}
-                  className={cn(
-                    'flex-1 px-2 py-1 rounded text-sm font-medium transition-colors',
-                    language === 'english'
-                      ? 'bg-primary text-white'
-                      : 'text-foreground hover:text-primary',
-                  )}
-                >
-                  🇬🇧
-                </button>
-              </div>
-            </div>
-            <div className="border-t border-border space-y-2 px-2 py-3">
-              <Button variant="ghost" size="sm" className="w-full justify-start">
-                Sign In
-              </Button>
-              <Button size="sm" className="w-full justify-start">
-                Get Started
-              </Button>
-            </div>
-          </div>
-        )}
-      </div>
-    </nav>
-  )
+      )}
+    </header>
+  );
 }
-

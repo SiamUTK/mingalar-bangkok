@@ -1,24 +1,53 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
-@import 'shadcn/tailwind.css';
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-@font-face {
-  font-family: 'Geist';
-  src: local('Geist'), local('Inter'), system-ui, sans-serif;
-}
+/* ==========================================================
+   Theme Setup (Tailwind v4 Utility Mapping)
+========================================================== */
 
 @theme inline {
-  --font-sans: 'Geist', 'Inter', system-ui, sans-serif;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  /* Map Semantic Colors to Tailwind v4 Utility Classes */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Brand Colors */
   --color-ruby-red: #c62828;
   --color-warm-gold: #d4af37;
   --color-deep-navy: #1e3a5f;
   --color-warm-white: #fafaf8;
-  --color-text-primary: #1f2937;
-  --color-text-secondary: #6b7280;
-  --color-border-light: #e5e7eb;
+
+  /* Status Colors */
   --color-success: #16a34a;
   --color-warning: #f59e0b;
   --color-danger: #dc2626;
+
+  /* Radius */
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
   --radius-lg: 1rem;
@@ -27,85 +56,372 @@
   --radius-3xl: 1.75rem;
 }
 
+/* ==========================================================
+   Light Theme Variables
+========================================================== */
+
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
+
   --background: #fafaf8;
   --foreground: #1f2937;
+
   --card: #ffffff;
   --card-foreground: #1f2937;
+
   --popover: #ffffff;
   --popover-foreground: #1f2937;
+
   --primary: #c62828;
   --primary-foreground: #ffffff;
+
   --secondary: #d4af37;
   --secondary-foreground: #1f2937;
-  --muted: #e5e7eb;
-  --muted-foreground: #6b7280;
+
   --accent: #1e3a5f;
   --accent-foreground: #ffffff;
-  --destructive: #dc2626;
+
+  --muted: #f3f4f6;
+  --muted-foreground: #6b7280;
+
   --border: #e5e7eb;
   --input: #e5e7eb;
+
   --ring: #c62828;
+
+  --destructive: #dc2626;
+
+  --success: #16a34a;
+  --warning: #f59e0b;
+
   --chart-1: #c62828;
   --chart-2: #d4af37;
   --chart-3: #1e3a5f;
-  --chart-4: #6b7280;
-  --chart-5: #f59e0b;
+  --chart-4: #2563eb;
+  --chart-5: #10b981;
+
   --radius: 0.75rem;
 }
 
+/* ==========================================================
+   Dark Theme Variables
+========================================================== */
+
+.dark {
+  color-scheme: dark;
+
+  --background: #09090b;
+  --foreground: #f4f4f5;
+
+  --card: #18181b;
+  --card-foreground: #f4f4f5;
+
+  --popover: #18181b;
+  --popover-foreground: #f4f4f5;
+
+  --primary: #ef4444;
+  --primary-foreground: #ffffff;
+
+  --secondary: #ca8a04;
+  --secondary-foreground: #ffffff;
+
+  --accent: #2563eb;
+  --accent-foreground: #ffffff;
+
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+
+  --border: #27272a;
+  --input: #27272a;
+
+  --ring: #ef4444;
+
+  --destructive: #dc2626;
+
+  --success: #22c55e;
+  --warning: #f59e0b;
+
+  --chart-1: #ef4444;
+  --chart-2: #eab308;
+  --chart-3: #3b82f6;
+  --chart-4: #22c55e;
+  --chart-5: #a855f7;
+}
+
+/* ==========================================================
+   Base Styles
+========================================================== */
+
 @layer base {
-  * {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
     border-color: var(--border);
-    outline-color: var(--ring);
-    outline-width: 1px;
   }
+
   html {
-    background-color: var(--background);
+    scroll-behavior: smooth;
+    background: var(--background);
+    -webkit-text-size-adjust: 100%;
   }
+
   body {
-    background-color: var(--background);
+    min-height: 100vh;
+    background: var(--background);
     color: var(--foreground);
-    @apply font-sans;
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-  h1 {
-    @apply text-5xl font-bold leading-tight;
+
+  img,
+  picture,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  /* Typography */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     color: var(--foreground);
+    font-weight: 700;
+    text-wrap: balance;
   }
-  h2 {
-    @apply text-4xl font-bold leading-tight;
+
+  p,
+  li {
     color: var(--foreground);
+    text-wrap: pretty;
   }
-  h3 {
-    @apply text-3xl font-semibold leading-snug;
-    color: var(--foreground);
-  }
-  h4 {
-    @apply text-2xl font-semibold leading-snug;
-    color: var(--foreground);
-  }
-  h5 {
-    @apply text-xl font-semibold leading-normal;
-    color: var(--foreground);
-  }
-  p {
-    @apply text-base leading-relaxed;
-    color: var(--foreground);
-  }
+
   small {
-    @apply text-sm;
     color: var(--muted-foreground);
+  }
+
+  code,
+  pre,
+  kbd {
+    font-family: var(--font-mono);
+  }
+
+  /* Scrollbar Customization */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--muted);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--primary) 75%, transparent);
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+  }
+
+  /* Form Controls */
+  input,
+  textarea,
+  select {
+    background: var(--background);
+    color: var(--foreground);
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--muted-foreground);
+  }
+
+  hr {
+    border-color: var(--border);
   }
 }
 
-@layer components {
-  .text-caption {
-    @apply text-sm leading-relaxed;
-    color: var(--muted-foreground);
+/* ==========================================================
+   Utilities
+========================================================== */
+
+@layer utilities {
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-6 lg:px-8;
   }
-  .text-small {
-    @apply text-xs leading-relaxed;
-    color: var(--muted-foreground);
+
+  .section {
+    @apply py-24;
+  }
+
+  .section-sm {
+    @apply py-16;
+  }
+
+  .section-lg {
+    @apply py-32;
+  }
+
+  /* Glassmorphism Styles (Tailwind v4 Compliant) */
+  .glass {
+    @apply border backdrop-blur-xl;
+    border-color: color-mix(in srgb, var(--border) 60%, transparent);
+    background: color-mix(in srgb, var(--background) 70%, transparent);
+  }
+
+  .glass-card {
+    @apply rounded-4xl border backdrop-blur-xl;
+    border-color: color-mix(in srgb, var(--border) 60%, transparent);
+    background: color-mix(in srgb, var(--background) 70%, transparent);
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl;
+  }
+
+  /* Gradients */
+  .text-gradient {
+    @apply bg-linear-to-r from-blue-600 via-cyan-500 to-sky-500 bg-clip-text text-transparent;
+  }
+
+  .hero-gradient {
+    @apply bg-linear-to-br from-primary to-blue-700;
+  }
+
+  .surface {
+    @apply rounded-4xl border bg-card;
+  }
+
+  .shadow-soft {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  }
+
+  .hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+}
+
+/* ==========================================================
+   Components
+========================================================== */
+
+@layer components {
+  .section-title {
+    @apply text-4xl font-black tracking-tight md:text-5xl;
+  }
+
+  .section-description {
+    @apply mt-4 max-w-3xl text-lg leading-8 text-muted-foreground;
+  }
+
+  .section-badge {
+    @apply inline-flex items-center rounded-full border px-4 py-1.5 text-sm font-medium text-primary;
+    border-color: color-mix(in srgb, var(--primary) 20%, transparent);
+    background-color: color-mix(in srgb, var(--primary) 10%, transparent);
+  }
+
+  .feature-card {
+    @apply rounded-4xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl;
+  }
+
+  .feature-card:hover {
+    border-color: color-mix(in srgb, var(--primary) 30%, transparent);
+  }
+
+  .content-card {
+    @apply rounded-4xl border border-border bg-card p-6;
+  }
+
+  .icon-box {
+    @apply flex h-14 w-14 items-center justify-center rounded-2xl text-primary;
+    background-color: color-mix(in srgb, var(--primary) 10%, transparent);
+  }
+
+  .status-badge {
+    @apply inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold;
+  }
+
+  .featured-badge {
+    @apply inline-flex items-center gap-1 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground;
+  }
+
+  .verified-badge {
+    @apply inline-flex items-center gap-1 rounded-full bg-emerald-600 px-3 py-1 text-xs font-semibold text-white;
+  }
+
+  .button-primary {
+    @apply inline-flex items-center justify-center rounded-xl bg-primary px-5 py-3 font-medium text-primary-foreground transition-colors;
+  }
+  .button-primary:hover {
+    background-color: color-mix(in srgb, var(--primary) 90%, transparent);
+  }
+
+  .button-secondary {
+    @apply inline-flex items-center justify-center rounded-xl border border-border bg-background px-5 py-3 font-medium transition-colors hover:bg-muted;
+  }
+
+  .input-primary {
+    @apply h-11 rounded-xl border border-input bg-background px-4 text-sm outline-none transition focus:border-primary;
   }
 }

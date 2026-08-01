@@ -1,54 +1,48 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { ChevronLeft, ChevronRight, X } from 'lucide-react'
-import { Button } from '@/components/ui'
+import { useCallback, useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 export interface Photo {
-  id: string
-  url: string
-  alt: string
+  id: string;
+  url: string;
+  alt: string;
 }
 
 export interface PhotoLightboxProps {
-  isOpen: boolean
-  photos: Photo[]
-  initialIndex: number
-  onClose: () => void
+  isOpen: boolean;
+  photos: Photo[];
+  initialIndex: number;
+  onClose: () => void;
 }
 
-export function PhotoLightbox({
-  isOpen,
-  photos,
-  initialIndex,
-  onClose,
-}: PhotoLightboxProps) {
-  const [currentIndex, setCurrentIndex] = useState(initialIndex)
+export function PhotoLightbox({ isOpen, photos, initialIndex, onClose }: PhotoLightboxProps) {
+  const [currentIndex, setCurrentIndex] = useState(initialIndex);
+
+  const goToPrevious = useCallback(() => {
+    setCurrentIndex((prev) => (prev === 0 ? photos.length - 1 : prev - 1));
+  }, [photos.length]);
+
+  const goToNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev === photos.length - 1 ? 0 : prev + 1));
+  }, [photos.length]);
 
   useEffect(() => {
-    if (!isOpen) return
+    if (!isOpen) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-      if (e.key === 'ArrowLeft') goToPrevious()
-      if (e.key === 'ArrowRight') goToNext()
-    }
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft") goToPrevious();
+      if (e.key === "ArrowRight") goToNext();
+    };
 
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [isOpen, onClose])
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose, goToPrevious, goToNext]);
 
-  const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev === 0 ? photos.length - 1 : prev - 1))
-  }
+  if (!isOpen) return null;
 
-  const goToNext = () => {
-    setCurrentIndex((prev) => (prev === photos.length - 1 ? 0 : prev + 1))
-  }
-
-  if (!isOpen) return null
-
-  const currentPhoto = photos[currentIndex]
+  const currentPhoto = photos[currentIndex];
 
   return (
     <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center">
@@ -94,6 +88,5 @@ export function PhotoLightbox({
         </div>
       </div>
     </div>
-  )
+  );
 }
-

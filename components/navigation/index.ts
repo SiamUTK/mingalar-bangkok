@@ -1,5 +1,13 @@
-export { Navbar, type NavItem } from './navbar'
-export { MobileBottomNav, type BottomNavItem } from './mobile-bottom-nav'
-export { MobileDrawer, type DrawerItem } from './mobile-drawer'
-export { Footer, type FooterSection } from './footer'
+export { Navbar } from "./navbar";
+export type { NavItem } from "./navbar";
 
+export { MobileDrawer } from "./mobile-drawer";
+export type { DrawerItem } from "./mobile-drawer";
+
+export { MobileBottomNav } from "./mobile-bottom-nav";
+export type { BottomNavItem } from "./mobile-bottom-nav";
+
+export { Footer } from "./footer";
+export type { FooterSection, FooterLink } from "./footer";
+
+export { LanguageSwitcher } from "./language-switcher";

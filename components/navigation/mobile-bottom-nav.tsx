@@ -1,55 +1,105 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { cn } from '@/lib/utils'
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+import { Home, Store, Briefcase, Bot, Menu } from "lucide-react";
+import { useNavigationState } from "./navigation-state";
+
+import { cn } from "@/lib/utils";
 
 export interface BottomNavItem {
-  label: string
-  href: string
-  icon: React.ReactNode
+  label: string;
+  href?: string;
+  icon?: React.ReactNode;
+  action?: () => void;
 }
 
 interface MobileBottomNavProps {
-  items: BottomNavItem[]
-  className?: string
+  items?: BottomNavItem[];
+  className?: string;
 }
 
-export function MobileBottomNav({ items, className }: MobileBottomNavProps) {
-  const pathname = usePathname()
+const defaultItems: BottomNavItem[] = [
+  {
+    label: "Home",
+    href: "/",
+    icon: <Home className="h-5 w-5" />,
+  },
+  {
+    label: "Directory",
+    href: "/directory",
+    icon: <Store className="h-5 w-5" />,
+  },
+  {
+    label: "Jobs",
+    href: "/jobs",
+    icon: <Briefcase className="h-5 w-5" />,
+  },
+  {
+    label: "AI",
+    href: "/ai-assistant",
+    icon: <Bot className="h-5 w-5" />,
+  },
+  {
+    label: "More",
+    icon: <Menu className="h-5 w-5" />,
+  },
+];
+
+export function MobileBottomNav({ items = defaultItems, className }: MobileBottomNavProps) {
+  const pathname = usePathname();
+  const { setIsMobileDrawerOpen } = useNavigationState();
+  const resolvedItems = items.map((item) =>
+    item.label === "More" ? { ...item, action: () => setIsMobileDrawerOpen(true) } : item
+  );
 
   return (
     <nav
       className={cn(
-        'fixed bottom-0 left-0 right-0 z-30 border-t border-border bg-card md:hidden',
-        className,
+        "fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 backdrop-blur-xl lg:hidden",
+        className
       )}
     >
-      <div className="flex h-20 items-stretch justify-around">
-        {items.map((item) => {
-          const isActive = pathname === item.href
+      <div className="grid h-16 grid-cols-5">
+        {resolvedItems.map((item) => {
+          const active =
+            item.href && (pathname === item.href || pathname.startsWith(item.href + "/"));
+
+          if (item.action) {
+            return (
+              <button
+                key={item.label}
+                type="button"
+                onClick={item.action}
+                className={cn(
+                  "flex flex-col items-center justify-center gap-1 transition-colors",
+                  active ? "text-primary" : "text-muted-foreground hover:text-primary"
+                )}
+              >
+                {item.icon}
+
+                <span className="text-[11px] font-medium">{item.label}</span>
+              </button>
+            );
+          }
 
           return (
             <Link
-              key={item.href}
-              href={item.href}
+              key={item.label}
+              href={item.href ?? "#"}
               className={cn(
-                'flex flex-1 flex-col items-center justify-center gap-1 text-xs font-medium',
-                'transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
-                isActive
-                  ? 'text-primary'
-                  : 'text-muted-foreground hover:text-foreground active:bg-muted',
+                "flex flex-col items-center justify-center gap-1 transition-colors",
+                active ? "text-primary" : "text-muted-foreground hover:text-primary"
               )}
             >
-              <span className={cn('flex h-6 w-6 items-center justify-center', isActive && 'text-primary')}>
-                {item.icon}
-              </span>
-              <span>{item.label}</span>
+              {item.icon}
+
+              <span className="text-[11px] font-medium">{item.label}</span>
             </Link>
-          )
+          );
         })}
       </div>
     </nav>
-  )
+  );
 }
-

@@ -1,14 +1,14 @@
-'use client'
+"use client";
 
-import { Button } from '@/components/ui/button-variants'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { Button } from "@/components/ui/button-variants";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface PaginationProps {
-  currentPage: number
-  totalPages: number
-  totalItems: number
-  itemsPerPage?: number
-  onPageChange?: (page: number) => void
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
+  itemsPerPage?: number;
+  onPageChange?: (page: number) => void;
 }
 
 export function Pagination({
@@ -19,42 +19,42 @@ export function Pagination({
   onPageChange,
 }: PaginationProps) {
   const generatePageNumbers = () => {
-    const pages = []
-    const maxVisible = 5
-    
-    let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2))
-    let endPage = Math.min(totalPages, startPage + maxVisible - 1)
-    
+    const pages = [];
+    const maxVisible = 5;
+
+    const startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+    const endPage = Math.min(totalPages, startPage + maxVisible - 1);
+
     if (endPage - startPage + 1 < maxVisible) {
-      startPage = Math.max(1, endPage - maxVisible + 1)
+      startPage = Math.max(1, endPage - maxVisible + 1);
     }
 
     if (startPage > 1) {
-      pages.push(1)
-      if (startPage > 2) pages.push('...')
+      pages.push(1);
+      if (startPage > 2) pages.push("...");
     }
 
     for (let i = startPage; i <= endPage; i++) {
-      pages.push(i)
+      pages.push(i);
     }
 
     if (endPage < totalPages) {
-      if (endPage < totalPages - 1) pages.push('...')
-      pages.push(totalPages)
+      if (endPage < totalPages - 1) pages.push("...");
+      pages.push(totalPages);
     }
 
-    return pages
-  }
+    return pages;
+  };
 
-  const startItem = (currentPage - 1) * itemsPerPage + 1
-  const endItem = Math.min(currentPage * itemsPerPage, totalItems)
+  const startItem = (currentPage - 1) * itemsPerPage + 1;
+  const endItem = Math.min(currentPage * itemsPerPage, totalItems);
 
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between py-6">
       {/* Items Info */}
       <p className="text-sm text-muted-foreground">
-        Showing <span className="font-medium text-foreground">{startItem}</span> to{' '}
-        <span className="font-medium text-foreground">{endItem}</span> of{' '}
+        Showing <span className="font-medium text-foreground">{startItem}</span> to{" "}
+        <span className="font-medium text-foreground">{endItem}</span> of{" "}
         <span className="font-medium text-foreground">{totalItems}</span> results
       </p>
 
@@ -75,18 +75,18 @@ export function Pagination({
         <div className="hidden sm:flex gap-1">
           {generatePageNumbers().map((page, index) => (
             <div key={index}>
-              {page === '...' ? (
+              {page === "..." ? (
                 <span className="px-2 py-1.5 text-muted-foreground">...</span>
               ) : (
                 <Button
                   size="sm"
-                  variant={currentPage === page ? 'primary' : 'ghost'}
+                  variant={currentPage === page ? "primary" : "ghost"}
                   onClick={() => {
-                    if (typeof page === 'number') {
-                      onPageChange?.(page)
+                    if (typeof page === "number") {
+                      onPageChange?.(page);
                     }
                   }}
-                  disabled={page === '...'}
+                  disabled={page === "..."}
                   className="min-w-10 px-0"
                 >
                   {page}
@@ -98,7 +98,7 @@ export function Pagination({
 
         {/* Mobile Page Info */}
         <div className="flex sm:hidden items-center gap-2 text-sm text-muted-foreground">
-          Page <span className="font-medium text-foreground">{currentPage}</span> of{' '}
+          Page <span className="font-medium text-foreground">{currentPage}</span> of{" "}
           <span className="font-medium text-foreground">{totalPages}</span>
         </div>
 
@@ -114,6 +114,5 @@ export function Pagination({
         </Button>
       </div>
     </div>
-  )
+  );
 }
-

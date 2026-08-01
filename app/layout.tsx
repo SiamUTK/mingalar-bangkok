@@ -1,51 +1,97 @@
-import { Analytics } from '@vercel/analytics/next'
-import type { Metadata, Viewport } from 'next'
-import './globals.css'
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+
+import "./globals.css";
+
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import { PageTransitionProvider } from "@/components/ui/page-transition-provider";
+import { Toaster } from "@/components/ui/sonner";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
-  title: 'Mingalar Bangkok',
-  description: 'AI-first platform for Myanmar community in Thailand',
-  generator: 'v0.app',
+  metadataBase: new URL("https://mingalarbangkok.com"),
+
+  title: {
+    default: "Mingalar Bangkok",
+    template: "%s | Mingalar Bangkok",
+  },
+
+  description:
+    "AI-powered platform for the Myanmar community in Thailand. Discover businesses, jobs, housing, travel services, events and AI assistance.",
+
+  keywords: [
+    "Myanmar Thailand",
+    "Myanmar Community",
+    "Bangkok",
+    "Jobs",
+    "Housing",
+    "Business Directory",
+    "Travel",
+    "AI",
+  ],
+
+  openGraph: {
+    title: "Mingalar Bangkok",
+    description: "AI-powered platform for the Myanmar community in Thailand.",
+    url: "https://mingalarbangkok.com",
+    siteName: "Mingalar Bangkok",
+    locale: "en_US",
+    type: "website",
+  },
+
   icons: {
     icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
+      { url: "/favicon.ico" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
-    apple: '/apple-icon.png',
+    apple: "/apple-touch-icon.png",
   },
-}
 
-export const viewport: Viewport = {
-  colorScheme: 'light',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#c62828' },
-  ],
-  width: 'device-width',
-  initialScale: 1,
-}
+  manifest: "/site.webmanifest",
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Mingalar Bangkok",
+    description: "AI-powered platform for the Myanmar community in Thailand.",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="bg-background">
-      <body className="antialiased bg-background text-foreground">
-        {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-background font-sans antialiased`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <PageTransitionProvider>{children}</PageTransitionProvider>
+
+          <Toaster richColors position="top-right" />
+        </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }
-

@@ -1,27 +1,31 @@
-'use client'
+"use client";
 
-import { useEffect } from 'react'
-import { X, Search } from 'lucide-react'
-import { Button } from '@/components/ui'
-import { RecentSearches } from './recent-searches'
-import { PopularSearches } from './popular-searches'
-import { TrendingCategories } from './trending-categories'
-import { TrendingBusinesses } from './trending-businesses'
+import { useEffect } from "react";
+import { X, Search } from "lucide-react";
+import { Button } from "@/components/ui";
+import { RecentSearches } from "./recent-searches";
+import { PopularSearches } from "./popular-searches";
+import { TrendingCategories } from "./trending-categories";
+import { TrendingBusinesses } from "./trending-businesses";
 
 interface MobileFullscreenSearchProps {
-  query: string
-  onQueryChange: (query: string) => void
-  onClose: () => void
+  query: string;
+  onQueryChange: (query: string) => void;
+  onClose: () => void;
 }
 
-export function MobileFullscreenSearch({ query, onQueryChange, onClose }: MobileFullscreenSearchProps) {
+export function MobileFullscreenSearch({
+  query,
+  onQueryChange,
+  onClose,
+}: MobileFullscreenSearchProps) {
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-    window.addEventListener('keydown', handleEscape)
-    return () => window.removeEventListener('keydown', handleEscape)
-  }, [onClose])
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [onClose]);
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-background">
@@ -57,12 +61,11 @@ export function MobileFullscreenSearch({ query, onQueryChange, onClose }: Mobile
             </>
           ) : (
             <div className="py-8 text-center text-muted-foreground">
-              <p>Search results for "{query}"</p>
+              <p>Search results for &quot;{query}&quot;</p>
             </div>
           )}
         </div>
       </div>
     </div>
-  )
+  );
 }
-
