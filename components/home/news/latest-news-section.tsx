@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Newspaper, Clock } from "lucide-react";
+import { ArrowRight, Newspaper } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Button } from "@/components/ui/button";
+import { NewsCard, NewsCardProps } from "./news-card";
 
-const articles = [
+const articles: NewsCardProps[] = [
   {
     id: "1",
     title: "Thai Immigration Updates Online 90-Day Report Rules for 2026",
@@ -54,30 +55,7 @@ export function LatestNewsSection() {
 
         <div className="grid gap-6 md:grid-cols-3">
           {articles.map((item) => (
-            <Link key={item.id} href={`/news/${item.id}`}>
-              <div className="group overflow-hidden rounded-3xl border border-border/80 bg-card p-4 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg">
-                <div className="relative aspect-[16/9] overflow-hidden rounded-2xl">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <div className="mt-4 space-y-2">
-                  <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-                    <span className="font-bold text-primary">{item.category}</span>
-                    <span className="flex items-center gap-1">
-                      <Clock className="h-3 w-3" />
-                      {item.date}
-                    </span>
-                  </div>
-                  <h3 className="text-base font-bold text-foreground line-clamp-2 group-hover:text-primary transition-colors">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs text-muted-foreground line-clamp-2">{item.summary}</p>
-                </div>
-              </div>
-            </Link>
+            <NewsCard key={item.id} {...item} />
           ))}
         </div>
       </div>
