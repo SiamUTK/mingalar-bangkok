@@ -1,151 +1,107 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
-
-import { cn } from "@/lib/utils";
+import { LayoutDashboard, LogIn, UserPlus, Bot } from "lucide-react";
+import { createClient } from "@/lib/supabase/client"; // หรือ Supabase Auth Helper ในโปรเจกต์ของคุณ
 import { Button } from "@/components/ui/button";
-import { LanguageSwitcher } from "./language-switcher";
-import { useNavigationState } from "./navigation-state";
 
-export interface NavItem {
-  label: string;
-  href: string;
-  icon?: React.ReactNode;
-}
+export function Navbar() {
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-interface NavbarProps {
-  brand?: string;
-  items?: NavItem[];
-  onMobileMenuToggle?: (open: boolean) => void;
-  className?: string;
-}
+  useEffect(() => {
+    // เช็คเซสชันผู้ใช้จาก Supabase
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data.user);
+      setLoading(false);
+    });
 
-export function Navbar({
-  brand = "Mingalar Bangkok",
-  items = [],
-  onMobileMenuToggle,
-  className,
-}: NavbarProps) {
-  const { isMobileDrawerOpen, setIsMobileDrawerOpen } = useNavigationState();
-  const [isScrolled, setIsScrolled] = useState(false);
+    const { data: authListener } = supabase.auth.onAuthStateChange((_, session) => {
+      setUser(session?.user ?? null);
+    });
 
-  function toggleMobileMenu() {
-    const open = !isMobileDrawerOpen;
-    setIsMobileDrawerOpen(open);
-    onMobileMenuToggle?.(open);
-  }
-
-  function closeMobileMenu() {
-    setIsMobileDrawerOpen(false);
-    onMobileMenuToggle?.(false);
-  }
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-xl transition-all duration-300",
-        isScrolled ? "shadow-sm bg-background/95" : "shadow-none",
-        className
-      )}
-      onMouseEnter={() => setIsScrolled(true)}
-      onMouseLeave={() => setIsScrolled(false)}
-    >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 border-b border-border/80 bg-background/80 backdrop-blur-md">
+      <div className="container mx-auto flex h-16 items-center justify-between px-6">
         {/* Logo */}
-        <Link href="/" className="flex items-center">
-          <Image
-            src="/logo/logo-navbar.svg"
-            alt={brand}
-            width={180}
-            height={40}
-            priority
-            sizes="(max-width: 640px) 144px, 180px"
-            className="h-10 w-auto shrink-0 sm:h-12"
-          />
+        <Link href="/" className="flex items-center gap-2 font-black text-xl text-primary">
+          <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-sm">
+            M
+          </span>
+          <span>Mingalar BKK</span>
         </Link>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden items-center gap-8 lg:flex">
-          {items.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-sm font-medium text-foreground/90 transition-colors hover:text-primary"
-            >
-              <span className="flex items-center gap-2">
-                {item.icon}
-                {item.label}
-              </span>
-            </Link>
-          ))}
+        {/* Public Navigation Menu */}
+        <nav className="hidden md:flex items-center gap-6 text-xs font-semibold text-muted-foreground">
+          <Link href="/jobs" className="hover:text-primary transition-colors">
+            Find Jobs
+          </Link>
+          <Link href="/housing" className="hover:text-primary transition-colors">
+            Housing
+          </Link>
+          <Link href="/visa" className="hover:text-primary transition-colors">
+            Visa Help
+          </Link>
+          <Link href="/travel" className="hover:text-primary transition-colors">
+            Travel
+          </Link>
+          <Link href="/directory" className="hover:text-primary transition-colors">
+            Directory
+          </Link>
         </nav>
 
-        {/* Desktop Right Actions */}
-        <div className="hidden items-center gap-3 lg:flex">
-          <LanguageSwitcher variant="dropdown" />
-
-          <Link href="/login">
-            <Button variant="ghost" size="sm" className="rounded-xl font-medium">
-              Sign In
+        {/* Dynamic Action Buttons */}
+        <div className="flex items-center gap-3">
+          <Link href="/ai">
+            <Button
+              size="sm"
+              variant="outline"
+              className="rounded-2xl text-xs font-bold gap-1.5 hidden sm:flex"
+            >
+              <Bot className="h-3.5 w-3.5 text-primary" />
+              Ask AI
             </Button>
           </Link>
 
-          <Link href="/register">
-            <Button size="sm" className="rounded-xl font-semibold shadow-md shadow-primary/20">
-              Create Account
-            </Button>
-          </Link>
+          {!loading && (
+            <>
+              {user ? (
+                /* 🟢 สำหรับสมาชิกที่ล็อกอินแล้ว */
+                <Link href="/dashboard">
+                  <Button
+                    size="sm"
+                    className="rounded-2xl text-xs font-bold gap-1.5 shadow-md shadow-primary/20"
+                  >
+                    <LayoutDashboard className="h-4 w-4" />
+                    My Dashboard
+                  </Button>
+                </Link>
+              ) : (
+                /* 🔴 สำหรับคนทั่วไป (Guest) */
+                <div className="flex items-center gap-2">
+                  <Link href="/login">
+                    <Button variant="ghost" size="sm" className="rounded-2xl text-xs font-bold">
+                      <LogIn className="mr-1.5 h-3.5 w-3.5" /> Log In
+                    </Button>
+                  </Link>
+                  <Link href="/register">
+                    <Button size="sm" className="rounded-2xl text-xs font-bold">
+                      <UserPlus className="mr-1.5 h-3.5 w-3.5" /> Register
+                    </Button>
+                  </Link>
+                </div>
+              )}
+            </>
+          )}
         </div>
-
-        {/* Mobile Toggle Button */}
-        <button
-          type="button"
-          onClick={toggleMobileMenu}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          aria-label={isMobileDrawerOpen ? "Close menu" : "Open menu"}
-          aria-expanded={isMobileDrawerOpen}
-        >
-          {isMobileDrawerOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
       </div>
-
-      {/* Mobile Inline Dropdown */}
-      {isMobileDrawerOpen && (
-        <div className="border-t border-border bg-background/95 backdrop-blur-xl lg:hidden">
-          <div className="space-y-2 p-4">
-            {items.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={closeMobileMenu}
-                className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-colors hover:bg-muted"
-              >
-                {item.icon}
-                {item.label}
-              </Link>
-            ))}
-
-            <div className="border-t border-border pt-4">
-              <LanguageSwitcher variant="mobile" />
-            </div>
-
-            <div className="space-y-2 pt-4">
-              <Link href="/login" onClick={closeMobileMenu} className="block w-full">
-                <Button variant="outline" className="w-full rounded-xl">
-                  Sign In
-                </Button>
-              </Link>
-
-              <Link href="/register" onClick={closeMobileMenu} className="block w-full">
-                <Button className="w-full rounded-xl font-semibold">Create Account</Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
     </header>
   );
 }

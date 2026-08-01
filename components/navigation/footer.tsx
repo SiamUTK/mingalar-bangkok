@@ -139,11 +139,11 @@ export function Footer({
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="h-3.5 w-3.5 text-primary shrink-0" />
-                <span>+66 99 000 9588, +66 87 112 5025</span>
+                <span>+66 00 000 1234, +66 00 000 5678</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="h-3.5 w-3.5 text-primary shrink-0" />
-                <span>info@siamon.cloud</span>
+                <span>info@mingalarbangkok.com</span>
               </div>
             </div>
 
