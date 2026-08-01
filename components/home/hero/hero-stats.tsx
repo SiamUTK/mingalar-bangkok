@@ -1,34 +1,34 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { Building2, BriefcaseBusiness, House, Sparkles } from "lucide-react";
+import { Users, BriefcaseBusiness, Building2, Bot } from "lucide-react";
 
 import { fadeMotion, hoverCardMotion, staggerContainer, staggerItem } from "@/lib/motion";
 
 const stats = [
   {
     value: "12,000+",
-    label: "Businesses",
-    description: "Verified local businesses",
-    icon: Building2,
+    label: "Community Members",
+    description: "Active Myanmar diaspora in Thailand",
+    icon: Users,
   },
   {
     value: "4,500+",
-    label: "Jobs",
-    description: "New opportunities",
+    label: "Jobs Available",
+    description: "Verified workplaces and positions",
     icon: BriefcaseBusiness,
   },
   {
     value: "850+",
-    label: "Housing",
-    description: "Rooms & apartments",
-    icon: House,
+    label: "Local Businesses",
+    description: "Shops, services & agencies",
+    icon: Building2,
   },
   {
     value: "24/7",
     label: "AI Assistant",
-    description: "Always ready to help",
-    icon: Sparkles,
+    description: "Multilingual guidance anytime",
+    icon: Bot,
   },
 ];
 
@@ -53,17 +53,15 @@ export function HeroStats() {
             initial={fadeMotion.initial}
             animate={fadeMotion.animate}
             transition={fadeMotion.transition}
-            className="group rounded-3xl border border-border/60 bg-background/70 p-6 shadow-lg backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl"
+            className="group rounded-3xl border border-border/60 bg-background/70 p-6 text-left shadow-lg backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl"
           >
-            <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary transition group-hover:scale-110">
+            <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary transition group-hover:scale-110">
               <Icon className="h-6 w-6" />
             </div>
 
-            <div className="text-4xl font-black tracking-tight">{stat.value}</div>
-
-            <div className="mt-2 text-lg font-semibold">{stat.label}</div>
-
-            <p className="mt-2 text-sm text-muted-foreground">{stat.description}</p>
+            <div className="text-3xl font-black tracking-tight md:text-4xl">{stat.value}</div>
+            <div className="mt-1 text-base font-bold text-foreground">{stat.label}</div>
+            <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{stat.description}</p>
           </motion.div>
         );
       })}

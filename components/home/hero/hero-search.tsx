@@ -1,17 +1,20 @@
 "use client";
 
+import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { Search, MapPin, Sparkles } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  fadeMotion,
-  hoverButtonMotion,
-  hoverCardMotion,
-  staggerContainer,
-  staggerItem,
-} from "@/lib/motion";
+import { fadeMotion, hoverButtonMotion, staggerContainer, staggerItem } from "@/lib/motion";
+
+const suggestedPrompts = [
+  { label: "💼 Factory jobs", href: "/jobs?q=factory" },
+  { label: "🏠 Rooms under ฿3,000", href: "/housing?maxPrice=3000" },
+  { label: "🍜 Myanmar food", href: "/directory?category=restaurants" },
+  { label: "🛂 Visa renewal", href: "/visa" },
+  { label: "💸 Money transfer", href: "/money" },
+];
 
 export function HeroSearch() {
   const shouldReduceMotion = useReducedMotion();
@@ -23,73 +26,77 @@ export function HeroSearch() {
       transition={{ ...fadeMotion.transition, delay: 0.05 }}
       className="mx-auto w-full max-w-5xl"
     >
-      <div className="rounded-4xl border border-border/60 bg-background/80 p-3 shadow-2xl backdrop-blur-xl">
+      <div className="rounded-3xl border border-border/60 bg-background/80 p-3 shadow-2xl backdrop-blur-xl md:rounded-4xl">
         <div className="grid gap-3 lg:grid-cols-[1.7fr_1fr_1fr_auto]">
-          {/* Keyword */}
-          <div className="flex items-center gap-3 rounded-3xl px-4">
-            <Search className="h-5 w-5 text-muted-foreground" />
-
+          {/* Universal Search Input */}
+          <div className="flex items-center gap-3 rounded-2xl px-4 md:rounded-3xl">
+            <Search className="h-5 w-5 text-muted-foreground shrink-0" />
             <Input
-              placeholder="Search businesses, jobs, housing..."
-              className="border-0 bg-transparent shadow-none focus-visible:ring-0"
+              placeholder="Search jobs, housing, businesses, visa, travel or ask AI..."
+              className="border-0 bg-transparent shadow-none focus-visible:ring-0 text-sm md:text-base placeholder:text-muted-foreground/70"
             />
           </div>
 
-          {/* Category */}
+          {/* Category Dropdown */}
           <select className="h-12 rounded-2xl border border-border bg-background px-4 text-sm outline-none transition focus:border-primary">
-            <option>All Categories</option>
-            <option>Businesses</option>
-            <option>Jobs</option>
-            <option>Housing</option>
-            <option>Events</option>
-            <option>Travel</option>
+            <option value="all">All Categories</option>
+            <option value="jobs">Jobs</option>
+            <option value="housing">Housing</option>
+            <option value="businesses">Businesses</option>
+            <option value="visa">Visa Help</option>
+            <option value="travel">Travel</option>
+            <option value="money">Money</option>
           </select>
 
-          {/* Location */}
+          {/* Location Input */}
           <div className="flex items-center gap-2 rounded-2xl border border-border px-4">
-            <MapPin className="h-4 w-4 text-muted-foreground" />
-
+            <MapPin className="h-4 w-4 text-muted-foreground shrink-0" />
             <Input
-              placeholder="Bangkok"
-              className="border-0 bg-transparent shadow-none focus-visible:ring-0"
+              placeholder="Bangkok, Samut Sakhon..."
+              className="border-0 bg-transparent shadow-none focus-visible:ring-0 text-sm"
             />
           </div>
 
-          {/* Search */}
-          <Button size="lg" className="rounded-2xl px-8">
+          {/* Search Button */}
+          <Button size="lg" className="rounded-2xl px-8 font-semibold">
             Search
           </Button>
         </div>
       </div>
 
-      {/* Quick Search Chips */}
+      {/* Suggested Quick Prompts */}
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         animate="show"
-        className="mt-6 flex flex-wrap items-center justify-center gap-3"
+        className="mt-6 flex flex-wrap items-center justify-center gap-2.5"
       >
-        <span className="text-sm text-muted-foreground">Popular:</span>
+        <span className="text-xs font-medium text-muted-foreground mr-1">Suggested:</span>
 
-        {["Restaurants", "Jobs", "Housing", "Travel", "Visa", "Healthcare"].map((item) => (
-          <motion.button
-            key={item}
-            variants={staggerItem}
-            whileHover={shouldReduceMotion ? undefined : hoverButtonMotion.whileHover}
-            className="rounded-full border border-border bg-background px-4 py-2 text-sm transition hover:border-primary hover:bg-primary/5"
-          >
-            {item}
-          </motion.button>
+        {suggestedPrompts.map((item) => (
+          <motion.div key={item.label} variants={staggerItem}>
+            <Link href={item.href}>
+              <motion.button
+                whileHover={shouldReduceMotion ? undefined : hoverButtonMotion.whileHover}
+                className="rounded-full border border-border/80 bg-background/90 px-3.5 py-1.5 text-xs font-medium text-muted-foreground transition hover:border-primary/50 hover:bg-primary/5 hover:text-foreground"
+              >
+                {item.label}
+              </motion.button>
+            </Link>
+          </motion.div>
         ))}
 
-        <motion.button
-          variants={staggerItem}
-          whileHover={shouldReduceMotion ? undefined : hoverButtonMotion.whileHover}
-          className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-medium text-primary transition hover:bg-primary/20"
-        >
-          <Sparkles className="h-4 w-4" />
-          Ask Mingalar AI
-        </motion.button>
+        <motion.div variants={staggerItem}>
+          <Link href="/ai">
+            <motion.button
+              whileHover={shouldReduceMotion ? undefined : hoverButtonMotion.whileHover}
+              className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1.5 text-xs font-semibold text-primary transition hover:bg-primary/20"
+            >
+              <Sparkles className="h-3.5 w-3.5" />
+              Ask Mingalar AI
+            </motion.button>
+          </Link>
+        </motion.div>
       </motion.div>
     </motion.div>
   );

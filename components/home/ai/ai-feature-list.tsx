@@ -1,81 +1,77 @@
 "use client";
 
-import { Bot, BriefcaseBusiness, House, Languages, MapPinned, Plane, Sparkles } from "lucide-react";
+import { Bot, Briefcase, Home, FileText, Globe, Sparkles, MapPin } from "lucide-react";
 
 const features = [
   {
-    icon: BriefcaseBusiness,
+    icon: Briefcase,
     title: "Find Jobs",
-    description: "Discover jobs that match your skills and preferred location.",
+    description: "Matches factory, hospitality, and tech jobs to your skills.",
   },
   {
-    icon: House,
+    icon: Home,
     title: "Find Housing",
-    description: "Search apartments, condos and rooms across Thailand.",
+    description: "Locates rooms, condos, and rentals within your budget.",
   },
   {
-    icon: Plane,
-    title: "Travel Assistant",
-    description: "Get travel recommendations, attractions and transportation tips.",
+    icon: FileText,
+    title: "Visa Assistance",
+    description: "Guides you through passport renewals, work permits, and 90-day reports.",
   },
   {
-    icon: Languages,
-    title: "Instant Translation",
-    description: "Translate between Myanmar, Thai and English in seconds.",
+    icon: Globe,
+    title: "Instant Translator",
+    description: "Seamlessly translates between Myanmar, Thai, and English.",
   },
   {
-    icon: MapPinned,
-    title: "Local Recommendations",
-    description: "Find nearby restaurants, clinics, schools and trusted services.",
+    icon: MapPin,
+    title: "Local Nearby Guide",
+    description: "Finds trusted restaurants, clinics, translators, and banks nearby.",
   },
   {
     icon: Sparkles,
-    title: "AI Concierge",
-    description: "Ask anything about living, working or travelling in Thailand.",
+    title: "24/7 Personal Concierge",
+    description: "Answers all your everyday questions about living and working in Thailand.",
   },
 ];
 
 export function AIFeatureList() {
   return (
-    <div className="grid gap-4 md:grid-cols-2">
+    <div className="grid gap-3 sm:grid-cols-2">
       {features.map((feature) => {
         const Icon = feature.icon;
 
         return (
           <div
             key={feature.title}
-            className="group flex gap-4 rounded-3xl border border-border/60 bg-background/70 p-5 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg"
+            className="group flex gap-3.5 rounded-2xl border border-border/60 bg-background/80 p-4 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md"
           >
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">
-              <Icon className="h-6 w-6" />
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">
+              <Icon className="h-5 w-5" />
             </div>
 
             <div>
-              <h3 className="font-semibold">{feature.title}</h3>
-
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">{feature.description}</p>
+              <h3 className="text-sm font-bold text-foreground">{feature.title}</h3>
+              <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
+                {feature.description}
+              </p>
             </div>
           </div>
         );
       })}
 
-      <div className="rounded-3xl border border-dashed border-primary/30 bg-primary/5 p-6">
-        <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
-            <Bot className="h-6 w-6" />
-          </div>
-
-          <div>
-            <h3 className="font-semibold">Powered by Mingalar AI</h3>
-
-            <p className="text-sm text-muted-foreground">AI assistance available 24/7</p>
-          </div>
+      {/* Summary Box */}
+      <div className="sm:col-span-2 rounded-2xl border border-dashed border-primary/30 bg-primary/5 p-4 flex items-center gap-3">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+          <Bot className="h-5 w-5" />
         </div>
-
-        <p className="mt-5 text-sm leading-7 text-muted-foreground">
-          Our AI is designed to help the Myanmar community with everyday questions about work,
-          housing, travel, local services and life in Thailand.
-        </p>
+        <div>
+          <h4 className="text-xs font-bold text-foreground">Powered by Mingalar AI Engine</h4>
+          <p className="text-[11px] text-muted-foreground leading-tight">
+            Designed specifically to support the Myanmar community in Thailand with real-time,
+            accurate assistance.
+          </p>
+        </div>
       </div>
     </div>
   );

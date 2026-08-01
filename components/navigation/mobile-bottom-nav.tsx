@@ -38,7 +38,7 @@ const defaultItems: BottomNavItem[] = [
   },
   {
     label: "AI",
-    href: "/ai-assistant",
+    href: "/ai",
     icon: <Bot className="h-5 w-5" />,
   },
   {
@@ -50,6 +50,7 @@ const defaultItems: BottomNavItem[] = [
 export function MobileBottomNav({ items = defaultItems, className }: MobileBottomNavProps) {
   const pathname = usePathname();
   const { setIsMobileDrawerOpen } = useNavigationState();
+
   const resolvedItems = items.map((item) =>
     item.label === "More" ? { ...item, action: () => setIsMobileDrawerOpen(true) } : item
   );
@@ -64,7 +65,8 @@ export function MobileBottomNav({ items = defaultItems, className }: MobileBotto
       <div className="grid h-16 grid-cols-5">
         {resolvedItems.map((item) => {
           const active =
-            item.href && (pathname === item.href || pathname.startsWith(item.href + "/"));
+            item.href &&
+            (pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href + "/")));
 
           if (item.action) {
             return (
@@ -78,7 +80,6 @@ export function MobileBottomNav({ items = defaultItems, className }: MobileBotto
                 )}
               >
                 {item.icon}
-
                 <span className="text-[11px] font-medium">{item.label}</span>
               </button>
             );
@@ -90,11 +91,10 @@ export function MobileBottomNav({ items = defaultItems, className }: MobileBotto
               href={item.href ?? "#"}
               className={cn(
                 "flex flex-col items-center justify-center gap-1 transition-colors",
-                active ? "text-primary" : "text-muted-foreground hover:text-primary"
+                active ? "text-primary font-bold" : "text-muted-foreground hover:text-primary"
               )}
             >
               {item.icon}
-
               <span className="text-[11px] font-medium">{item.label}</span>
             </Link>
           );

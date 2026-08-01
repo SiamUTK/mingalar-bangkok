@@ -1,99 +1,72 @@
 "use client";
 
-import { ArrowRight, Quote, Star } from "lucide-react";
-import Link from "next/link";
-
+import { Star, Quote } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { Button } from "@/components/ui/button";
 
-const testimonials = [
+const reviews = [
   {
-    id: "1",
-    name: "Aung Ko",
-    role: "Restaurant Supervisor",
-    location: "Bangkok",
-    rating: 5,
+    name: "Aung Kyaw",
+    role: "Factory Supervisor • Samut Sakhon",
     comment:
-      "Mingalar Bangkok helped me find a great job within a week. The platform is easy to use and the listings are trustworthy.",
+      "Mingalar AI helped me translate my workplace documents and renew my 90-day report without stress!",
+    rating: 5,
   },
   {
-    id: "2",
-    name: "May Thandar",
-    role: "University Student",
-    location: "Chiang Mai",
-    rating: 5,
+    name: "May Thu",
+    role: "Hotel Receptionist • Bangkok",
     comment:
-      "I found an affordable apartment near my university and discovered many Myanmar businesses nearby. Everything was in one place.",
+      "Found my current apartment near BTS On Nut within 2 days of searching. Highly recommended for Myanmar workers!",
+    rating: 5,
   },
   {
-    id: "3",
-    name: "Ko Zaw",
-    role: "Software Engineer",
-    location: "Bangkok",
-    rating: 5,
+    name: "Zaw Min",
+    role: "Business Owner • Mahachai",
     comment:
-      "The AI Assistant answered my questions about visas, transportation and healthcare instantly. It saved me so much time.",
+      "The best super app for our community in Thailand. Daily exchange rates and visa reminders are extremely helpful.",
+    rating: 5,
   },
 ];
 
 export function TestimonialSection() {
   return (
-    <AnimatedSection className="bg-muted/20 py-24">
+    <AnimatedSection className="py-20 bg-background">
       <div className="container mx-auto px-6">
-        {/* Header */}
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="rounded-full border border-primary/20 bg-primary/10 px-4 py-1 text-sm font-medium text-primary">
-            Community Stories
-          </span>
-
-          <h2 className="mt-5 text-4xl font-black tracking-tight md:text-5xl">
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <h2 className="text-3xl font-black tracking-tight text-foreground md:text-4xl">
             Trusted by the Myanmar Community
           </h2>
-
-          <p className="mt-4 text-lg leading-8 text-muted-foreground">
-            Real stories from people using Mingalar Bangkok to find jobs, housing, trusted
-            businesses and local services in Thailand.
+          <p className="mt-2 text-sm text-muted-foreground">
+            See how Mingalar Bangkok helps thousands of members live and work comfortably in
+            Thailand.
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="mt-16 grid gap-8 lg:grid-cols-3">
-          {testimonials.map((item) => (
-            <article
-              key={item.id}
-              className="relative rounded-4xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-2 hover:border-primary/30 hover:shadow-2xl"
+        <div className="grid gap-6 md:grid-cols-3">
+          {reviews.map((rev, idx) => (
+            <div
+              key={idx}
+              className="rounded-3xl border border-border/80 bg-card p-6 shadow-sm flex flex-col justify-between"
             >
-              <Quote className="absolute right-6 top-6 h-10 w-10 text-primary/15" />
-
-              <div className="mb-6 flex gap-1">
-                {Array.from({ length: item.rating }).map((_, index) => (
-                  <Star key={index} className="h-5 w-5 fill-amber-400 text-amber-400" />
-                ))}
+              <div>
+                <div className="flex gap-1 text-amber-500 mb-4">
+                  {[...Array(rev.rating)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-current" />
+                  ))}
+                </div>
+                <p className="text-sm leading-relaxed text-foreground italic">"{rev.comment}"</p>
               </div>
 
-              <p className="min-h-36 text-base leading-8 text-muted-foreground">
-                &quot;{item.comment}&quot;
-              </p>
-
-              <div className="mt-8 border-t pt-6">
-                <h3 className="text-lg font-bold">{item.name}</h3>
-
-                <p className="mt-1 text-sm text-muted-foreground">{item.role}</p>
-
-                <p className="text-sm text-primary">{item.location}</p>
+              <div className="mt-6 pt-4 border-t border-border/40 flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-primary font-bold text-xs">
+                  {rev.name[0]}
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-foreground">{rev.name}</h4>
+                  <p className="text-[11px] text-muted-foreground">{rev.role}</p>
+                </div>
               </div>
-            </article>
+            </div>
           ))}
-        </div>
-
-        {/* CTA */}
-        <div className="mt-16 text-center">
-          <Link href="/community">
-            <Button variant="outline" size="lg">
-              Join Our Community
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </Link>
         </div>
       </div>
     </AnimatedSection>

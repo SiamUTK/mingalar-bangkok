@@ -46,8 +46,8 @@ export function Navbar({
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b border-border/60 bg-background/70 backdrop-blur-xl transition-all duration-300",
-        isScrolled ? "shadow-sm" : "shadow-none",
+        "sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-xl transition-all duration-300",
+        isScrolled ? "shadow-sm bg-background/95" : "shadow-none",
         className
       )}
       onMouseEnter={() => setIsScrolled(true)}
@@ -55,37 +55,25 @@ export function Navbar({
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" className="flex items-center">
           <Image
             src="/logo/logo-navbar.svg"
-            alt="Mingalar Bangkok"
+            alt={brand}
             width={180}
             height={40}
             priority
             sizes="(max-width: 640px) 144px, 180px"
-            className="h-9 w-auto shrink-0 sm:h-10"
+            className="h-10 w-auto shrink-0 sm:h-12"
           />
-
-          <div className="hidden sm:block">
-            <p className="text-base font-bold text-foreground transition-transform duration-300">
-              {brand}
-            </p>
-            <p className="text-xs text-muted-foreground">Myanmar Community Platform</p>
-          </div>
         </Link>
 
-        {/* Desktop Menu */}
-        <nav
-          className={cn(
-            "hidden items-center gap-8 lg:flex transition-opacity duration-300",
-            isScrolled ? "opacity-70" : "opacity-100"
-          )}
-        >
+        {/* Desktop Navigation Links */}
+        <nav className="hidden items-center gap-8 lg:flex">
           {items.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-foreground transition-colors hover:text-primary"
+              className="text-sm font-medium text-foreground/90 transition-colors hover:text-primary"
             >
               <span className="flex items-center gap-2">
                 {item.icon}
@@ -95,25 +83,24 @@ export function Navbar({
           ))}
         </nav>
 
-        {/* Desktop Right */}
-        <div
-          className={cn(
-            "hidden items-center gap-3 lg:flex transition-opacity duration-300",
-            isScrolled ? "opacity-70" : "opacity-100"
-          )}
-        >
+        {/* Desktop Right Actions */}
+        <div className="hidden items-center gap-3 lg:flex">
           <LanguageSwitcher variant="dropdown" />
 
-          <Button variant="ghost" size="sm">
-            <Link href="/login">Sign In</Link>
-          </Button>
+          <Link href="/login">
+            <Button variant="ghost" size="sm" className="rounded-xl font-medium">
+              Sign In
+            </Button>
+          </Link>
 
-          <Button size="sm">
-            <Link href="/register">Get Started</Link>
-          </Button>
+          <Link href="/register">
+            <Button size="sm" className="rounded-xl font-semibold shadow-md shadow-primary/20">
+              Create Account
+            </Button>
+          </Link>
         </div>
 
-        {/* Mobile Button */}
+        {/* Mobile Toggle Button */}
         <button
           type="button"
           onClick={toggleMobileMenu}
@@ -125,9 +112,9 @@ export function Navbar({
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Inline Dropdown */}
       {isMobileDrawerOpen && (
-        <div className="border-t border-border bg-background lg:hidden">
+        <div className="border-t border-border bg-background/95 backdrop-blur-xl lg:hidden">
           <div className="space-y-2 p-4">
             {items.map((item) => (
               <Link
@@ -146,14 +133,14 @@ export function Navbar({
             </div>
 
             <div className="space-y-2 pt-4">
-              <Link href="/login" onClick={closeMobileMenu}>
-                <Button variant="ghost" className="w-full">
+              <Link href="/login" onClick={closeMobileMenu} className="block w-full">
+                <Button variant="outline" className="w-full rounded-xl">
                   Sign In
                 </Button>
               </Link>
 
-              <Link href="/register" onClick={closeMobileMenu}>
-                <Button className="w-full">Get Started</Button>
+              <Link href="/register" onClick={closeMobileMenu} className="block w-full">
+                <Button className="w-full rounded-xl font-semibold">Create Account</Button>
               </Link>
             </div>
           </div>

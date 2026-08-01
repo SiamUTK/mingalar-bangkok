@@ -9,6 +9,9 @@ import {
   Sparkles,
   UserCircle,
   Globe2,
+  FileText,
+  Store,
+  Menu,
 } from "lucide-react";
 
 import { Footer, type FooterSection } from "@/components/navigation/footer";
@@ -20,55 +23,71 @@ import { useNavigationState } from "@/components/navigation/navigation-state";
 export default function PublicLayout({ children }: { children: ReactNode }) {
   const { isMobileDrawerOpen, setIsMobileDrawerOpen } = useNavigationState();
 
+  // Desktop Navigation Menu
   const navItems: NavItem[] = [
     { label: "Home", href: "/", icon: <Home className="h-4 w-4" /> },
-    { label: "Housing", href: "/housing", icon: <Building2 className="h-4 w-4" /> },
     { label: "Jobs", href: "/jobs", icon: <BriefcaseBusiness className="h-4 w-4" /> },
+    { label: "Housing", href: "/housing", icon: <Building2 className="h-4 w-4" /> },
+    { label: "Visa Help", href: "/visa", icon: <FileText className="h-4 w-4" /> },
     { label: "News", href: "/news", icon: <Newspaper className="h-4 w-4" /> },
-    { label: "AI Assistant", href: "/ai-assistant", icon: <Sparkles className="h-4 w-4" /> },
+    { label: "AI Assistant", href: "/ai", icon: <Sparkles className="h-4 w-4 text-primary" /> },
   ];
 
+  // Mobile Drawer Navigation (เมื่อกดเมนูข้าง)
   const drawerItems: DrawerItem[] = [
     { label: "Home", href: "/", icon: <Home className="h-4 w-4" /> },
-    { label: "Housing", href: "/housing", icon: <Building2 className="h-4 w-4" /> },
     { label: "Jobs", href: "/jobs", icon: <BriefcaseBusiness className="h-4 w-4" /> },
+    { label: "Housing", href: "/housing", icon: <Building2 className="h-4 w-4" /> },
+    { label: "Visa Help", href: "/visa", icon: <FileText className="h-4 w-4" /> },
+    { label: "Directory", href: "/directory", icon: <Store className="h-4 w-4" /> },
     { label: "News", href: "/news", icon: <Newspaper className="h-4 w-4" /> },
-    { label: "AI Assistant", href: "/ai-assistant", icon: <Sparkles className="h-4 w-4" /> },
-    { label: "Profile", href: "/profile", icon: <UserCircle className="h-4 w-4" /> },
+    { label: "AI Assistant", href: "/ai", icon: <Sparkles className="h-4 w-4 text-primary" /> },
+    { label: "Profile / Account", href: "/profile", icon: <UserCircle className="h-4 w-4" /> },
   ];
 
+  // Mobile Bottom Navigation Bar (แท็บบาร์ด้านล่างมือถือ)
   const bottomNavItems: BottomNavItem[] = [
     { label: "Home", href: "/", icon: <Home className="h-5 w-5" /> },
-    { label: "Housing", href: "/housing", icon: <Building2 className="h-5 w-5" /> },
     { label: "Jobs", href: "/jobs", icon: <BriefcaseBusiness className="h-5 w-5" /> },
-    { label: "News", href: "/news", icon: <Newspaper className="h-5 w-5" /> },
-    { label: "AI", href: "/ai-assistant", icon: <Sparkles className="h-5 w-5" /> },
+    { label: "Housing", href: "/housing", icon: <Building2 className="h-5 w-5" /> },
+    { label: "AI", href: "/ai", icon: <Sparkles className="h-5 w-5 text-primary" /> },
+    {
+      label: "More",
+      icon: <Menu className="h-5 w-5" />,
+      action: () => setIsMobileDrawerOpen(true),
+    },
   ];
 
+  // Footer Sections
   const footerSections: FooterSection[] = [
     {
-      title: "Explore",
+      title: "Services",
       links: [
-        { label: "Housing", href: "/housing" },
-        { label: "Jobs", href: "/jobs" },
-        { label: "News", href: "/news" },
-        { label: "AI Assistant", href: "/ai-assistant" },
+        { label: "Find Jobs", href: "/jobs" },
+        { label: "Find Housing", href: "/housing" },
+        { label: "Visa Assistance", href: "/visa" },
+        { label: "Travel & Tours", href: "/travel" },
+        { label: "Money Services", href: "/money" },
+        { label: "Ask Mingalar AI", href: "/ai" },
       ],
     },
     {
       title: "Community",
       links: [
-        { label: "About", href: "/about" },
+        { label: "Latest News", href: "/news" },
+        { label: "Events", href: "/events" },
+        { label: "Business Directory", href: "/directory" },
+        { label: "About Us", href: "/about" },
         { label: "Contact", href: "/contact" },
-        { label: "Support", href: "/support" },
       ],
     },
     {
-      title: "Resources",
+      title: "Resources & Legal",
       links: [
         { label: "Privacy Policy", href: "/privacy" },
         { label: "Terms of Service", href: "/terms" },
-        { label: "Help Center", href: "/help" },
+        { label: "Cookies Policy", href: "/cookies" },
+        { label: "Help & Support", href: "/support" },
       ],
     },
   ];
@@ -87,7 +106,7 @@ export default function PublicLayout({ children }: { children: ReactNode }) {
         onClose={() => setIsMobileDrawerOpen(false)}
         items={drawerItems}
         brand="Mingalar Bangkok"
-        description="Discover homes, jobs, news, and AI support for the Myanmar community."
+        description="Your AI-powered platform for living, working, and thriving in Thailand."
       />
 
       <main className="flex-1 pb-24 md:pb-0" id="main-content" tabIndex={-1}>
@@ -95,8 +114,7 @@ export default function PublicLayout({ children }: { children: ReactNode }) {
       </main>
 
       <Footer
-        brand="Mingalar Bangkok"
-        description="Connecting the Myanmar community in Thailand with trusted local information and resources."
+        description="Connecting the Myanmar community in Thailand with trusted local information, resources, and AI assistance."
         sections={footerSections}
         socialLinks={[
           { label: "Facebook", href: "https://facebook.com", icon: <Globe2 className="h-4 w-4" /> },

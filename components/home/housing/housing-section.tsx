@@ -1,14 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-
-import { ArrowRight, Bath, BedDouble, Heart, MapPin, Ruler } from "lucide-react";
+import { ArrowRight, Home, Sparkles, UserPlus } from "lucide-react";
 
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Button } from "@/components/ui/button";
+import { HousingCard, HousingProperty } from "./housing-card";
 
-const properties = [
+const properties: HousingProperty[] = [
   {
     id: "1",
     title: "Modern Studio Apartment",
@@ -46,109 +45,69 @@ const properties = [
 
 export function HousingSection() {
   return (
-    <AnimatedSection className="py-24">
+    <AnimatedSection className="py-20 lg:py-24">
       <div className="container mx-auto px-6">
         {/* Header */}
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <span className="rounded-full border border-primary/20 bg-primary/10 px-4 py-1 text-sm font-medium text-primary">
-              Housing
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/10 px-4 py-1 text-xs font-semibold text-primary">
+              <Sparkles className="h-3.5 w-3.5" />
+              Verified Accommodations
             </span>
 
-            <h2 className="mt-5 text-4xl font-black tracking-tight md:text-5xl">
+            <h2 className="mt-4 text-4xl font-black tracking-tight text-foreground md:text-5xl">
               Find Your Next Home
             </h2>
 
-            <p className="mt-4 max-w-2xl text-lg leading-8 text-muted-foreground">
-              Browse verified apartments, condos and rooms across Thailand for the Myanmar
+            <p className="mt-3 max-w-2xl text-base text-muted-foreground md:text-lg">
+              Browse verified apartments, condos, and budget rooms across Thailand for the Myanmar
               community.
             </p>
           </div>
 
           <Link href="/housing">
-            <Button variant="outline">
+            <Button variant="outline" className="rounded-2xl font-medium">
               View All Properties
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </Link>
         </div>
 
-        {/* Property Cards */}
-        <div className="mt-14 grid gap-8 lg:grid-cols-3">
+        {/* Property Cards Grid */}
+        <div className="mt-12 grid gap-8 lg:grid-cols-3">
           {properties.map((property) => (
-            <article
-              key={property.id}
-              className="group overflow-hidden rounded-4xl border border-border bg-card transition-all duration-300 hover:-translate-y-2 hover:border-primary/30 hover:shadow-2xl"
-            >
-              {/* Image */}
-              <div className="relative aspect-[16/10] overflow-hidden">
-                <Image
-                  src={property.image}
-                  alt={property.title}
-                  fill
-                  sizes="(max-width:768px)100vw,33vw"
-                  className="object-cover transition duration-500 group-hover:scale-105"
-                />
-
-                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
-
-                {property.featured && (
-                  <span className="absolute left-4 top-4 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">
-                    Featured
-                  </span>
-                )}
-
-                <button
-                  type="button"
-                  className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 backdrop-blur transition hover:scale-110"
-                >
-                  <Heart className="h-5 w-5" />
-                </button>
-              </div>
-
-              {/* Content */}
-              <div className="space-y-5 p-6">
-                <div>
-                  <h3 className="line-clamp-1 text-2xl font-bold">{property.title}</h3>
-
-                  <div className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
-                    <MapPin className="h-4 w-4 text-primary" />
-                    {property.location}
-                  </div>
-                </div>
-
-                <div className="text-2xl font-black text-primary">{property.price}</div>
-
-                <div className="grid grid-cols-3 gap-3 rounded-2xl bg-muted p-4">
-                  <div className="text-center">
-                    <BedDouble className="mx-auto h-5 w-5 text-primary" />
-                    <div className="mt-2 text-sm font-medium">{property.bedrooms} Bed</div>
-                  </div>
-
-                  <div className="text-center">
-                    <Bath className="mx-auto h-5 w-5 text-primary" />
-                    <div className="mt-2 text-sm font-medium">{property.bathrooms} Bath</div>
-                  </div>
-
-                  <div className="text-center">
-                    <Ruler className="mx-auto h-5 w-5 text-primary" />
-                    <div className="mt-2 text-sm font-medium">{property.area}</div>
-                  </div>
-                </div>
-
-                <Link href={`/housing/${property.id}`}>
-                  <Button className="w-full">View Property</Button>
-                </Link>
-              </div>
-            </article>
+            <HousingCard key={property.id} {...property} />
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <div className="mt-16 text-center">
-          <Link href="/housing">
-            <Button size="lg">Browse All Housing</Button>
-          </Link>
+        {/* Bottom Member Register CTA */}
+        <div className="mt-14 rounded-3xl border border-primary/20 bg-gradient-to-r from-primary/5 via-background to-primary/10 p-8 text-center shadow-lg">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-md">
+            <Home className="h-6 w-6" />
+          </div>
+
+          <h3 className="mt-4 text-2xl font-bold text-foreground">
+            Looking for a room near your workplace?
+          </h3>
+
+          <p className="mx-auto mt-2 max-w-xl text-sm text-muted-foreground">
+            Sign up for free to save properties, contact owners directly, and get room availability
+            alerts sent to your phone.
+          </p>
+
+          <div className="mt-6 flex flex-wrap justify-center gap-4">
+            <Link href="/register">
+              <Button size="lg" className="rounded-2xl font-semibold shadow-md shadow-primary/20">
+                Create Free Account
+              </Button>
+            </Link>
+
+            <Link href="/housing">
+              <Button size="lg" variant="outline" className="rounded-2xl font-medium">
+                Browse All Housing
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </AnimatedSection>

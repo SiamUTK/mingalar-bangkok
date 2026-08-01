@@ -1,96 +1,60 @@
 "use client";
 
 import Link from "next/link";
-
-import { ArrowRight, Bot, BriefcaseBusiness, Sparkles, Users } from "lucide-react";
-
+import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Button } from "@/components/ui/button";
 
+const benefits = [
+  "Save Jobs & Housing Listings",
+  "Ask Mingalar AI Unlimited Questions",
+  "Personalized Discover Dashboard",
+  "Visa Expiry & 90-Day Alerts",
+  "100% Free Forever",
+];
+
 export function CTASection() {
   return (
-    <AnimatedSection className="relative overflow-hidden py-24">
-      {/* Background */}
-      <div className="absolute inset-0 bg-linear-to-br from-primary via-primary/90 to-blue-700" />
+    <AnimatedSection className="py-20 bg-gradient-to-b from-background via-primary/5 to-background">
+      <div className="container mx-auto px-6">
+        <div className="mx-auto max-w-4xl rounded-3xl border border-primary/20 bg-card p-8 md:p-12 text-center shadow-2xl relative overflow-hidden">
+          <div className="absolute inset-0 bg-radial-gradient(circle_at_top,rgba(59,130,246,0.1),transparent_70%) pointer-events-none" />
 
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.18),transparent_35%)]" />
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary mb-4">
+            <Sparkles className="h-3.5 w-3.5" /> Join Today
+          </span>
 
-      <div className="container relative mx-auto px-6">
-        <div className="mx-auto max-w-5xl overflow-hidden rounded-[40px] border border-white/10 bg-white/10 p-10 backdrop-blur-xl lg:p-16">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            {/* Left */}
-            <div>
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm font-medium text-white">
-                <Sparkles className="h-4 w-4" />
-                Join Mingalar Bangkok
-              </span>
+          <h2 className="text-3xl font-black tracking-tight text-foreground md:text-5xl">
+            Start Your Life in Thailand with{" "}
+            <span className="bg-gradient-to-r from-primary via-sky-500 to-cyan-500 bg-clip-text text-transparent">
+              Mingalar Bangkok
+            </span>
+          </h2>
 
-              <h2 className="mt-6 text-4xl font-black leading-tight text-white md:text-5xl">
-                Everything You Need
-                <br />
-                to Live in Thailand
-              </h2>
+          <p className="mt-4 text-sm md:text-base text-muted-foreground max-w-xl mx-auto">
+            Create your free account now to unlock full AI assistance, job matching, housing saves,
+            and personalized community alerts.
+          </p>
 
-              <p className="mt-6 max-w-xl text-lg leading-8 text-white/80">
-                Discover trusted businesses, find your next job, search for housing, explore local
-                events, and get instant answers from Mingalar AI — all in one platform.
-              </p>
-
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                <Link href="/register">
-                  <Button size="lg" variant="secondary">
-                    Create Free Account
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
-
-                <Link href="/ai-assistant">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-white/30 bg-transparent text-white hover:bg-white hover:text-primary"
-                  >
-                    Try Mingalar AI
-                  </Button>
-                </Link>
+          <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-medium text-foreground">
+            {benefits.map((benefit) => (
+              <div key={benefit} className="flex items-center gap-1.5">
+                <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                <span>{benefit}</span>
               </div>
-            </div>
+            ))}
+          </div>
 
-            {/* Right */}
-            <div className="grid gap-5 sm:grid-cols-2">
-              <div className="rounded-3xl bg-white/10 p-6 backdrop-blur">
-                <Bot className="h-10 w-10 text-white" />
-
-                <h3 className="mt-5 text-xl font-bold text-white">AI Assistant</h3>
-
-                <p className="mt-2 text-sm leading-7 text-white/75">
-                  Ask anything about jobs, housing, travel, visas, healthcare and daily life in
-                  Thailand.
-                </p>
-              </div>
-
-              <div className="rounded-3xl bg-white/10 p-6 backdrop-blur">
-                <BriefcaseBusiness className="h-10 w-10 text-white" />
-
-                <h3 className="mt-5 text-xl font-bold text-white">Trusted Directory</h3>
-
-                <p className="mt-2 text-sm leading-7 text-white/75">
-                  Explore verified businesses, restaurants, accommodation, services and local
-                  recommendations.
-                </p>
-              </div>
-
-              <div className="rounded-3xl bg-white/10 p-6 backdrop-blur sm:col-span-2">
-                <Users className="h-10 w-10 text-white" />
-
-                <h3 className="mt-5 text-xl font-bold text-white">Community First</h3>
-
-                <p className="mt-2 text-sm leading-7 text-white/75">
-                  Built for the Myanmar community in Thailand with multilingual support, trusted
-                  information and AI-powered assistance available 24/7.
-                </p>
-              </div>
-            </div>
+          <div className="mt-8 flex justify-center">
+            <Link href="/register">
+              <Button
+                size="lg"
+                className="rounded-2xl font-semibold shadow-lg shadow-primary/20 px-8"
+              >
+                Create Your Free Account
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

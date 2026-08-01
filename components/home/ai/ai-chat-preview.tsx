@@ -1,7 +1,7 @@
 "use client";
 
-import { Bot, Sparkles, User } from "lucide-react";
-
+import Link from "next/link";
+import { Bot, Sparkles, User, ArrowRight, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const conversation = [
@@ -12,7 +12,7 @@ const conversation = [
   {
     role: "assistant",
     message:
-      "I found several highly rated Myanmar restaurants near Asok. Would you like the closest, the highest rated, or the most affordable?",
+      "I found several highly rated Myanmar restaurants near Asok. Would you like the closest, highest rated, or most affordable?",
   },
   {
     role: "user",
@@ -21,62 +21,65 @@ const conversation = [
 ];
 
 const suggestions = [
-  "Find jobs in Bangkok",
-  "Cheap apartments",
-  "Translate Myanmar to Thai",
-  "Travel to Chiang Mai",
+  "💼 Factory jobs in Samut Sakhon",
+  "🏠 Rooms under ฿3,000",
+  "🛂 How to renew visa?",
+  "🍜 Myanmar food nearby",
 ];
 
 export function AIChatPreview() {
   return (
-    <div className="overflow-hidden rounded-4xl border border-border bg-background shadow-xl">
+    <div className="overflow-hidden rounded-3xl border border-border/80 bg-background/95 shadow-2xl backdrop-blur-xl md:rounded-4xl">
       {/* Header */}
-      <div className="flex items-center justify-between border-b bg-muted/40 px-6 py-4">
+      <div className="flex items-center justify-between border-b border-border/60 bg-muted/40 px-6 py-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-md shadow-primary/20">
             <Bot className="h-5 w-5" />
           </div>
 
           <div>
-            <h3 className="font-semibold">Mingalar AI</h3>
-
-            <p className="text-sm text-muted-foreground">Online • AI Assistant</p>
+            <h3 className="font-bold text-foreground">Mingalar AI</h3>
+            <p className="text-xs text-muted-foreground">Online • 24/7 Smart Assistant</p>
           </div>
         </div>
 
-        <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-          <Sparkles className="h-3.5 w-3.5" />
-          GPT Powered
+        {/* Guest Limit Badge */}
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-600 dark:text-amber-400">
+          <Sparkles className="h-3.5 w-3.5" />3 Free Guest Questions
         </span>
       </div>
 
-      {/* Messages */}
-      <div className="space-y-6 p-6">
+      {/* Message History Mockup */}
+      <div className="space-y-4 p-6">
         {conversation.map((item, index) => (
           <div
             key={index}
             className={`flex ${item.role === "assistant" ? "justify-start" : "justify-end"}`}
           >
             <div
-              className={`flex max-w-[85%] gap-3 ${
+              className={`flex max-w-[88%] gap-3 ${
                 item.role === "assistant" ? "" : "flex-row-reverse"
               }`}
             >
               <div
-                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl ${
-                  item.role === "assistant" ? "bg-primary text-primary-foreground" : "bg-muted"
+                className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-xs font-bold ${
+                  item.role === "assistant"
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "bg-muted text-muted-foreground"
                 }`}
               >
                 {item.role === "assistant" ? (
-                  <Bot className="h-5 w-5" />
+                  <Bot className="h-4 w-4" />
                 ) : (
-                  <User className="h-5 w-5" />
+                  <User className="h-4 w-4" />
                 )}
               </div>
 
               <div
-                className={`rounded-3xl px-5 py-4 text-sm leading-7 ${
-                  item.role === "assistant" ? "bg-primary text-primary-foreground" : "bg-muted"
+                className={`rounded-2xl px-4 py-3 text-xs leading-relaxed md:text-sm ${
+                  item.role === "assistant"
+                    ? "bg-primary/10 text-foreground border border-primary/15"
+                    : "bg-muted text-foreground"
                 }`}
               >
                 {item.message}
@@ -86,25 +89,42 @@ export function AIChatPreview() {
         ))}
       </div>
 
-      {/* Suggestions */}
-      <div className="border-t bg-muted/30 p-6">
-        <p className="mb-4 text-sm font-medium">Try asking...</p>
+      {/* Suggested Prompts & Unlimited Access Action */}
+      <div className="border-t border-border/60 bg-muted/20 p-5 md:p-6">
+        <p className="mb-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+          Suggested Questions:
+        </p>
 
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-2">
           {suggestions.map((suggestion) => (
-            <button
-              key={suggestion}
-              type="button"
-              className="rounded-full border border-border bg-background px-4 py-2 text-sm transition hover:border-primary hover:bg-primary/5"
-            >
-              {suggestion}
-            </button>
+            <Link key={suggestion} href="/ai">
+              <button
+                type="button"
+                className="rounded-full border border-border/80 bg-background px-3.5 py-1.5 text-xs text-muted-foreground transition hover:border-primary/50 hover:bg-primary/5 hover:text-foreground"
+              >
+                {suggestion}
+              </button>
+            </Link>
           ))}
         </div>
 
-        <Button className="mt-6 w-full" size="lg">
-          Start Chat with Mingalar AI
-        </Button>
+        {/* CTA to Unlock Unlimited AI */}
+        <div className="mt-5 rounded-2xl border border-primary/20 bg-primary/5 p-4 text-center">
+          <p className="text-xs text-muted-foreground flex items-center justify-center gap-1.5">
+            <ShieldCheck className="h-4 w-4 text-primary" />
+            Sign in to unlock unlimited AI chats, history, and personalized recommendations.
+          </p>
+
+          <Link href="/ai" className="block mt-3">
+            <Button
+              className="w-full rounded-xl font-semibold shadow-md shadow-primary/20"
+              size="lg"
+            >
+              Start Full AI Chat
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );

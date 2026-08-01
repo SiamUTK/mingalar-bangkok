@@ -6,6 +6,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { PageTransitionProvider } from "@/components/ui/page-transition-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { StickyAiWidget } from "@/components/ai/sticky-ai-widget"; // ⭐ Import Sticky AI Widget
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -88,6 +89,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <PageTransitionProvider>{children}</PageTransitionProvider>
+
+          {/* ⭐ Universal Sticky Floating AI Chat Widget */}
+          <StickyAiWidget />
 
           <Toaster richColors position="top-right" />
         </ThemeProvider>
