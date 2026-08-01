@@ -1,0 +1,111 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@font-face {
+  font-family: 'Geist';
+  src: local('Geist'), local('Inter'), system-ui, sans-serif;
+}
+
+@theme inline {
+  --font-sans: 'Geist', 'Inter', system-ui, sans-serif;
+  --color-ruby-red: #c62828;
+  --color-warm-gold: #d4af37;
+  --color-deep-navy: #1e3a5f;
+  --color-warm-white: #fafaf8;
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #6b7280;
+  --color-border-light: #e5e7eb;
+  --color-success: #16a34a;
+  --color-warning: #f59e0b;
+  --color-danger: #dc2626;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 1.75rem;
+}
+
+:root {
+  color-scheme: light;
+  --background: #fafaf8;
+  --foreground: #1f2937;
+  --card: #ffffff;
+  --card-foreground: #1f2937;
+  --popover: #ffffff;
+  --popover-foreground: #1f2937;
+  --primary: #c62828;
+  --primary-foreground: #ffffff;
+  --secondary: #d4af37;
+  --secondary-foreground: #1f2937;
+  --muted: #e5e7eb;
+  --muted-foreground: #6b7280;
+  --accent: #1e3a5f;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --border: #e5e7eb;
+  --input: #e5e7eb;
+  --ring: #c62828;
+  --chart-1: #c62828;
+  --chart-2: #d4af37;
+  --chart-3: #1e3a5f;
+  --chart-4: #6b7280;
+  --chart-5: #f59e0b;
+  --radius: 0.75rem;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+    outline-color: var(--ring);
+    outline-width: 1px;
+  }
+  html {
+    background-color: var(--background);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    @apply font-sans;
+  }
+  h1 {
+    @apply text-5xl font-bold leading-tight;
+    color: var(--foreground);
+  }
+  h2 {
+    @apply text-4xl font-bold leading-tight;
+    color: var(--foreground);
+  }
+  h3 {
+    @apply text-3xl font-semibold leading-snug;
+    color: var(--foreground);
+  }
+  h4 {
+    @apply text-2xl font-semibold leading-snug;
+    color: var(--foreground);
+  }
+  h5 {
+    @apply text-xl font-semibold leading-normal;
+    color: var(--foreground);
+  }
+  p {
+    @apply text-base leading-relaxed;
+    color: var(--foreground);
+  }
+  small {
+    @apply text-sm;
+    color: var(--muted-foreground);
+  }
+}
+
+@layer components {
+  .text-caption {
+    @apply text-sm leading-relaxed;
+    color: var(--muted-foreground);
+  }
+  .text-small {
+    @apply text-xs leading-relaxed;
+    color: var(--muted-foreground);
+  }
+}
