@@ -1,244 +1,194 @@
 # Mingalar Bangkok
 
-> **AI First Platform for the Myanmar Community in Thailand**
+> **แพลตฟอร์ม AI-First สำหรับชุมชนชาวเมียนมาร์ในประเทศไทย**
 
-Mingalar Bangkok is a modern web platform designed to become the digital home for Myanmar people living in, working in, or visiting Bangkok and Thailand.
+## ภาพรวมโครงการ
 
-The platform combines local discovery, travel services, community features, AI assistance, and business directories into one unified experience.
+Mingalar Bangkok คือแพลตฟอร์มดิจิทัลที่ออกแบบมาเพื่อเป็น "Digital Home" หรือ "Super
+App" สำหรับชาวเมียนมาร์ที่อาศัย ทำงาน ศึกษา ท่องเที่ยว หรือดำเนินธุรกิจในประเทศไทย
 
----
+แพลตฟอร์มรวบรวมบริการที่จำเป็นต่อการใช้ชีวิตประจำวันไว้ในที่เดียว ได้แก่ - AI
+Assistant - Business Directory - Jobs - Housing - Community - Travel -
+Visa Services - Money Services - Events - News - Learn Thai
 
-# Vision
+------------------------------------------------------------------------
 
-Create the leading AI-powered lifestyle platform for the Myanmar community in Thailand.
+# วิสัยทัศน์
 
-Our goal is to simplify daily life by providing trusted information, local services, travel tools, employment opportunities, and community resources in one place.
+สร้างแพลตฟอร์ม AI สำหรับชุมชนชาวเมียนมาร์ที่ดีที่สุดในประเทศไทย โดยช่วยให้ผู้ใช้เข้าถึงข้อมูล
+บริการ โอกาสในการทำงาน การเดินทาง และการใช้ชีวิตประจำวันได้ง่าย รวดเร็ว
+และเชื่อถือได้
 
----
+------------------------------------------------------------------------
 
-# Target Users
+# กลุ่มผู้ใช้งาน
 
-* Myanmar workers in Thailand
-* Myanmar students
-* Myanmar tourists
-* Myanmar business owners
-* Thai businesses targeting Myanmar customers
-* International visitors interested in Myanmar communities
+-   แรงงานชาวเมียนมาร์
+-   นักศึกษา
+-   นักท่องเที่ยว
+-   ผู้ประกอบการชาวเมียนมาร์
+-   ธุรกิจไทยที่ต้องการลูกค้าชาวเมียนมาร์
+-   องค์กรและหน่วยงานที่ให้บริการชาวเมียนมาร์
 
----
+------------------------------------------------------------------------
 
-# Core Features
+# ฟีเจอร์หลัก
 
-## AI Assistant
+## 🤖 Mingalar AI
 
-* AI-powered local assistant
-* Travel recommendations
-* Visa guidance
-* Transportation information
-* Restaurant recommendations
-* Daily life assistance
+-   ค้นหาร้านค้าและบริการ
+-   แนะนำงาน
+-   แนะนำที่พัก
+-   วางแผนการเดินทาง
+-   ให้ข้อมูลวีซ่าและ Work Permit
+-   ช่วยแปลภาษาไทย--เมียนมาร์
+-   แนะนำเส้นทางด้วยขนส่งสาธารณะ
 
----
+## 📍 Directory
 
-## Local Directory
+-   ร้านอาหาร
+-   ร้านขายของเมียนมาร์
+-   ร้านโอนเงิน
+-   ร้านเสริมสวย
+-   ร้านโทรศัพท์
+-   โรงพยาบาล
+-   คลินิก
+-   ทนายความ
+-   โรงแรม
+-   บริการอื่น ๆ
 
-Discover trusted businesses including:
+## 💼 Jobs
 
-* Restaurants
-* Cafes
-* Grocery Stores
-* Beauty Salons
-* Mobile Shops
-* Money Transfer
-* Hospitals
-* Clinics
-* Lawyers
-* Hotels
+-   โรงงาน
+-   ร้านอาหาร
+-   โรงแรม
+-   งานบริการ
+-   งานก่อสร้าง
+-   งานออฟฟิศ
 
----
+## 🏠 Housing
 
-## Jobs
+-   ห้องเช่า
+-   คอนโด
+-   บ้าน
+-   หอพัก
+-   ค้นหาตาม BTS / MRT / พื้นที่โรงงาน
 
-Find employment opportunities in Thailand.
+## ❤️ Community
 
-* Restaurant
-* Hotel
-* Construction
-* Factory
-* Office
-* Freelance
+-   ถาม--ตอบ
+-   ซื้อขาย
+-   หาเพื่อน
+-   แชร์ประสบการณ์
+-   ข่าวสารชุมชน
 
----
+## 🛂 Visa & Legal
 
-## Housing
+-   Visa
+-   Work Permit
+-   Passport
+-   ประกันสุขภาพ
+-   บริการด้านกฎหมาย
 
-Search accommodations.
+## ✈ Travel
 
-* Apartments
-* Condominiums
-* Shared Rooms
-* Monthly Rentals
+-   Flights
+-   Hotels
+-   Airport Transfer
+-   eSIM
+-   Insurance
 
----
+## 💸 Money
 
-## Community
+-   โอนเงินกลับเมียนมาร์
+-   Exchange
+-   Wallet
 
-A social platform where users can
+## 📅 Events
 
-* Ask questions
-* Share experiences
-* Buy & Sell
-* Meet friends
-* Discuss local news
+-   เทศกาล
+-   งานวัด
+-   คอนเสิร์ต
+-   งานสัมมนา
 
----
+## 📰 News
 
-## Events
+ข่าวสารที่เกี่ยวข้องกับชาวเมียนมาร์ในประเทศไทย
 
-Discover Myanmar community events.
+## 📖 Learn Thai
 
-* Festivals
-* Concerts
-* Cultural Activities
-* Business Events
+-   AI Tutor
+-   คำศัพท์
+-   บทสนทนา
+-   แบบฝึกหัด
 
----
+------------------------------------------------------------------------
 
-## Travel
+# โมเดลรายได้
 
-Travel-related services including
+-   Premium Listings
+-   Featured Listings
+-   Sponsored Articles
+-   Job Posting
+-   Visa Leads
+-   Travel Commissions
+-   Hotel Affiliate
+-   Flight Affiliate
+-   Insurance Affiliate
+-   eSIM Affiliate
+-   Display Ads
+-   Premium Membership
 
-* Flights
-* Hotels
-* Airport Transfers
-* eSIM
-* Insurance
-* Visa Support
+------------------------------------------------------------------------
 
----
+# เทคโนโลยี
 
-## News
+-   Next.js 16
+-   React 19
+-   TypeScript
+-   Tailwind CSS v4
+-   Prisma ORM
+-   MySQL
+-   Supabase Authentication
+-   Supabase Storage
+-   OpenAI API
+-   Hostinger Cloud
 
-Latest news relevant to Myanmar people living in Thailand.
+------------------------------------------------------------------------
 
----
+# Roadmap
 
-## Learn Thai
+## Phase 1
 
-Interactive learning resources.
+Landing Page, Directory, Search, Categories
 
-* AI Tutor
-* Vocabulary
-* Daily Conversations
+## Phase 2
 
----
+Authentication, User Dashboard, Business Dashboard
 
-# Monetization
+## Phase 3
 
-* Featured Listings
-* Sponsored Businesses
-* Premium Membership
-* Job Posting Fees
-* Display Advertising
-* Affiliate Marketing
-* Travel Commissions
-* Lead Generation
+AI Assistant, Community, Messaging
 
----
+## Phase 4
 
-# Technology Stack
+Payments, Membership, Admin Dashboard
 
-Frontend
+## Phase 5
 
-* Next.js
-* React
-* TypeScript
-* Tailwind CSS
-* shadcn/ui
+Mobile App, AI Personalization, Notifications
 
-Backend
+------------------------------------------------------------------------
 
-* Next.js API Routes
-* Supabase Authentication
-* MySQL
-* Prisma ORM
+# Positioning
 
-AI
+> **Mingalar Bangkok**
+>
+> **AI-First Super App for the Myanmar Community in Thailand**
+>
+> ศูนย์กลางการใช้ชีวิต การทำงาน การเดินทาง
+> และบริการสำคัญสำหรับชาวเมียนมาร์ในประเทศไทย
 
-* OpenAI API
+------------------------------------------------------------------------
 
-Deployment
-
-* Hostinger VPS / Cloud
-* GitHub
-* Cloudflare CDN
-
----
-
-# Design Language
-
-The platform follows a modern premium design inspired by:
-
-* Glassmorphism
-* Soft gradients
-* Clean typography
-* Mobile-first layout
-* Dark & Light mode
-* High accessibility
-
-Primary colors
-
-* Emerald
-* Teal
-* Gold
-* White
-* Charcoal
-
----
-
-# Development Roadmap
-
-Phase 1
-
-* Landing Page
-* Directory
-* Search
-* Categories
-
-Phase 2
-
-* Authentication
-* User Dashboard
-* Business Dashboard
-
-Phase 3
-
-* AI Assistant
-* Community
-* Messaging
-
-Phase 4
-
-* Premium Membership
-* Payments
-* Admin Dashboard
-
-Phase 5
-
-* Mobile App
-* Push Notifications
-* AI Personalization
-
----
-
-# Project Status
-
-🚧 Currently under development.
-
----
-
-# License
-
-Copyright © Mingalar Bangkok.
-
-All rights reserved.
+© Mingalar Bangkok

@@ -1,433 +1,320 @@
+
 # PROJECT_RULES.md
 
 # Mingalar Bangkok
 
-Version: 1.0
+**Version:** 2.0 Enterprise
+
+> **AI-First Super App for the Myanmar Community in Thailand**
 
 ---
 
-# Project Overview
+# Project Vision
 
-Mingalar Bangkok is an AI-first web platform designed for the Myanmar community in Thailand.
+Mingalar Bangkok is an AI-first super app designed to become the digital home for Myanmar people living, working, studying, and traveling in Thailand.
 
-The platform helps users discover local businesses, find jobs, search for housing, access travel services, connect with the community, and receive AI-powered assistance.
-
-This project focuses on performance, scalability, accessibility, and modern UI/UX.
+The platform combines AI, community, local services, travel, jobs, housing, and business tools into one unified ecosystem.
 
 ---
 
 # Core Principles
 
-* Mobile First
-* AI First
-* Performance First
-* SEO First
-* Accessibility First
-* Security First
-* Production Ready
-* Clean Architecture
+- AI First
+- Community First
+- Mobile First
+- Performance First
+- SEO First
+- Accessibility First
+- Security First
+- API First
+- Data Driven
+- Scalable by Design
+- Production Ready
+- Clean Architecture
 
 ---
 
-# Tech Stack
+# Technology Stack
 
-Framework
+## Frontend
 
-* Next.js 16 (App Router)
+- Next.js 16 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS v4
+- shadcn/ui
+- Framer Motion
+- Lucide React
+- next-intl
 
-Language
+## Backend
 
-* TypeScript
+- Next.js Route Handlers
+- Prisma ORM
+- MySQL
+- Supabase Authentication
+- Supabase Storage
 
-Styling
+## AI
 
-* Tailwind CSS v4
+- OpenAI API
 
-UI
+## Services
 
-* shadcn/ui
-
-Icons
-
-* Lucide React
-
-Animation
-
-* Framer Motion
-
-Forms
-
-* React Hook Form
-* Zod
-
-Database
-
-* MySQL
-
-ORM
-
-* Prisma
-
-Authentication
-
-* Supabase Auth
-
-Storage
-
-* Supabase Storage
-
-AI
-
-* OpenAI API
-
-Deployment
-
-* Hostinger Cloud VPS
-
-Version Control
-
-* Git + GitHub
+- Resend
+- Stripe
+- Cloudflare
+- GitHub
+- Hostinger Cloud
 
 ---
 
-# Development Rules
+# Core Product Modules
 
-Always use
+- AI Assistant
+- Directory
+- Jobs
+- Housing
+- Community
+- Travel
+- Visa & Legal
+- Money Services
+- News
+- Events
+- Learn Thai
 
-* TypeScript
-* Functional Components
-* React Hooks
-* Async / Await
-* Server Components by default
-* Client Components only when required
+---
 
-Never use
+# Engineering Rules
 
-* JavaScript files
-* Class Components
-* Inline CSS
-* jQuery
-* Bootstrap
-* Material UI
-* Chakra UI
-* Firebase
-* Mock APIs in production code
+Always use:
+
+- TypeScript
+- Functional Components
+- Async/Await
+- Server Components by default
+- Client Components only when necessary
+- Zod Validation
+- React Hook Form
+
+Never use:
+
+- JavaScript
+- jQuery
+- Bootstrap
+- Material UI
+- Chakra UI
+- Firebase
+- Inline CSS
+- Duplicate Components
+- Mock APIs in production
 
 ---
 
 # Folder Structure
 
-app/
-
-components/
-
-hooks/
-
-lib/
-
-types/
-
-prisma/
-
-public/
-
-styles/
+- app/
+- components/
+- features/
+- services/
+- actions/
+- providers/
+- lib/
+- prisma/
+- types/
+- config/
+- public/
+- docs/
 
 ---
 
-# UI Guidelines
+# UI / UX Principles
 
-Design style
+The interface must be:
 
-* Premium
-* Modern
-* Clean
-* Minimal
-* Fast
-* Mobile-first
+- Friendly
+- Premium
+- Modern
+- Clean
+- Fast
+- Accessible
+- Mobile First
+- Trustworthy
 
-Avoid
+Every screen should immediately answer:
 
-* Cluttered layouts
-* Heavy shadows
-* Excessive animations
-* Flashy effects
-* Outdated design patterns
-
----
-
-# Color Palette
-
-Primary
-
-Emerald
-
-Secondary
-
-Teal
-
-Accent
-
-Gold
-
-Neutral
-
-White
-
-Slate
-
-Charcoal
-
-Success
-
-Green
-
-Warning
-
-Amber
-
-Danger
-
-Red
+1. Where am I?
+2. What can I do?
+3. What should I do next?
 
 ---
 
-# Typography
+# AI Rules
 
-Use clean modern fonts.
-
-Hierarchy
-
-H1
-
-H2
-
-H3
-
-Body
-
-Small Text
-
-Always maintain proper spacing.
+- AI must prioritize structured data.
+- Never fabricate business information.
+- Support Thai, Myanmar and English.
+- Prefer directory data over generated text.
+- AI features must be modular and reusable.
 
 ---
 
-# Component Rules
+# API Standards
 
-Components must
-
-* Be reusable
-* Be modular
-* Accept props
-* Be typed
-* Have descriptive names
-
-Avoid duplicate components.
-
----
-
-# Responsive Rules
-
-Support
-
-* Mobile
-* Tablet
-* Laptop
-* Desktop
-
-Must use responsive Tailwind utilities.
+- RESTful APIs
+- Input validation
+- Authentication
+- Authorization
+- Rate Limiting
+- Error Handling
+- Logging
+- Version-ready
 
 ---
 
-# Accessibility
+# Database Standards
 
-Every page should include
-
-* Semantic HTML
-* Keyboard navigation
-* Proper heading hierarchy
-* Alt text
-* Labels for forms
-* Visible focus states
-
----
-
-# Performance
-
-Optimize
-
-* Images
-* Fonts
-* Metadata
-* Lazy Loading
-* Dynamic Imports
-
-Avoid unnecessary re-renders.
-
----
-
-# SEO
-
-Every page must include
-
-* Title
-* Description
-* Open Graph
-* Twitter Metadata
-* Canonical URL
-* Structured Data when applicable
-
----
-
-# AI Features
-
-Prepare architecture for
-
-* AI Chat
-* AI Recommendations
-* AI Search
-* AI Translation
-* AI Travel Assistant
-
-Do not hardcode AI responses.
-
----
-
-# Authentication
-
-Support
-
-* Email Login
-* Google Login
-
-Roles
-
-Guest
-
-User
-
-Business
-
-Moderator
-
-Admin
-
-Super Admin
-
----
-
-# Business Directory
-
-Each listing should support
-
-* Name
-* Category
-* Description
-* Images
-* Location
-* Contact
-* Opening Hours
-* Reviews
-* Rating
-* Tags
-
----
-
-# Code Quality
-
-Code must
-
-* Be readable
-* Be modular
-* Be maintainable
-* Be production-ready
-
-Avoid duplicated logic.
-
----
-
-# Naming Convention
-
-Use
-
-PascalCase
-
-for Components.
-
-camelCase
-
-for variables and functions.
-
-UPPER_CASE
-
-for constants.
-
-kebab-case
-
-for route names.
-
----
-
-# Comments
-
-Only write comments when necessary.
-
-Avoid obvious comments.
-
----
-
-# Git Rules
-
-Use small commits.
-
-Write meaningful commit messages.
+- MySQL only
+- Prisma ORM
+- UUID Primary Keys
+- Soft Delete
+- Foreign Keys
+- Indexed Search
+- Audit-ready
+- Translation-ready
 
 ---
 
 # Security
 
-Always validate
+Always protect against:
 
-* Input
-* Forms
-* API Requests
+- SQL Injection
+- XSS
+- CSRF
+- Broken Authentication
 
-Never expose
+Never expose:
 
-* API Keys
-* Secrets
-* Database Credentials
-
----
-
-# Future Features
-
-Architecture should support
-
-* Premium Membership
-* Payments
-* AI Credits
-* Notifications
-* Email Verification
-* Business Dashboard
-* Admin Dashboard
-* Mobile App
-* API Integration
+- API Keys
+- Secrets
+- Database Credentials
 
 ---
 
-# AI Instructions
+# Performance
+
+Optimize:
+
+- Images
+- Fonts
+- Metadata
+- Bundle Size
+- Lazy Loading
+- Dynamic Imports
+- Server Rendering
+
+---
+
+# Accessibility
+
+Follow WCAG 2.2 AA
+
+Include:
+
+- Semantic HTML
+- Keyboard Navigation
+- Focus States
+- ARIA Labels
+- Alt Text
+
+---
+
+# Internationalization
+
+Supported Languages
+
+- English
+- Thai
+- Myanmar
+
+Use next-intl.
+
+---
+
+# SEO
+
+Every page should include:
+
+- Metadata
+- Open Graph
+- Canonical URL
+- Structured Data
+- Sitemap
+- Robots.txt
+
+---
+
+# Code Quality
+
+- Reuse existing components.
+- Keep components modular.
+- Avoid duplicate logic.
+- Keep code production-ready.
+- Prefer composition over duplication.
+
+---
+
+# Git
+
+- Small commits
+- Meaningful commit messages
+- Feature branches
+- Pull Requests
+
+---
+
+# Monetization
+
+Support:
+
+- Premium Membership
+- Featured Listings
+- Sponsored Content
+- Advertising
+- Travel Affiliates
+- Visa Leads
+- Job Posting
+- eSIM
+- Insurance
+
+---
+
+# Future Ready
+
+Architecture must support:
+
+- Mobile Apps
+- Wallet
+- Marketplace
+- Messaging
+- Notifications
+- Rewards
+- Referral Program
+- Business CRM
+- Public API
+
+---
+
+# AI Code Generation Rules
 
 When generating code:
 
-* Produce production-ready code.
-* Avoid placeholder logic unless requested.
-* Reuse existing components whenever possible.
-* Follow Next.js App Router best practices.
-* Use Tailwind CSS v4.
-* Keep components modular.
-* Prefer Server Components.
-* Do not generate unnecessary files.
-* Do not duplicate code.
-* Keep the codebase clean and scalable.
-* Explain major architectural decisions only when necessary.
+- Follow Next.js App Router best practices.
+- Use Tailwind CSS v4.
+- Reuse existing components.
+- Keep code scalable.
+- Prefer Server Components.
+- Avoid unnecessary dependencies.
+- Never generate duplicate files.
+- Explain major architectural decisions only when necessary.

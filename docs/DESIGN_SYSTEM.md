@@ -1,123 +1,97 @@
+
 # DESIGN_SYSTEM.md
 
 # Mingalar Bangkok Design System
 
-Version: 1.0
+**Version:** 2.0 Enterprise
+
+> AI-First Super App for the Myanmar Community in Thailand
 
 ---
 
 # Design Philosophy
 
-Mingalar Bangkok should feel welcoming, modern, trustworthy, and premium.
+Design every interface around one principle:
 
-The interface must be simple enough for first-time users while remaining elegant and scalable.
+**Help Myanmar users complete everyday tasks quickly, confidently, and comfortably.**
 
-Keywords
+Core Values
 
-* Friendly
-* Premium
-* Clean
-* Warm
-* Modern
-* Mobile First
-* Accessible
-* Fast
+- Friendly
+- Trustworthy
+- Inclusive
+- Premium
+- Modern
+- Mobile First
+- Accessible
+- Fast
+- Simple
 
 ---
 
-# Visual Style
+# Design Inspiration
 
 Inspired by
 
-* Apple
-* Airbnb
-* Google Maps
-* Notion
-* Grab
-* LINE
-* Booking.com
+- Apple
+- Airbnb
+- Google Maps
+- Grab
+- LINE
+- Notion
+- Booking.com
 
 Avoid
 
-* Heavy gradients
-* Neon effects
-* Glassmorphism overload
-* Dark cyberpunk styling
-* Overly colorful interfaces
+- Heavy gradients
+- Excessive glassmorphism
+- Neon overload
+- Visual clutter
+- Unnecessary animations
 
 ---
 
-# Color Palette
+# Design Tokens
 
 ## Primary
 
-Ruby Red
-
-#C62828
-
----
+Ruby Red — #C62828
 
 ## Secondary
 
-Warm Gold
-
-#D4AF37
-
----
+Warm Gold — #D4AF37
 
 ## Accent
 
-Deep Navy
-
-#1E3A5F
-
----
+Deep Navy — #1E3A5F
 
 ## Background
 
-Warm White
-
-#FAFAF8
-
----
+Warm White — #FAFAF8
 
 ## Surface
 
-White
+White — #FFFFFF
 
-#FFFFFF
+## Text
 
----
+Primary — #1F2937
 
-## Text Primary
+Secondary — #6B7280
 
-#1F2937
-
----
-
-## Text Secondary
-
-#6B7280
-
----
+Muted — #9CA3AF
 
 ## Border
 
 #E5E7EB
 
----
-
 ## Success
 
 #16A34A
 
----
-
 ## Warning
 
 #F59E0B
-
----
 
 ## Danger
 
@@ -125,119 +99,135 @@ White
 
 ---
 
-# Border Radius
+# Typography
 
-Cards
+Primary Font
 
-16px
+- Geist
 
-Buttons
+Fallback
 
-12px
+- Inter
 
-Inputs
+Scale
 
-12px
+- H1 48
+- H2 36
+- H3 30
+- H4 24
+- H5 20
+- Body 16
+- Small 14
+- Caption 12
 
-Dialogs
+Weights
 
-20px
-
-Badges
-
-999px
-
----
-
-# Shadows
-
-Use subtle shadows only.
-
-Avoid strong floating effects.
+400 / 500 / 600 / 700
 
 ---
 
 # Spacing
 
-Base Unit
+Base Unit: 8px
 
-8px
-
-Common spacing
-
-4
-
-8
-
-12
-
-16
-
-24
-
-32
-
-48
-
-64
+4 8 12 16 24 32 48 64 80 96
 
 ---
 
-# Typography
+# Radius
 
-Primary Font
+Cards 16px
 
-Geist
+Buttons 12px
 
-Fallback
+Inputs 12px
 
-Inter
+Dialogs 20px
 
-Font Weight
-
-400
-
-500
-
-600
-
-700
+Badges Full
 
 ---
 
-# Heading Scale
+# Shadows
 
-H1
+Use subtle elevation only.
 
-48px
+Hover state should feel responsive without floating excessively.
 
-H2
+---
 
-36px
+# Layout
 
-H3
+Container
 
-28px
+1280px
 
-H4
+Section Padding
 
-24px
+Desktop 80px
 
-H5
+Tablet 48px
 
-20px
+Mobile 32px
 
-Body
+12-column responsive grid.
 
-16px
+---
 
-Caption
+# Navigation
 
-14px
+Desktop
 
-Small
+- Sticky Navbar
 
-12px
+Mobile
+
+- Bottom Navigation
+- Floating AI Action Button
+
+Always provide search access.
+
+---
+
+# Core Components
+
+Required
+
+- Navbar
+- Footer
+- Hero
+- AI Hero
+- Global Search
+- Quick Actions
+- Category Grid
+- Business Card
+- Job Card
+- Housing Card
+- Travel Card
+- Event Card
+- News Card
+- Community Feed Card
+- AI Assistant Card
+- CTA Section
+- Breadcrumb
+- Pagination
+- Modal
+- Drawer
+- Dialog
+- Toast
+- Avatar
+- Badge
+- Empty State
+- Loading Skeleton
+
+---
+
+# Forms
+
+- Clear labels
+- Zod validation
+- Helpful error messages
+- Never rely on placeholders as labels
 
 ---
 
@@ -247,224 +237,131 @@ Library
 
 Lucide React
 
-Style
-
-Outline
-
-Stroke
-
-2px
-
-Avoid filled icons.
-
----
-
-# Buttons
-
-Primary
-
-Filled
-
-Secondary
-
-Outline
-
-Ghost
-
-Text only
-
-Danger
-
-Red
-
-Loading state required.
-
-Disabled state required.
-
----
-
-# Cards
-
-Rounded corners
-
-Subtle shadow
-
-Large padding
-
-Hover effect
-
-Clickable when appropriate
-
----
-
-# Forms
-
-Rounded inputs
-
-Clear labels
-
-Visible validation
-
-Helpful error messages
-
-Never use placeholder as label.
-
----
-
-# Navigation
-
-Desktop
-
-Top Navigation
-
-Mobile
-
-Bottom Navigation
-
-Sticky Header
-
-Yes
-
----
-
-# Images
-
-Rounded corners
-
-Lazy Loading
-
-Responsive
-
-Use Next.js Image component.
+Outline style only.
 
 ---
 
 # Motion
 
-Use Framer Motion.
-
-Animation duration
+Framer Motion
 
 150–250ms
 
-Keep animations subtle.
-
-Avoid excessive motion.
+Respect prefers-reduced-motion.
 
 ---
 
-# Responsive Breakpoints
+# Responsive
 
-Mobile
+- Mobile <768
+- Tablet ≥768
+- Laptop ≥1024
+- Desktop ≥1280
+- Large ≥1536
 
-<768px
-
-Tablet
-
-768px
-
-Laptop
-
-1024px
-
-Desktop
-
-1280px
-
-Large Desktop
-
-1536px
+Mobile-first by default.
 
 ---
 
 # Accessibility
 
-Minimum contrast AA
+Follow WCAG 2.2 AA
 
-Keyboard navigation
+Include
 
-Visible focus ring
-
-ARIA labels where necessary
-
-Semantic HTML
-
----
-
-# Components
-
-Required Components
-
-* Navbar
-* Mobile Navigation
-* Hero
-* Search Bar
-* Category Grid
-* Business Card
-* Listing Card
-* Event Card
-* Job Card
-* Housing Card
-* AI Assistant Card
-* Review Card
-* Footer
-* CTA Section
-* Empty State
-* Loading Skeleton
-* Pagination
-* Breadcrumb
-* Modal
-* Drawer
-* Toast
-* Dialog
-* Badge
-* Avatar
-
----
-
-# Layout
-
-Container Width
-
-1280px
-
-Section Padding
-
-80px Desktop
-
-48px Tablet
-
-32px Mobile
+- Semantic HTML
+- Keyboard Navigation
+- Visible Focus
+- ARIA Labels
+- Color Contrast AA
+- Screen Reader Support
 
 ---
 
 # Dark Mode
 
-Support required.
+Required.
 
-Use neutral dark backgrounds.
+Use neutral dark surfaces.
 
 Avoid pure black.
 
 ---
 
-# Tailwind CSS Rules
+# Images
 
-* Use Tailwind CSS v4.
-* Prefer utility classes over custom CSS.
-* Avoid arbitrary values unless necessary.
-* Use semantic spacing utilities.
-* Keep components reusable.
-* Minimize custom styles.
+Use Next.js Image.
+
+- Responsive
+- Lazy Loading
+- Rounded corners
+- Optimized formats
+
+---
+
+# Tailwind CSS
+
+- Tailwind CSS v4
+- Prefer semantic utilities
+- Avoid arbitrary values
+- Reusable utility patterns
+- Keep components modular
 
 ---
 
 # UI Principles
 
-Every screen should answer three questions immediately:
+Every page must immediately answer:
 
 1. Where am I?
-2. What can I do here?
+2. What can I do?
 3. What should I do next?
 
-The interface should prioritize clarity, speed, and ease of use over visual complexity.
+Every major page should contain:
+
+- Primary CTA
+- Search or Quick Action
+- Clear visual hierarchy
+- Helpful empty state
+
+---
+
+# AI Experience
+
+AI is a first-class feature.
+
+Always provide:
+
+- Easy AI entry point
+- Suggested prompts
+- Conversation history
+- Context-aware recommendations
+
+---
+
+# Internationalization
+
+Support
+
+- English
+- Thai
+- Myanmar
+
+Design layouts for variable text lengths.
+
+---
+
+# Design Quality Checklist
+
+Before release verify:
+
+- Mobile responsive
+- Accessibility passed
+- Performance optimized
+- Consistent spacing
+- Consistent typography
+- Reusable components
+- Dark mode supported
+- Loading states implemented
+- Error states implemented
+- Empty states implemented

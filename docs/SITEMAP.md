@@ -1,459 +1,233 @@
-# SITEMAP.md
-
 # Mingalar Bangkok
 
-> AI-First Platform for the Myanmar Community in Thailand
+> **AI-First Super App for the Myanmar Community in Thailand**
 
 ---
 
 # Public Pages
 
-/
+`/` Home
 
-Home
-
-/about
-
-About Us
-
-/contact
-
-Contact
-
-/privacy
-
-Privacy Policy
-
-/terms
-
-Terms of Service
-
-/help
-
-Help Center
-
-/faq
-
-Frequently Asked Questions
+`/about`
+`/contact`
+`/help`
+`/faq`
+`/privacy`
+`/terms`
 
 ---
 
-# Authentication
+# AI
 
-/login
-
-Register
-
-/forgot-password
-
-Reset Password
-
-/verify-email
-
-Email Verification
-
----
-
-# AI Assistant
-
-/ai
-
-AI Assistant
-
-/ai/history
-
-Chat History
+- /ai
+- /ai/chat
+- /ai/history
+- /ai/trip-planner
+- /ai/job-assistant
+- /ai/visa-assistant
+- /ai/thai-tutor
 
 ---
 
 # Directory
 
-/directory
+- /directory
+- /directory/[category]
+- /directory/[slug]
 
-All Listings
-
-/directory/restaurants
-
-Restaurants
-
-/directory/cafes
-
-Cafes
-
-/directory/grocery
-
-Myanmar Grocery
-
-/directory/beauty
-
-Beauty & Barber
-
-/directory/mobile
-
-Mobile Shops
-
-/directory/money-transfer
-
-Money Transfer
-
-/directory/hospitals
-
-Hospitals
-
-/directory/clinics
-
-Clinics
-
-/directory/lawyers
-
-Lawyers
-
-/directory/hotels
-
-Hotels
-
-/directory/services
-
-Professional Services
-
-/directory/[slug]
-
-Business Detail
+Categories
+- Restaurants
+- Grocery
+- Beauty
+- Mobile Shops
+- Money Transfer
+- Hospitals
+- Clinics
+- Lawyers
+- Hotels
+- Education
+- Religious Places
+- Professional Services
+- Government Services
 
 ---
 
 # Jobs
 
-/jobs
-
-All Jobs
-
-/jobs/category/[slug]
-
-Job Category
-
-/jobs/[slug]
-
-Job Detail
+- /jobs
+- /jobs/category/[slug]
+- /jobs/[slug]
+- /jobs/saved
 
 ---
 
 # Housing
 
-/housing
-
-All Properties
-
-/housing/[slug]
-
-Property Detail
+- /housing
+- /housing/map
+- /housing/[slug]
+- /housing/saved
 
 ---
 
 # Community
 
-/community
-
-Community Feed
-
-/community/post/[slug]
-
-Post Detail
-
----
-
-# Events
-
-/events
-
-All Events
-
-/events/[slug]
-
-Event Detail
-
----
-
-# News
-
-/news
-
-Latest News
-
-/news/[slug]
-
-News Detail
+- /community
+- /community/feed
+- /community/groups
+- /community/questions
+- /community/marketplace
+- /community/chat
+- /community/post/[slug]
 
 ---
 
 # Travel
 
-/travel
-
-Travel Home
-
-/travel/flights
-
-Flights
-
-/travel/hotels
-
-Hotels
-
-/travel/esim
-
-eSIM
-
-/travel/insurance
-
-Travel Insurance
-
-/travel/visa
-
-Visa Services
+- /travel
+- /travel/flights
+- /travel/hotels
+- /travel/esim
+- /travel/insurance
+- /travel/airport-transfer
+- /travel/packages
+- /travel/attractions
 
 ---
+
+# Visa & Legal
+
+- /visa
+- /visa/work-permit
+- /visa/passport
+- /visa/extensions
+- /visa/insurance
+- /visa/consultation
+
+---
+
+# Money
+
+- /money
+- /money/remittance
+- /money/exchange
+- /money/wallet
+- /money/banks
+
+---
+
+# Events
+
+- /events
+- /events/[slug]
+
+# News
+
+- /news
+- /news/[slug]
 
 # Learn Thai
 
-/learn-thai
-
-Learning Center
-
-/learn-thai/lesson/[slug]
-
-Lesson
-
----
+- /learn-thai
+- /learn-thai/vocabulary
+- /learn-thai/grammar
+- /learn-thai/conversation
+- /learn-thai/quiz
+- /learn-thai/ai-tutor
 
 # Search
 
-/search
+- /search
 
-Global Search
+# Authentication
 
----
+- /login
+- /register
+- /forgot-password
+- /verify-email
 
 # User Dashboard
 
-/dashboard
-
-Dashboard
-
-/dashboard/profile
-
-Profile
-
-/dashboard/saved
-
-Saved Listings
-
-/dashboard/reviews
-
-My Reviews
-
-/dashboard/posts
-
-My Posts
-
-/dashboard/jobs
-
-My Job Applications
-
-/dashboard/settings
-
-Settings
-
-/dashboard/notifications
-
-Notifications
-
----
+- /dashboard
+- /dashboard/profile
+- /dashboard/saved
+- /dashboard/jobs
+- /dashboard/housing
+- /dashboard/bookings
+- /dashboard/visa
+- /dashboard/ai-history
+- /dashboard/wallet
+- /dashboard/membership
+- /dashboard/settings
+- /dashboard/notifications
 
 # Business Dashboard
 
-/business
-
-Business Dashboard
-
-/business/profile
-
-Business Profile
-
-/business/listings
-
-My Listings
-
-/business/create
-
-Create Listing
-
-/business/edit/[id]
-
-Edit Listing
-
-/business/reviews
-
-Customer Reviews
-
-/business/analytics
-
-Analytics
-
-/business/subscription
-
-Subscription
-
----
+- /business
+- /business/profile
+- /business/listings
+- /business/create
+- /business/edit/[id]
+- /business/leads
+- /business/messages
+- /business/reviews
+- /business/photos
+- /business/analytics
+- /business/verification
+- /business/subscription
 
 # Admin
 
-/admin
+- /admin
+- /admin/users
+- /admin/businesses
+- /admin/listings
+- /admin/jobs
+- /admin/housing
+- /admin/events
+- /admin/news
+- /admin/categories
+- /admin/reports
+- /admin/payments
+- /admin/memberships
+- /admin/advertisements
+- /admin/settings
 
-Dashboard
+# API
 
-/admin/users
+- /api/auth
+- /api/users
+- /api/profile
+- /api/search
+- /api/listings
+- /api/jobs
+- /api/housing
+- /api/events
+- /api/news
+- /api/community
+- /api/travel
+- /api/visa
+- /api/money
+- /api/ai
+- /api/upload
+- /api/contact
+- /api/payments
 
-Users
+# Revenue
 
-/admin/businesses
-
-Businesses
-
-/admin/listings
-
-Listings
-
-/admin/jobs
-
-Jobs
-
-/admin/housing
-
-Housing
-
-/admin/events
-
-Events
-
-/admin/news
-
-News
-
-/admin/reports
-
-Reports
-
-/admin/categories
-
-Categories
-
-/admin/settings
-
-System Settings
-
----
-
-# API Routes
-
-/api/auth
-
-/api/users
-
-/api/profile
-
-/api/listings
-
-/api/jobs
-
-/api/housing
-
-/api/events
-
-/api/news
-
-/api/search
-
-/api/reviews
-
-/api/upload
-
-/api/ai
-
-/api/contact
-
----
-
-# System Pages
-
-/404
-
-Not Found
-
-/500
-
-Server Error
-
-/loading
-
-Loading
-
----
+- /pricing
+- /advertise
+- /partners
+- /business/plans
+- /referrals
 
 # Future Expansion
 
-Marketplace
-
-/marketplace
-
-Marketplace Home
-
-/marketplace/[slug]
-
-Product Detail
-
-Messaging
-
-/messages
-
-/messages/[conversation]
-
-Notification Center
-
-/notifications
-
-Premium Membership
-
-/pricing
-
-Billing
-
-/billing
-
-Referral Program
-
-/referrals
-
-Rewards
-
-/rewards
-
-Mobile App Deep Links
-
-/app
-
-API Documentation
-
-/docs
-
-Partner Portal
-
-/partners
-
-Advertiser Portal
-
-/advertise
-
-Developer Portal
-
-/developers
+- /marketplace
+- /messages
+- /notifications
+- /rewards
+- /billing
+- /docs
+- /developers
+- /app

@@ -1,464 +1,264 @@
+
 # DATABASE.md
 
-# Mingalar Bangkok
+# Mingalar Bangkok Database Specification
 
-Database: MySQL
+**Version:** 2.0 Enterprise
 
-ORM: Prisma
+Database: **MySQL 8+**  
+ORM: **Prisma ORM**
 
-Version: 1.0
+> AI-First Super App for the Myanmar Community in Thailand
 
 ---
 
 # Database Principles
 
-* MySQL only
-* UUID as Primary Key
-* Soft Delete Support
-* Created At / Updated At on every table
-* Foreign Keys enforced
-* UTF8MB4 Encoding
-* Indexed searchable fields
+- MySQL only
+- Prisma ORM
+- UUID Primary Keys
+- Soft Delete (`deleted_at`)
+- `created_at` / `updated_at`
+- UTF8MB4
+- Foreign Keys
+- Indexed searchable columns
+- Audit-ready
+- Translation-ready
+- Scalable for millions of records
 
 ---
 
-# Tables
+# Core Modules
 
-## users
-
-Purpose
-
-Store user accounts.
-
-Fields
-
-* id
-* email
-* password_hash
-* full_name
-* avatar
-* phone
-* nationality
-* preferred_language
-* role
-* status
-* created_at
-* updated_at
+- Users
+- AI
+- Directory
+- Jobs
+- Housing
+- Community
+- Travel
+- Visa
+- Money
+- News
+- Events
+- Learn Thai
+- Business
+- Administration
 
 ---
 
-## user_profiles
+# Core Tables
 
-Purpose
+## Identity
 
-Additional profile information.
+- users
+- user_profiles
+- user_sessions
+- user_devices
+- user_preferences
 
-Fields
+## Directory
 
-* id
-* user_id
-* bio
-* gender
-* birthday
-* location
-* occupation
-* website
-* facebook
-* telegram
-* line
-* created_at
-* updated_at
+- categories
+- listings
+- listing_images
+- listing_tags
+- reviews
+- favorites
 
----
+## Jobs
 
-## categories
+- jobs
+- job_categories
+- job_applications
+- resumes
 
-Purpose
+## Housing
 
-Directory categories.
+- housing
+- housing_images
+- housing_favorites
 
-Fields
+## Community
 
-* id
-* name
-* slug
-* icon
-* description
-* created_at
-* updated_at
+- posts
+- comments
+- reactions
+- groups
+- group_members
+- conversations
+- messages
 
----
+## Travel
 
-## listings
+- travel_bookings
+- flight_requests
+- hotel_requests
+- esim_orders
+- insurance_orders
 
-Purpose
+## Visa
 
-Business directory.
+- visa_requests
+- work_permit_requests
+- passport_services
 
-Fields
+## Money
 
-* id
-* category_id
-* owner_id
-* business_name
-* slug
-* description
-* phone
-* email
-* website
-* address
-* latitude
-* longitude
-* city
-* province
-* country
-* opening_hours
-* featured
-* verified
-* rating
-* review_count
-* status
-* created_at
-* updated_at
+- money_transfer_leads
+- exchange_rates
+- wallets
+- wallet_transactions
 
----
+## AI
 
-## listing_images
+- ai_conversations
+- ai_messages
+- ai_prompt_logs
+- ai_usage
 
-Purpose
+## Content
 
-Business gallery.
+- news
+- events
+- learn_thai_lessons
 
-Fields
+## Business
 
-* id
-* listing_id
-* image_url
-* sort_order
-* created_at
+- businesses
+- business_memberships
+- advertisements
+- leads
 
----
+## System
 
-## reviews
-
-Purpose
-
-User reviews.
-
-Fields
-
-* id
-* listing_id
-* user_id
-* rating
-* comment
-* created_at
+- notifications
+- translations
+- audit_logs
+- analytics_events
+- api_keys
+- support_tickets
+- system_settings
 
 ---
 
-## favorites
+# Common Fields
 
-Purpose
+Every major table should include:
 
-Saved businesses.
-
-Fields
-
-* id
-* user_id
-* listing_id
-* created_at
-
----
-
-## jobs
-
-Purpose
-
-Job board.
-
-Fields
-
-* id
-* company_id
-* title
-* slug
-* description
-* salary
-* employment_type
-* location
-* status
-* expires_at
-* created_at
-* updated_at
-
----
-
-## job_applications
-
-Purpose
-
-Job applications.
-
-Fields
-
-* id
-* job_id
-* user_id
-* resume_url
-* cover_letter
-* status
-* created_at
-
----
-
-## housing
-
-Purpose
-
-Rental listings.
-
-Fields
-
-* id
-* owner_id
-* title
-* slug
-* description
-* price
-* property_type
-* bedrooms
-* bathrooms
-* address
-* latitude
-* longitude
-* city
-* province
-* status
-* created_at
-* updated_at
-
----
-
-## housing_images
-
-Purpose
-
-Property gallery.
-
-Fields
-
-* id
-* housing_id
-* image_url
-* sort_order
-* created_at
-
----
-
-## events
-
-Purpose
-
-Community events.
-
-Fields
-
-* id
-* title
-* slug
-* description
-* image
-* venue
-* city
-* start_date
-* end_date
-* organizer
-* status
-* created_at
-* updated_at
-
----
-
-## news
-
-Purpose
-
-News articles.
-
-Fields
-
-* id
-* title
-* slug
-* summary
-* content
-* cover_image
-* author
-* published_at
-* status
-* created_at
-* updated_at
-
----
-
-## ai_conversations
-
-Purpose
-
-AI chat history.
-
-Fields
-
-* id
-* user_id
-* session_id
-* message
-* role
-* tokens
-* created_at
-
----
-
-## notifications
-
-Purpose
-
-User notifications.
-
-Fields
-
-* id
-* user_id
-* title
-* message
-* type
-* is_read
-* created_at
-
----
-
-# User Roles
-
-Guest
-
-User
-
-Business
-
-Moderator
-
-Admin
-
-Super Admin
+- id (UUID)
+- created_at
+- updated_at
+- deleted_at (nullable)
+- status
 
 ---
 
 # Relationships
 
 users
-
-↓
-
-user_profiles
-
-users
-
-↓
-
-favorites
-
-↓
-
-listings
-
-users
-
-↓
-
-reviews
-
-↓
-
-listings
+├── user_profiles
+├── favorites
+├── reviews
+├── job_applications
+├── housing
+├── posts
+├── ai_conversations
+├── visa_requests
+├── travel_bookings
+└── notifications
 
 categories
-
-↓
+└── listings
 
 listings
-
-users
-
-↓
+├── listing_images
+├── reviews
+└── listing_tags
 
 jobs
-
-↓
-
-job_applications
-
-users
-
-↓
+└── job_applications
 
 housing
+└── housing_images
 
-users
+---
 
-↓
+# Index Strategy
 
-ai_conversations
+Index:
 
-users
+- email
+- slug
+- category_id
+- owner_id
+- status
+- city
+- province
+- created_at
 
-↓
-
-notifications
+Use Full-text Search where appropriate.
 
 ---
 
 # File Storage
 
-Store files in Supabase Storage.
+Supabase Storage
 
-Supported files
+Buckets
 
-* Images
-* Avatars
-* Business Photos
-* Property Photos
-* Event Banners
-* Documents
-* Resumes
-
----
-
-# Searchable Tables
-
-* listings
-* jobs
-* housing
-* news
-* events
+- avatars
+- listings
+- housing
+- events
+- news
+- resumes
+- documents
+- travel
+- visa
 
 ---
 
-# Future Tables
+# User Roles
 
-* memberships
-* payments
-* subscriptions
-* invoices
-* coupons
-* advertisements
-* messages
-* conversations
-* reports
-* bookmarks
-* tags
-* analytics
-* audit_logs
-* api_keys
-* translations
-* support_tickets
+- Guest
+- User
+- Business
+- Moderator
+- Admin
+- Super Admin
+
+---
+
+# Supported Languages
+
+- English
+- Thai
+- Myanmar
+
+Translation-ready schema required.
+
+---
+
+# Security
+
+- Foreign Keys
+- Cascading rules where appropriate
+- Input validation
+- Audit logs
+- No sensitive secrets stored in plaintext
+
+---
+
+# Future Expansion
+
+- Marketplace
+- Loyalty Program
+- Referral System
+- Rewards
+- Payments
+- Stripe Billing
+- Mobile Push Notifications
+- Business CRM
+- Public API
+- Data Warehouse
