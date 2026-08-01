@@ -17,3 +17,5 @@ package-lock.json
 *.log
 coverage/
 project-structure.txt
+
+/lib/generated/prisma

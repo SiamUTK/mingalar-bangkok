@@ -1,0 +1,128 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  PENDING
+  SUSPENDED
+}
+
+enum MembershipPlan {
+  FREE
+  PLUS
+  PRO
+  BUSINESS
+}
+
+enum MembershipStatus {
+  ACTIVE
+  EXPIRED
+  CANCELLED
+  TRIAL
+}
+
+enum Language {
+  EN
+  TH
+  MY
+}
+
+enum Theme {
+  LIGHT
+  DARK
+  SYSTEM
+}
+
+model User {
+  id              String            @id @default(uuid())
+  supabaseId      String?           @unique
+  email           String            @unique
+  emailVerified   Boolean           @default(false)
+  status          UserStatus        @default(PENDING)
+  lastLoginAt     DateTime?
+
+  profile         Profile?
+  membership      Membership?
+  preference      UserPreference?
+
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  deletedAt       DateTime?
+
+  @@map("users")
+}
+
+model Profile {
+  id              String      @id @default(uuid())
+  userId          String      @unique
+
+  displayName     String?
+  username        String?     @unique
+  firstName       String?
+  lastName        String?
+  myanmarName     String?
+  bio             String?     @db.Text
+
+  avatar          String?
+  coverImage      String?
+
+  phone           String?
+
+  country         String?
+  province        String?
+  city            String?
+
+  language        Language    @default(EN)
+
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@map("profiles")
+}
+
+model Membership {
+  id              String              @id @default(uuid())
+  userId          String              @unique
+
+  plan            MembershipPlan      @default(FREE)
+  status          MembershipStatus    @default(TRIAL)
+
+  startedAt       DateTime?
+  expiresAt       DateTime?
+
+  user            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+
+  @@map("memberships")
+}
+
+model UserPreference {
+  id                  String      @id @default(uuid())
+  userId              String      @unique
+
+  language            Language    @default(EN)
+  theme               Theme       @default(SYSTEM)
+  currency            String      @default("THB")
+
+  emailNotification   Boolean     @default(true)
+  pushNotification    Boolean     @default(true)
+  marketingEmail      Boolean     @default(false)
+
+  user                User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+
+  @@map("user_preferences")
+}
