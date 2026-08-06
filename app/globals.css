@@ -1,16 +1,14 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
 /* ==========================================================
-   Theme Setup (Tailwind v4 Utility Mapping)
+   Theme Setup (Tailwind v4 Clean Utility Mapping)
 ========================================================== */
 
-@theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-  /* Map Semantic Colors to Tailwind v4 Utility Classes */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
@@ -36,18 +34,17 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  /* Brand Colors */
+  --color-destructive: var(--destructive);
+
   --color-ruby-red: #c62828;
   --color-warm-gold: #d4af37;
   --color-deep-navy: #1e3a5f;
   --color-warm-white: #fafaf8;
 
-  /* Status Colors */
   --color-success: #16a34a;
   --color-warning: #f59e0b;
   --color-danger: #dc2626;
 
-  /* Radius */
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
   --radius-lg: 1rem;
@@ -61,8 +58,6 @@
 ========================================================== */
 
 :root {
-  color-scheme: light dark;
-
   --background: #fafaf8;
   --foreground: #1f2937;
 
@@ -86,19 +81,11 @@
 
   --border: #e5e7eb;
   --input: #e5e7eb;
-
   --ring: #c62828;
 
   --destructive: #dc2626;
-
   --success: #16a34a;
   --warning: #f59e0b;
-
-  --chart-1: #c62828;
-  --chart-2: #d4af37;
-  --chart-3: #1e3a5f;
-  --chart-4: #2563eb;
-  --chart-5: #10b981;
 
   --radius: 0.75rem;
 }
@@ -108,8 +95,6 @@
 ========================================================== */
 
 .dark {
-  color-scheme: dark;
-
   --background: #09090b;
   --foreground: #f4f4f5;
 
@@ -133,295 +118,50 @@
 
   --border: #27272a;
   --input: #27272a;
-
   --ring: #ef4444;
 
   --destructive: #dc2626;
-
   --success: #22c55e;
   --warning: #f59e0b;
-
-  --chart-1: #ef4444;
-  --chart-2: #eab308;
-  --chart-3: #3b82f6;
-  --chart-4: #22c55e;
-  --chart-5: #a855f7;
 }
 
 /* ==========================================================
-   Base Styles
+   Base Global Reset
 ========================================================== */
 
-@layer base {
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-    border-color: var(--border);
-  }
-
-  html {
-    scroll-behavior: smooth;
-    background: var(--background);
-    -webkit-text-size-adjust: 100%;
-  }
-
-  body {
-    min-height: 100vh;
-    background: var(--background);
-    color: var(--foreground);
-    font-family: var(--font-sans);
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  img,
-  picture,
-  svg,
-  video,
-  canvas {
-    display: block;
-    max-width: 100%;
-  }
-
-  input,
-  button,
-  textarea,
-  select {
-    font: inherit;
-  }
-
-  button {
-    cursor: pointer;
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  ::selection {
-    background: var(--primary);
-    color: var(--primary-foreground);
-  }
-
-  :focus-visible {
-    outline: 2px solid var(--ring);
-    outline-offset: 2px;
-  }
-
-  /* Typography */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    color: var(--foreground);
-    font-weight: 700;
-    text-wrap: balance;
-  }
-
-  p,
-  li {
-    color: var(--foreground);
-    text-wrap: pretty;
-  }
-
-  small {
-    color: var(--muted-foreground);
-  }
-
-  code,
-  pre,
-  kbd {
-    font-family: var(--font-mono);
-  }
-
-  /* Scrollbar Customization */
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: var(--muted);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: color-mix(in srgb, var(--primary) 75%, transparent);
-    border-radius: 999px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--primary);
-  }
-
-  /* Form Controls */
-  input,
-  textarea,
-  select {
-    background: var(--background);
-    color: var(--foreground);
-  }
-
-  input::placeholder,
-  textarea::placeholder {
-    color: var(--muted-foreground);
-  }
-
-  hr {
-    border-color: var(--border);
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  border-color: var(--border);
 }
 
-/* ==========================================================
-   Utilities
-========================================================== */
-
-@layer utilities {
-  .container-page {
-    @apply mx-auto w-full max-w-7xl px-6 lg:px-8;
-  }
-
-  .section {
-    @apply py-24;
-  }
-
-  .section-sm {
-    @apply py-16;
-  }
-
-  .section-lg {
-    @apply py-32;
-  }
-
-  /* Glassmorphism Styles (Tailwind v4 Compliant) */
-  .glass {
-    @apply border backdrop-blur-xl;
-    border-color: color-mix(in srgb, var(--border) 60%, transparent);
-    background: color-mix(in srgb, var(--background) 70%, transparent);
-  }
-
-  .glass-card {
-    @apply rounded-4xl border backdrop-blur-xl;
-    border-color: color-mix(in srgb, var(--border) 60%, transparent);
-    background: color-mix(in srgb, var(--background) 70%, transparent);
-  }
-
-  .card-hover {
-    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl;
-  }
-
-  /* Gradients */
-  .text-gradient {
-    @apply bg-linear-to-r from-blue-600 via-cyan-500 to-sky-500 bg-clip-text text-transparent;
-  }
-
-  .hero-gradient {
-    @apply bg-linear-to-br from-primary to-blue-700;
-  }
-
-  .surface {
-    @apply rounded-4xl border bg-card;
-  }
-
-  .shadow-soft {
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-  }
-
-  .hide-scrollbar {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-
-  .line-clamp-1 {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-  }
-
-  .line-clamp-2 {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-  }
-
-  .line-clamp-3 {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-  }
+html {
+  scroll-behavior: smooth;
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
-/* ==========================================================
-   Components
-========================================================== */
+body {
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-@layer components {
-  .section-title {
-    @apply text-4xl font-black tracking-tight md:text-5xl;
-  }
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
 
-  .section-description {
-    @apply mt-4 max-w-3xl text-lg leading-8 text-muted-foreground;
-  }
+::-webkit-scrollbar-track {
+  background: var(--muted);
+}
 
-  .section-badge {
-    @apply inline-flex items-center rounded-full border px-4 py-1.5 text-sm font-medium text-primary;
-    border-color: color-mix(in srgb, var(--primary) 20%, transparent);
-    background-color: color-mix(in srgb, var(--primary) 10%, transparent);
-  }
-
-  .feature-card {
-    @apply rounded-4xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl;
-  }
-
-  .feature-card:hover {
-    border-color: color-mix(in srgb, var(--primary) 30%, transparent);
-  }
-
-  .content-card {
-    @apply rounded-4xl border border-border bg-card p-6;
-  }
-
-  .icon-box {
-    @apply flex h-14 w-14 items-center justify-center rounded-2xl text-primary;
-    background-color: color-mix(in srgb, var(--primary) 10%, transparent);
-  }
-
-  .status-badge {
-    @apply inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold;
-  }
-
-  .featured-badge {
-    @apply inline-flex items-center gap-1 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground;
-  }
-
-  .verified-badge {
-    @apply inline-flex items-center gap-1 rounded-full bg-emerald-600 px-3 py-1 text-xs font-semibold text-white;
-  }
-
-  .button-primary {
-    @apply inline-flex items-center justify-center rounded-xl bg-primary px-5 py-3 font-medium text-primary-foreground transition-colors;
-  }
-  .button-primary:hover {
-    background-color: color-mix(in srgb, var(--primary) 90%, transparent);
-  }
-
-  .button-secondary {
-    @apply inline-flex items-center justify-center rounded-xl border border-border bg-background px-5 py-3 font-medium transition-colors hover:bg-muted;
-  }
-
-  .input-primary {
-    @apply h-11 rounded-xl border border-input bg-background px-4 text-sm outline-none transition focus:border-primary;
-  }
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 9999px;
 }
