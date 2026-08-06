@@ -3,10 +3,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import "./globals.css";
 
+import { StickyAiWidget } from "@/components/ai/sticky-ai-widget";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { PageTransitionProvider } from "@/components/ui/page-transition-provider";
 import { Toaster } from "@/components/ui/sonner";
-import { StickyAiWidget } from "@/components/ai/sticky-ai-widget"; // ⭐ Import Sticky AI Widget
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -80,6 +80,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
+        suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-background font-sans antialiased`}
       >
         <ThemeProvider
@@ -90,7 +91,7 @@ export default function RootLayout({
         >
           <PageTransitionProvider>{children}</PageTransitionProvider>
 
-          {/* ⭐ Universal Sticky Floating AI Chat Widget */}
+          {/* Universal Sticky Floating AI Chat Widget */}
           <StickyAiWidget />
 
           <Toaster richColors position="top-right" />
