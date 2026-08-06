@@ -23,3 +23,4 @@ export function PageTransitionProvider({ children }: PageTransitionProviderProps
     </AnimatePresence>
   );
 }
+

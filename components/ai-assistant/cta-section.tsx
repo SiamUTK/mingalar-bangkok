@@ -70,3 +70,4 @@ export function CTASection({ onGetStarted, onLearnMore }: CTASectionProps) {
     </section>
   );
 }
+

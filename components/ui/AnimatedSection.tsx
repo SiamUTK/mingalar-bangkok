@@ -42,3 +42,4 @@ export function AnimatedSection({ children, className, ...props }: AnimatedSecti
     </LazyMotion>
   );
 }
+

@@ -64,3 +64,4 @@ export function ForgotPasswordForm({ onSubmit, error }: ForgotPasswordFormProps)
     </form>
   );
 }
+

@@ -137,3 +137,4 @@ export function BusinessListView({ businesses, onSave, onShare }: BusinessListVi
     </div>
   );
 }
+

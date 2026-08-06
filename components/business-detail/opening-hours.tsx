@@ -37,3 +37,4 @@ export function OpeningHours({ hours }: OpeningHoursProps) {
     </Card>
   );
 }
+

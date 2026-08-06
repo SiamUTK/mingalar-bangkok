@@ -45,3 +45,4 @@ export function TrendingBusinesses({ onBusinessClick }: TrendingBusinessesProps)
   )
 }
 
+

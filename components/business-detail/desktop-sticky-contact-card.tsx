@@ -55,7 +55,7 @@ export function DesktopStickyContactCard({
         <div className="space-y-2 border-t pt-3">
           <Button
             size="sm"
-            fullWidth
+            className="w-full"
             onClick={onCall}
           >
             Call
@@ -63,7 +63,7 @@ export function DesktopStickyContactCard({
           <Button
             size="sm"
             variant="secondary"
-            fullWidth
+            className="w-full"
             onClick={onGetDirections}
           >
             Get Directions
@@ -103,4 +103,5 @@ export function DesktopStickyContactCard({
     </Card>
   )
 }
+
 

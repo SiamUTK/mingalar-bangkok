@@ -32,3 +32,4 @@ export function AnimatedPopover({ open, children, className }: AnimatedPopoverPr
     </LazyMotion>
   );
 }
+

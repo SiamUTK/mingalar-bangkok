@@ -40,3 +40,4 @@ export function SkeletonText({ lines = 3, className }: SkeletonTextProps) {
   )
 }
 
+

@@ -103,3 +103,4 @@ export function MobileBottomNav({ items = defaultItems, className }: MobileBotto
     </nav>
   );
 }
+

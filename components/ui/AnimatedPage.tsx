@@ -43,3 +43,4 @@ export function AnimatedPage({ children, className }: AnimatedPageProps) {
     </LazyMotion>
   );
 }
+

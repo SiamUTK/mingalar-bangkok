@@ -52,3 +52,4 @@ export function SimilarBusinesses({ businesses }: SimilarBusinessesProps) {
   )
 }
 
+

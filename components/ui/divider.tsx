@@ -13,3 +13,4 @@ export function Divider({ className, orientation = 'horizontal' }: DividerProps)
   return <hr className={cn('border-t border-border', className)} />
 }
 
+

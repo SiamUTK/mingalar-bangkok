@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation"; // 1. เพิ่ม import
 import { Bot, Sparkles, X, Send, Lock, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 
@@ -16,6 +17,7 @@ const defaultPrompts = [
 ];
 
 export function StickyAiWidget() {
+  const router = useRouter(); // 2. ประกาศใช้งาน router
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
@@ -213,3 +215,4 @@ export function StickyAiWidget() {
     </div>
   );
 }
+

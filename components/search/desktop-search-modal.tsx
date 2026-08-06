@@ -72,3 +72,4 @@ export function DesktopSearchModal({ query, onQueryChange, onClose }: DesktopSea
     </>
   );
 }
+

@@ -129,3 +129,4 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
     </>
   );
 }
+

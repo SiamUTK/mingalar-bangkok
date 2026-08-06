@@ -14,3 +14,4 @@ export function AuthCard({ children, className = "" }: AuthCardProps) {
     </Card>
   );
 }
+

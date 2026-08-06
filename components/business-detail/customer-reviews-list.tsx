@@ -36,7 +36,7 @@ export function CustomerReviewsList({
               {hasMore && (
                 <Button
                   variant="secondary"
-                  fullWidth
+                  className="w-full"
                   onClick={onLoadMore}
                   className="mt-4"
                 >
@@ -50,4 +50,5 @@ export function CustomerReviewsList({
     </Card>
   )
 }
+
 

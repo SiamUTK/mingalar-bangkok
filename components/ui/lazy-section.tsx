@@ -28,3 +28,4 @@ const LazySectionContent = dynamic(
 export function LazySection({ component: Component }: LazySectionProps) {
   return <LazySectionContent component={Component} />;
 }
+

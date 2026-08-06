@@ -23,3 +23,4 @@ export function AuthHeader({ title, description, showLogo = true }: AuthHeaderPr
     </header>
   );
 }
+

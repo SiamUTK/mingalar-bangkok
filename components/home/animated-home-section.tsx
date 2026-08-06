@@ -11,3 +11,4 @@ interface AnimatedHomeSectionProps {
 export function AnimatedHomeSection({ children, className }: AnimatedHomeSectionProps) {
   return <AnimatedSection className={cn("w-full", className)}>{children}</AnimatedSection>;
 }
+

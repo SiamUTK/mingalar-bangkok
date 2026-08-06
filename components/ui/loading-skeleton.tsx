@@ -91,3 +91,4 @@ export function CardSkeleton({ className }: SkeletonProps) {
     </div>
   );
 }
+

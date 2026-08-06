@@ -1,0 +1,33 @@
+export type {
+  BaseEmailProps,
+  VerificationEmailProps,
+  WelcomeEmailProps,
+  ForgotPasswordEmailProps,
+  ResetPasswordEmailProps,
+  ChangeEmailEmailProps,
+  MembershipUpgradedEmailProps,
+  MembershipExpiredEmailProps,
+  BusinessApprovedEmailProps,
+  BusinessRejectedEmailProps,
+  ReviewNotificationEmailProps,
+  WeeklyDigestItem,
+  WeeklyDigestEmailProps,
+  InvoiceItem,
+  InvoiceEmailProps,
+  PaymentSuccessEmailProps,
+  PaymentFailedEmailProps,
+  EmailTemplateProps,
+} from "./email-props";
+
+export type {
+  EmailTemplateName,
+  EmailTemplateMap,
+  EmailTemplateComponent,
+  EmailRenderResult,
+  EmailMessage,
+  EmailRecipient,
+  EmailAttachment,
+  SendEmailOptions,
+  EmailQueueJob,
+  EmailContext,
+} from "./email-template";

@@ -40,3 +40,4 @@ export function OfflineBanner({ className }: OfflineBannerProps) {
     </div>
   );
 }
+

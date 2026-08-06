@@ -10,10 +10,10 @@ export const motionDurations = {
   slow: 0.3,
 } as const;
 
-export const createTransition = (duration = motionDurations.base, delay = 0): Transition => ({
+// ปรับเปลี่ยน Signature ของฟังก์ชัน createTransition ให้รับ number ทั่วไป
+export const createTransition = (duration: number = 0.24) => ({
   duration,
-  delay,
-  ease: motionEasing.easeOut,
+  ease: [0.25, 0.1, 0.25, 1.0],
 });
 
 export const fadeMotion = {

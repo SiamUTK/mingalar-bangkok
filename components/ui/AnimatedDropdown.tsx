@@ -32,3 +32,4 @@ export function AnimatedDropdown({ open, children, className }: AnimatedDropdown
     </LazyMotion>
   );
 }
+

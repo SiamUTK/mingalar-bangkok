@@ -34,3 +34,4 @@ export function AuthLayout({ title, description, children, footer }: AuthLayoutP
     </main>
   );
 }
+

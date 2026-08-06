@@ -68,3 +68,4 @@ export function CardFooter({ children, className }: CardFooterProps) {
   return <div className={cn('flex items-center gap-4 pt-4', className)}>{children}</div>
 }
 
+

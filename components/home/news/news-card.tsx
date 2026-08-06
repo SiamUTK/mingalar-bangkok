@@ -54,3 +54,4 @@ export function NewsCard({ id, title, summary, date, category, image }: NewsCard
     </Link>
   );
 }
+

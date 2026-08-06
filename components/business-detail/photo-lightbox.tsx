@@ -91,3 +91,4 @@ export function PhotoLightbox({ isOpen, photos, initialIndex, onClose }: PhotoLi
     </div>
   );
 }
+

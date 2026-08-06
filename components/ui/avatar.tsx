@@ -47,3 +47,4 @@ export function Avatar({ src, alt, fallback, size = "md", className }: AvatarPro
     </div>
   );
 }
+

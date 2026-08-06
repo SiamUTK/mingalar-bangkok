@@ -17,3 +17,4 @@ export function AuthDivider({ label = "or" }: AuthDividerProps) {
     </div>
   );
 }
+

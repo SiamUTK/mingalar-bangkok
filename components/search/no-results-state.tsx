@@ -22,3 +22,4 @@ export function NoResultsState({ query, onClearSearch }: NoResultsStateProps) {
   )
 }
 
+

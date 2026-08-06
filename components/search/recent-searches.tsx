@@ -62,3 +62,4 @@ export function RecentSearches({ onSearchClick }: RecentSearchesProps) {
 
 import React from 'react'
 
+

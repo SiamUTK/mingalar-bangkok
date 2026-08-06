@@ -43,3 +43,4 @@ export function AuthLogo({ size = "md" }: AuthLogoProps) {
     </Link>
   );
 }
+

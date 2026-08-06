@@ -35,3 +35,4 @@ export function SearchResultTabs({ tabs, activeTab, onTabChange }: SearchResultT
   )
 }
 
+

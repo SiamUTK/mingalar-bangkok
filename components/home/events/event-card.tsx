@@ -75,3 +75,4 @@ export function EventCard({ id, title, date, location, category, image }: EventC
     </div>
   );
 }
+

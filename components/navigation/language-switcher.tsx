@@ -133,3 +133,4 @@ export function LanguageSwitcher({
     </div>
   );
 }
+

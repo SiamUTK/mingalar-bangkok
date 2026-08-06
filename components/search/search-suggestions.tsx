@@ -34,3 +34,4 @@ export function SearchSuggestions({ suggestions, onSuggestionClick }: SearchSugg
   )
 }
 
+

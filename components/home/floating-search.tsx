@@ -47,3 +47,4 @@ export function FloatingSearch() {
     </motion.div>
   );
 }
+

@@ -18,3 +18,4 @@ export function BusinessRating({ rating, reviewCount }: BusinessRatingProps) {
     </div>
   );
 }
+

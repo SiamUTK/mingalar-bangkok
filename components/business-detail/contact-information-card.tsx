@@ -39,7 +39,7 @@ export function ContactInformationCard({
             size="sm"
             onClick={onCall}
             className="mt-2"
-            fullWidth
+            className="w-full"
           >
             Call Now
           </Button>
@@ -58,7 +58,7 @@ export function ContactInformationCard({
             variant="secondary"
             onClick={onGetDirections}
             className="mt-2"
-            fullWidth
+            className="w-full"
           >
             Get Directions
           </Button>
@@ -95,4 +95,5 @@ export function ContactInformationCard({
     </Card>
   )
 }
+
 
