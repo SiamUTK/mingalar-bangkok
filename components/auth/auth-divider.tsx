@@ -1,12 +1,15 @@
 "use client";
 
-interface AuthDividerProps {
+import * as React from "react";
+import { cn } from "@/lib/utils";
+
+export interface AuthDividerProps extends React.HTMLAttributes<HTMLDivElement> {
   label?: string;
 }
 
-export function AuthDivider({ label = "or" }: AuthDividerProps) {
+export function AuthDivider({ label = "or", className, ...props }: AuthDividerProps) {
   return (
-    <div className="relative my-6">
+    <div className={cn("relative my-6", className)} {...props}>
       <div className="absolute inset-0 flex items-center">
         <div className="w-full border-t border-border" />
       </div>
@@ -17,4 +20,3 @@ export function AuthDivider({ label = "or" }: AuthDividerProps) {
     </div>
   );
 }
-

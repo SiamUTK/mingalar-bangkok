@@ -1,10 +1,11 @@
 "use client";
 
+import * as React from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { Briefcase, Home, Bot, FileText, Plane, Banknote } from "lucide-react";
 
-import { hoverCardMotion, staggerContainer, staggerItem } from "@/lib/motion";
+import { hoverScale, staggerContainer, staggerItem } from "@/lib/motion";
 
 const quickActions = [
   {
@@ -63,20 +64,20 @@ export function HeroQuickActions() {
       </div>
 
       <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        animate="show"
+        variants={shouldReduceMotion ? undefined : staggerContainer}
+        initial={shouldReduceMotion ? undefined : "hidden"}
+        animate={shouldReduceMotion ? undefined : "visible"}
         className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6"
       >
         {quickActions.map((action) => {
           const Icon = action.icon;
 
           return (
-            <motion.div key={action.title} variants={staggerItem}>
+            <motion.div key={action.title} variants={shouldReduceMotion ? undefined : staggerItem}>
               <Link href={action.href}>
                 <motion.div
-                  whileHover={shouldReduceMotion ? undefined : hoverCardMotion.whileHover}
-                  className="group flex flex-col items-center rounded-2xl border border-border/60 bg-background/80 p-4 text-center shadow-sm backdrop-blur-md transition-all duration-300 hover:border-primary/40 hover:shadow-md"
+                  whileHover={shouldReduceMotion ? undefined : hoverScale}
+                  className="group flex flex-col items-center rounded-2xl border border-border/60 bg-background/80 p-4 text-center shadow-xs backdrop-blur-md transition-all duration-300 hover:border-primary/40 hover:shadow-md"
                 >
                   <div
                     className={`mb-3 flex h-11 w-11 items-center justify-center rounded-xl border ${action.color} transition-transform duration-300 group-hover:scale-110`}
@@ -98,4 +99,3 @@ export function HeroQuickActions() {
     </div>
   );
 }
-

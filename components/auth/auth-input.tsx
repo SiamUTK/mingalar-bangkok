@@ -1,23 +1,23 @@
 "use client";
 
-import { forwardRef } from "react";
-
+import * as React from "react";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
-interface AuthInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface AuthInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   error?: string;
 }
 
-export const AuthInput = forwardRef<HTMLInputElement, AuthInputProps>(
-  ({ label, error, className, ...props }, ref) => {
+export const AuthInput = React.forwardRef<HTMLInputElement, AuthInputProps>(
+  ({ label, error, className, id, ...props }, ref) => {
     return (
       <div className="space-y-2">
-        <label htmlFor={props.id} className="text-sm font-medium">
+        <label htmlFor={id} className="text-sm font-medium">
           {label}
         </label>
 
-        <Input ref={ref} className={className} {...props} />
+        <Input ref={ref} id={id} className={cn(className)} {...props} />
 
         {error && <p className="text-sm text-destructive">{error}</p>}
       </div>
@@ -26,4 +26,3 @@ export const AuthInput = forwardRef<HTMLInputElement, AuthInputProps>(
 );
 
 AuthInput.displayName = "AuthInput";
-

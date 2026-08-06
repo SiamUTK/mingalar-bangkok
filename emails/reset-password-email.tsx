@@ -1,171 +1,105 @@
 import * as React from "react";
+import {
+  EmailLayout,
+  Heading,
+  Section,
+  Text,
+  MutedText,
+  Divider,
+  Button,
+} from "@/lib/email/components";
+import { EMAIL_BRAND, EMAIL_COLORS } from "@/lib/email/constants";
+import type { ResetPasswordEmailProps } from "@/lib/email/types/email-props";
 
-import { EMAIL_BRAND, EMAIL_COLORS, EMAIL_LINKS } from "@/lib/email";
-import type { ResetPasswordEmailProps } from "@/lib/email/types";
-
-import { EmailLayout } from "./layouts";
-import { Button, Divider } from "./partials";
-import { Heading, MutedText, Section, SmallText, Text } from "./shared";
-
-// ----------------------------------------------------------------------
-// Helper Functions
-// ----------------------------------------------------------------------
-
-function formatRecipient(name?: string): string {
-  const value = name?.trim();
-  return value && value.length > 0 ? value : "there";
-}
-
-// ----------------------------------------------------------------------
-// Inline Styles (Reusable design tokens)
-// ----------------------------------------------------------------------
-
-const supportLinkStyle: React.CSSProperties = {
-  color: EMAIL_COLORS.primary,
-  textDecoration: "none",
-  fontWeight: 600,
-};
-
-// ----------------------------------------------------------------------
-// Main Component
-// ----------------------------------------------------------------------
-
-export function ResetPasswordEmail({
-  recipientName,
+export default function ResetPasswordEmail({
+  name,
   loginUrl,
-  supportEmail,
 }: ResetPasswordEmailProps): React.JSX.Element {
-  const greeting = formatRecipient(recipientName);
-
-  // Safely resolve the absolute sign-in URL
-  const signInUrl = React.useMemo(() => {
-    if (loginUrl?.trim()) {
-      return loginUrl;
-    }
-    try {
-      return new URL(EMAIL_LINKS.login, EMAIL_BRAND.website).toString();
-    } catch {
-      return EMAIL_LINKS.login;
-    }
-  }, [loginUrl]);
-
   return (
-    <EmailLayout
-      title="Your password has been changed"
-      subtitle="Your account password has been updated successfully."
-      preview="Your Mingalar Bangkok password has been changed successfully."
-    >
-      {/* Confirmation Message */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={2}>Password updated successfully</Heading>
+    <EmailLayout previewText={`Your password has been successfully reset for ${EMAIL_BRAND.name}`}>
+      <Section style={styles.container}>
+        <Heading style={styles.heading}>Password Reset Successful</Heading>
 
-        <Text>
-          Hello <strong>{greeting}</strong>,
+        <Text style={styles.text}>Hello {name},</Text>
+
+        <Text style={styles.text}>
+          This is a confirmation that the password for your {EMAIL_BRAND.name} account has been
+          successfully changed.
         </Text>
 
-        <Text>
-          This email confirms that the password for your <strong>{EMAIL_BRAND.name}</strong> account
-          has been changed successfully.
+        <Text style={styles.text}>
+          If you initiated this change, no further action is required. You can now log in to your
+          account using your new password.
         </Text>
 
-        <Text>
-          If you made this change, no further action is required. Your account is now protected with
-          your new password.
+        <Section style={styles.buttonContainer}>
+          <Button href={loginUrl} style={styles.button}>
+            Log In to Your Account
+          </Button>
+        </Section>
+
+        <Text style={styles.warningText}>
+          If you did not request a password change, please contact our support team immediately as
+          your account security may be compromised.
         </Text>
 
-        <MutedText marginBottom={0}>You can sign in immediately using your new password.</MutedText>
-      </Section>
+        <Divider style={styles.divider} />
 
-      <Section paddingTop={8} paddingBottom={8}>
-        <Button href={signInUrl}>Sign In</Button>
-
-        <SmallText align="center" marginTop={16} marginBottom={0} color={EMAIL_COLORS.textMuted}>
-          Your previous password can no longer be used to access your account.
-        </SmallText>
-      </Section>
-
-      <Divider />
-
-      {/* Security Guidance */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={4}>Keep your account secure</Heading>
-
-        <Text>
-          Your password has been updated and your account is now protected by your new credentials.
-          We recommend using a unique password that is not shared with any other online service.
-        </Text>
-
-        <Text>
-          If your account is signed in on multiple devices, you may be asked to sign in again using
-          your new password.
-        </Text>
-
-        <MutedText marginBottom={0}>
-          Never share your password with anyone. Our support team will never ask for your password.
+        <MutedText style={styles.mutedText}>
+          You are receiving this security notification because a critical change was made to your{" "}
+          {EMAIL_BRAND.name} account.
         </MutedText>
-      </Section>
-
-      <Divider />
-
-      {/* Security Warning / Unauthorized Access */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={4}>Didn't change your password?</Heading>
-
-        <Text>
-          If you did <strong>not</strong> change your password, your account may have been accessed
-          by someone else.
-        </Text>
-
-        <Text>
-          We recommend signing in immediately, changing your password again, and reviewing your
-          account activity to make sure everything looks correct.
-        </Text>
-
-        {supportEmail ? (
-          <Text marginBottom={0}>
-            If you cannot access your account, please contact our support team immediately at{" "}
-            <a href={`mailto:${supportEmail}`} style={supportLinkStyle}>
-              {supportEmail}
-            </a>
-            .
-          </Text>
-        ) : (
-          <Text marginBottom={0}>
-            If you cannot access your account, please contact our support team immediately through{" "}
-            <a
-              href={EMAIL_BRAND.website}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={supportLinkStyle}
-            >
-              {EMAIL_BRAND.website}
-            </a>
-            .
-          </Text>
-        )}
-      </Section>
-
-      <Divider />
-
-      {/* Support Section */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={4}>Need assistance?</Heading>
-
-        <Text>
-          If you experience any issues signing in with your new password, our support team is here
-          to help.
-        </Text>
-
-        <Button href={EMAIL_BRAND.website} variant="outline">
-          Visit {EMAIL_BRAND.name}
-        </Button>
-
-        <SmallText align="center" marginTop={16} marginBottom={0} color={EMAIL_COLORS.textMuted}>
-          This is an automated security notification. Please do not reply directly to this email.
-        </SmallText>
       </Section>
     </EmailLayout>
   );
 }
 
-export default ResetPasswordEmail;
+const styles = {
+  container: {
+    padding: "0 24px",
+  },
+  heading: {
+    color: EMAIL_COLORS.textPrimary,
+    fontSize: "24px",
+    fontWeight: "bold",
+    textAlign: "left" as const,
+    margin: "0 0 20px",
+  },
+  text: {
+    color: EMAIL_COLORS.textSecondary,
+    fontSize: "16px",
+    lineHeight: "24px",
+    margin: "0 0 16px",
+  },
+  warningText: {
+    color: "#d97706",
+    fontSize: "16px",
+    lineHeight: "24px",
+    margin: "0 0 16px",
+  },
+  buttonContainer: {
+    margin: "24px 0",
+    textAlign: "center" as const,
+  },
+  button: {
+    backgroundColor: EMAIL_COLORS.primary,
+    borderRadius: "6px",
+    color: "#ffffff",
+    fontSize: "16px",
+    fontWeight: "bold",
+    textDecoration: "none",
+    textAlign: "center" as const,
+    display: "inline-block",
+    padding: "12px 24px",
+  },
+  divider: {
+    borderColor: EMAIL_COLORS.border,
+    margin: "24px 0",
+  },
+  mutedText: {
+    color: EMAIL_COLORS.textMuted,
+    fontSize: "14px",
+    lineHeight: "20px",
+    margin: "0",
+  },
+};

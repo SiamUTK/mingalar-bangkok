@@ -1,11 +1,12 @@
 "use client";
 
+import * as React from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { CheckCircle2, Bookmark, Send, Sparkles, Bell, Users } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { fadeMotion, hoverCardMotion } from "@/lib/motion";
+import { fadeMotion, hoverScale } from "@/lib/motion";
 
 const benefits = [
   {
@@ -40,10 +41,10 @@ export function HeroMemberBenefits() {
 
   return (
     <motion.div
-      initial={shouldReduceMotion ? false : fadeMotion.initial}
-      animate={shouldReduceMotion ? undefined : fadeMotion.animate}
-      transition={fadeMotion.transition}
-      className="mx-auto max-w-5xl rounded-3xl border border-primary/20 bg-linear-to-b from-primary/5 via-background to-background p-6 md:p-8 text-left shadow-xl"
+      initial={shouldReduceMotion ? undefined : "hidden"}
+      animate={shouldReduceMotion ? undefined : "visible"}
+      variants={fadeMotion}
+      className="mx-auto max-w-5xl rounded-3xl border border-primary/20 bg-gradient-to-b from-primary/5 via-background to-background p-6 md:p-8 text-left shadow-xl"
     >
       <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
         {/* Left Info */}
@@ -77,8 +78,8 @@ export function HeroMemberBenefits() {
             return (
               <motion.div
                 key={item.title}
-                whileHover={shouldReduceMotion ? undefined : hoverCardMotion.whileHover}
-                className="flex items-start gap-3 rounded-2xl border border-border/50 bg-background/80 p-3.5 shadow-sm backdrop-blur-md"
+                whileHover={shouldReduceMotion ? undefined : hoverScale}
+                className="flex items-start gap-3 rounded-2xl border border-border/50 bg-background/80 p-3.5 shadow-xs backdrop-blur-md"
               >
                 <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
                   <Icon className="h-4 w-4" />
@@ -97,4 +98,3 @@ export function HeroMemberBenefits() {
     </motion.div>
   );
 }
-

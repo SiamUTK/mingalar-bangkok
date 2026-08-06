@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Bot, Sparkles } from "lucide-react";
@@ -7,10 +8,10 @@ import { ArrowRight, Bot, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { fadeMotion, slideUpMotion, staggerContainer, staggerItem } from "@/lib/motion";
 
-import { HeroSearch } from "./hero-search";
-import { HeroStats } from "./hero-stats";
-import { HeroQuickActions } from "./hero-quick-actions";
-import { HeroMemberBenefits } from "./hero-member-benefits";
+import { HeroSearch } from "@/components/home/hero/hero-search";
+import { HeroStats } from "@/components/home/hero/hero-stats";
+import { HeroQuickActions } from "@/components/home/hero/hero-quick-actions";
+import { HeroMemberBenefits } from "@/components/home/hero/hero-member-benefits";
 
 export function HeroSection() {
   const shouldReduceMotion = useReducedMotion();
@@ -24,9 +25,9 @@ export function HeroSection() {
         <div className="mx-auto max-w-6xl text-center">
           {/* Badge */}
           <motion.div
-            initial={shouldReduceMotion ? false : slideUpMotion.initial}
-            animate={shouldReduceMotion ? undefined : slideUpMotion.animate}
-            transition={shouldReduceMotion ? undefined : slideUpMotion.transition}
+            initial={shouldReduceMotion ? undefined : "hidden"}
+            animate={shouldReduceMotion ? undefined : "visible"}
+            variants={slideUpMotion}
             className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-2 text-sm font-medium text-primary"
           >
             <Sparkles className="h-4 w-4" />
@@ -35,16 +36,13 @@ export function HeroSection() {
 
           {/* Heading */}
           <motion.h1
-            initial={shouldReduceMotion ? false : slideUpMotion.initial}
-            animate={shouldReduceMotion ? undefined : slideUpMotion.animate}
-            transition={{
-              ...slideUpMotion.transition,
-              delay: 0.05,
-            }}
+            initial={shouldReduceMotion ? undefined : "hidden"}
+            animate={shouldReduceMotion ? undefined : "visible"}
+            variants={slideUpMotion}
             className="text-5xl font-black tracking-tight md:text-7xl"
           >
             Everything the{" "}
-            <span className="bg-linear-to-r from-primary via-sky-500 to-cyan-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary via-sky-500 to-cyan-500 bg-clip-text text-transparent">
               Myanmar Community
             </span>{" "}
             Needs in Thailand
@@ -52,12 +50,9 @@ export function HeroSection() {
 
           {/* Description */}
           <motion.p
-            initial={shouldReduceMotion ? false : slideUpMotion.initial}
-            animate={shouldReduceMotion ? undefined : slideUpMotion.animate}
-            transition={{
-              ...slideUpMotion.transition,
-              delay: 0.1,
-            }}
+            initial={shouldReduceMotion ? undefined : "hidden"}
+            animate={shouldReduceMotion ? undefined : "visible"}
+            variants={slideUpMotion}
             className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-muted-foreground md:text-xl"
           >
             Find jobs, discover trusted businesses, search housing, plan your trip, get visa
@@ -68,8 +63,8 @@ export function HeroSection() {
           {/* Primary CTA Buttons */}
           <motion.div
             variants={shouldReduceMotion ? undefined : staggerContainer}
-            initial={shouldReduceMotion ? false : "hidden"}
-            animate={shouldReduceMotion ? undefined : "show"}
+            initial={shouldReduceMotion ? undefined : "hidden"}
+            animate={shouldReduceMotion ? undefined : "visible"}
             className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row"
           >
             <motion.div variants={shouldReduceMotion ? undefined : staggerItem}>
@@ -93,12 +88,9 @@ export function HeroSection() {
 
           {/* Universal Search */}
           <motion.div
-            initial={shouldReduceMotion ? false : fadeMotion.initial}
-            animate={shouldReduceMotion ? undefined : fadeMotion.animate}
-            transition={{
-              ...fadeMotion.transition,
-              delay: 0.15,
-            }}
+            initial={shouldReduceMotion ? undefined : "hidden"}
+            animate={shouldReduceMotion ? undefined : "visible"}
+            variants={fadeMotion}
             className="mt-10"
           >
             <HeroSearch />
@@ -106,12 +98,9 @@ export function HeroSection() {
 
           {/* Quick Actions (Cards) */}
           <motion.div
-            initial={shouldReduceMotion ? false : fadeMotion.initial}
-            animate={shouldReduceMotion ? undefined : fadeMotion.animate}
-            transition={{
-              ...fadeMotion.transition,
-              delay: 0.2,
-            }}
+            initial={shouldReduceMotion ? undefined : "hidden"}
+            animate={shouldReduceMotion ? undefined : "visible"}
+            variants={fadeMotion}
             className="mt-12"
           >
             <HeroQuickActions />
@@ -119,12 +108,9 @@ export function HeroSection() {
 
           {/* Platform Statistics */}
           <motion.div
-            initial={shouldReduceMotion ? false : fadeMotion.initial}
-            animate={shouldReduceMotion ? undefined : fadeMotion.animate}
-            transition={{
-              ...fadeMotion.transition,
-              delay: 0.25,
-            }}
+            initial={shouldReduceMotion ? undefined : "hidden"}
+            animate={shouldReduceMotion ? undefined : "visible"}
+            variants={fadeMotion}
             className="mt-14"
           >
             <HeroStats />
@@ -132,12 +118,9 @@ export function HeroSection() {
 
           {/* Member Benefits */}
           <motion.div
-            initial={shouldReduceMotion ? false : fadeMotion.initial}
-            animate={shouldReduceMotion ? undefined : fadeMotion.animate}
-            transition={{
-              ...fadeMotion.transition,
-              delay: 0.3,
-            }}
+            initial={shouldReduceMotion ? undefined : "hidden"}
+            animate={shouldReduceMotion ? undefined : "visible"}
+            variants={fadeMotion}
             className="mt-14"
           >
             <HeroMemberBenefits />
@@ -147,4 +130,3 @@ export function HeroSection() {
     </section>
   );
 }
-

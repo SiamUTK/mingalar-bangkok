@@ -1,212 +1,129 @@
 import * as React from "react";
+import {
+  EmailLayout,
+  Heading,
+  Section,
+  Text,
+  MutedText,
+  Divider,
+  Button,
+} from "@/lib/email/components";
+import { EMAIL_BRAND, EMAIL_COLORS } from "@/lib/email/constants";
+import type { BusinessRejectedEmailProps } from "@/lib/email/types/email-props";
 
-import { EMAIL_BRAND, EMAIL_COLORS } from "@/lib/email";
-import type { BusinessRejectedEmailProps } from "@/lib/email/types";
-
-import { EmailLayout } from "./layouts";
-import { Button, Divider } from "./partials";
-import { Heading, MutedText, Section, SmallText, Text } from "./shared";
-
-// ----------------------------------------------------------------------
-// Helper Functions
-// ----------------------------------------------------------------------
-
-function formatRecipient(name?: string): string {
-  const value = name?.trim();
-  return value && value.length > 0 ? value : "there";
-}
-
-// ----------------------------------------------------------------------
-// Inline Styles (Reusable design tokens)
-// ----------------------------------------------------------------------
-
-const rejectionBoxStyle: React.CSSProperties = {
-  padding: "16px",
-  border: "1px solid #FCA5A5",
-  borderRadius: "10px",
-  backgroundColor: "#FEF2F2",
-  marginBottom: "16px",
-};
-
-const rejectionTableStyle: React.CSSProperties = {
-  width: "100%",
-  borderCollapse: "collapse",
-};
-
-const labelColumnStyle: React.CSSProperties = {
-  padding: "6px 0",
-  fontSize: "14px",
-  color: EMAIL_COLORS.textMuted,
-  width: "40%",
-};
-
-const valueColumnStyle: React.CSSProperties = {
-  padding: "6px 0",
-  fontSize: "14px",
-  color: "#1F2937",
-  fontWeight: 600,
-  textAlign: "right",
-};
-
-const reasonBoxStyle: React.CSSProperties = {
-  marginTop: "12px",
-  padding: "12px",
-  borderRadius: "8px",
-  backgroundColor: "#FFFFFF",
-  border: "1px solid #FECDD3",
-};
-
-const supportLinkStyle: React.CSSProperties = {
-  color: EMAIL_COLORS.primary,
-  textDecoration: "none",
-  fontWeight: 600,
-};
-
-// ----------------------------------------------------------------------
-// Main Component
-// ----------------------------------------------------------------------
-
-export function BusinessRejectedEmail({
-  recipientName,
+export default function BusinessRejectedEmail({
+  name,
   businessName,
-  rejectionReason,
-  editListingUrl,
-  rejectionDate,
+  reason,
+  supportUrl,
 }: BusinessRejectedEmailProps): React.JSX.Element {
-  const greeting = formatRecipient(recipientName);
-
   return (
     <EmailLayout
-      title="Business Listing Update Required"
-      subtitle="Your business submission requires adjustments before publication."
-      preview={`Update required for your business listing submission "${businessName}" on ${EMAIL_BRAND.name}.`}
+      previewText={`Update regarding your business account application for ${businessName}`}
     >
-      {/* Primary Notification */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={2}>Listing Submission Status Update</Heading>
+      <Section style={styles.container}>
+        <Heading style={styles.heading}>Business Account Application Update</Heading>
 
-        <Text>
-          Hello <strong>{greeting}</strong>,
+        <Text style={styles.text}>Hello {name},</Text>
+
+        <Text style={styles.text}>
+          Thank you for applying to register <span style={styles.highlight}>{businessName}</span> on{" "}
+          {EMAIL_BRAND.name}. After careful review, we regret to inform you that we are unable to
+          approve your business account application at this time.
         </Text>
 
-        <Text>
-          Thank you for submitting <strong>{businessName}</strong> to the{" "}
-          <strong>{EMAIL_BRAND.name}</strong> business directory. Our team has reviewed your
-          submission.
+        {reason ? (
+          <Section style={styles.reasonContainer}>
+            <Text style={styles.reasonTitle}>Reason for decision:</Text>
+            <Text style={styles.reasonText}>{reason}</Text>
+          </Section>
+        ) : null}
+
+        <Text style={styles.text}>
+          If you believe this decision was made in error or if you would like to submit additional
+          documentation, please reach out to our support team for further assistance.
         </Text>
 
-        <Text>
-          Regrettably, we cannot approve your listing in its current state. Please review the
-          feedback below to make the required updates.
-        </Text>
+        <Section style={styles.buttonContainer}>
+          <Button href={supportUrl} style={styles.button}>
+            Contact Support
+          </Button>
+        </Section>
+
+        <Divider style={styles.divider} />
+
+        <MutedText style={styles.mutedText}>
+          You are receiving this notification because your business application status was updated
+          on {EMAIL_BRAND.name}.
+        </MutedText>
       </Section>
-
-      {/* Rejection Feedback Details */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <div style={rejectionBoxStyle}>
-          <table
-            role="presentation"
-            width="100%"
-            cellPadding={0}
-            cellSpacing={0}
-            border={0}
-            style={rejectionTableStyle}
-          >
-            <tbody>
-              <tr>
-                <td style={labelColumnStyle}>Business Name:</td>
-                <td style={valueColumnStyle}>{businessName}</td>
-              </tr>
-              <tr>
-                <td style={labelColumnStyle}>Status:</td>
-                <td style={{ ...valueColumnStyle, color: "#DC2626" }}>Action Required</td>
-              </tr>
-              {rejectionDate && (
-                <tr>
-                  <td style={labelColumnStyle}>Review Date:</td>
-                  <td style={valueColumnStyle}>{rejectionDate}</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-
-          {rejectionReason && (
-            <div style={reasonBoxStyle}>
-              <Text marginBottom={4}>
-                <strong>Reviewer Feedback:</strong>
-              </Text>
-              <MutedText marginBottom={0} style={{ color: "#7F1D1D" }}>
-                {rejectionReason}
-              </MutedText>
-            </div>
-          )}
-        </div>
-      </Section>
-
-      {/* Call to Action Button */}
-      <Section paddingTop={8} paddingBottom={8}>
-        <Button href={editListingUrl}>Update & Resubmit Listing</Button>
-
-        <SmallText align="center" marginTop={16} marginBottom={0} color={EMAIL_COLORS.textMuted}>
-          Once modified, our verification team will re-evaluate your listing promptly.
-        </SmallText>
-      </Section>
-
-      <Divider />
-
-      {/* Platform Directory Guidelines */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={4}>Common Directory Requirements</Heading>
-
-        <Text>
-          To ensure high standards across our community network, listings must adhere to the
-          following:
-        </Text>
-
-        <Text>
-          • <strong>Accurate Information:</strong> Valid contact details, physical address, and
-          official operating hours.
-        </Text>
-
-        <Text>
-          • <strong>Clear Media:</strong> Authentic photos free from misleading text overlays,
-          explicit content, or low resolution.
-        </Text>
-
-        <Text>
-          • <strong>Compliance:</strong> Complete alignment with community trust policies and
-          applicable local laws.
-        </Text>
-      </Section>
-
-      <Divider />
-
-      {/* Support Section */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={4}>Need assistance?</Heading>
-
-        <Text>
-          If you have questions about the feedback or require support updating your listing details,
-          please visit our support portal.
-        </Text>
-
-        <SmallText align="center" marginTop={16} marginBottom={0}>
-          Visit{" "}
-          <a
-            href={EMAIL_BRAND.website}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={supportLinkStyle}
-          >
-            {EMAIL_BRAND.website}
-          </a>{" "}
-          or contact vendor support through your vendor portal.
-        </SmallText>
-      </Section>
-
-      <Divider />
     </EmailLayout>
   );
 }
 
-export default BusinessRejectedEmail;
+const styles = {
+  container: {
+    padding: "0 24px",
+  },
+  heading: {
+    color: EMAIL_COLORS.textPrimary,
+    fontSize: "24px",
+    fontWeight: "bold",
+    textAlign: "left" as const,
+    margin: "0 0 20px",
+  },
+  text: {
+    color: EMAIL_COLORS.textSecondary,
+    fontSize: "16px",
+    lineHeight: "24px",
+    margin: "0 0 16px",
+  },
+  highlight: {
+    color: EMAIL_COLORS.textPrimary,
+    fontWeight: "600",
+  },
+  reasonContainer: {
+    backgroundColor: "#f8fafc",
+    borderRadius: "6px",
+    border: `1px solid ${EMAIL_COLORS.border}`,
+    padding: "16px",
+    margin: "16px 0",
+  },
+  reasonTitle: {
+    color: EMAIL_COLORS.textPrimary,
+    fontSize: "14px",
+    fontWeight: "bold",
+    margin: "0 0 8px",
+  },
+  reasonText: {
+    color: EMAIL_COLORS.textSecondary,
+    fontSize: "14px",
+    lineHeight: "20px",
+    margin: "0",
+  },
+  buttonContainer: {
+    margin: "24px 0",
+    textAlign: "center" as const,
+  },
+  button: {
+    backgroundColor: EMAIL_COLORS.primary,
+    borderRadius: "6px",
+    color: "#ffffff",
+    fontSize: "16px",
+    fontWeight: "bold",
+    textDecoration: "none",
+    textAlign: "center" as const,
+    display: "inline-block",
+    padding: "12px 24px",
+  },
+  divider: {
+    borderColor: EMAIL_COLORS.border,
+    margin: "24px 0",
+  },
+  mutedText: {
+    color: EMAIL_COLORS.textMuted,
+    fontSize: "14px",
+    lineHeight: "20px",
+    margin: "0",
+  },
+};

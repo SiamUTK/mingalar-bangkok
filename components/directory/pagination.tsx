@@ -1,9 +1,10 @@
 "use client";
 
-import { Button } from "@/components/ui/button-variants";
+import * as React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-interface PaginationProps {
+export interface PaginationProps {
   currentPage: number;
   totalPages: number;
   totalItems: number;
@@ -19,10 +20,10 @@ export function Pagination({
   onPageChange,
 }: PaginationProps) {
   const generatePageNumbers = () => {
-    const pages = [];
+    const pages: (number | string)[] = [];
     const maxVisible = 5;
 
-    const startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
     const endPage = Math.min(totalPages, startPage + maxVisible - 1);
 
     if (endPage - startPage + 1 < maxVisible) {
@@ -46,7 +47,7 @@ export function Pagination({
     return pages;
   };
 
-  const startItem = (currentPage - 1) * itemsPerPage + 1;
+  const startItem = totalItems > 0 ? (currentPage - 1) * itemsPerPage + 1 : 0;
   const endItem = Math.min(currentPage * itemsPerPage, totalItems);
 
   return (
@@ -64,35 +65,35 @@ export function Pagination({
         <Button
           size="sm"
           variant="ghost"
-          icon={<ChevronLeft className="h-4 w-4" />}
-          disabled={currentPage === 1}
+          disabled={currentPage <= 1}
           onClick={() => onPageChange?.(currentPage - 1)}
+          className="gap-1 cursor-pointer"
         >
-          Previous
+          <ChevronLeft className="h-4 w-4" />
+          <span>Previous</span>
         </Button>
 
         {/* Page Numbers */}
-        <div className="hidden sm:flex gap-1">
+        <div className="hidden sm:flex items-center gap-1">
           {generatePageNumbers().map((page, index) => (
-            <div key={index}>
+            <React.Fragment key={index}>
               {page === "..." ? (
-                <span className="px-2 py-1.5 text-muted-foreground">...</span>
+                <span className="px-2 py-1.5 text-xs text-muted-foreground">...</span>
               ) : (
                 <Button
                   size="sm"
-                  variant={currentPage === page ? "primary" : "ghost"}
+                  variant={currentPage === page ? "default" : "ghost"}
                   onClick={() => {
                     if (typeof page === "number") {
                       onPageChange?.(page);
                     }
                   }}
-                  disabled={page === "..."}
-                  className="min-w-10 px-0"
+                  className="min-w-9 h-9 px-0 cursor-pointer font-semibold"
                 >
                   {page}
                 </Button>
               )}
-            </div>
+            </React.Fragment>
           ))}
         </div>
 
@@ -106,14 +107,14 @@ export function Pagination({
         <Button
           size="sm"
           variant="ghost"
-          icon={<ChevronRight className="h-4 w-4" />}
-          disabled={currentPage === totalPages}
+          disabled={currentPage >= totalPages || totalPages === 0}
           onClick={() => onPageChange?.(currentPage + 1)}
+          className="gap-1 cursor-pointer"
         >
-          Next
+          <span>Next</span>
+          <ChevronRight className="h-4 w-4" />
         </Button>
       </div>
     </div>
   );
 }
-

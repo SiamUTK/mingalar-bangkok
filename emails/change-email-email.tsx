@@ -1,184 +1,111 @@
 import * as React from "react";
+import {
+  EmailLayout,
+  Heading,
+  Section,
+  Text,
+  MutedText,
+  SmallText,
+  Divider,
+  Button,
+} from "@/lib/email/components";
+import { EMAIL_BRAND, EMAIL_COLORS } from "@/lib/email/constants";
+import type { ChangeEmailEmailProps } from "@/lib/email/types/email-props";
 
-import { EMAIL_BRAND, EMAIL_COLORS } from "@/lib/email";
-import type { ChangeEmailEmailProps } from "@/lib/email/types";
-
-import { EmailLayout } from "./layouts";
-import { Button, Divider } from "./partials";
-import { Heading, MutedText, Section, SmallText, Text } from "./shared";
-
-// ----------------------------------------------------------------------
-// Helper Functions
-// ----------------------------------------------------------------------
-
-function formatRecipient(name?: string): string {
-  const value = name?.trim();
-  return value && value.length > 0 ? value : "there";
-}
-
-function formatExpiration(minutes: number): string {
-  if (minutes <= 0) {
-    return "This email change link expires soon.";
-  }
-  if (minutes === 1) {
-    return "This email change link expires in 1 minute.";
-  }
-  if (minutes < 60) {
-    return `This email change link expires in ${minutes} minutes.`;
-  }
-
-  const hours = Math.floor(minutes / 60);
-  if (hours === 1) {
-    return "This email change link expires in 1 hour.";
-  }
-
-  return `This email change link expires in ${hours} hours.`;
-}
-
-// ----------------------------------------------------------------------
-// Inline Styles (Reusable design tokens)
-// ----------------------------------------------------------------------
-
-const urlBoxStyle: React.CSSProperties = {
-  backgroundColor: "#F8FAFC",
-  border: `1px solid ${EMAIL_COLORS.border}`,
-  borderRadius: "8px",
-  padding: "16px",
-  overflowWrap: "anywhere",
-  wordBreak: "break-word",
-  fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace",
-  fontSize: "13px",
-  lineHeight: "22px",
-  color: EMAIL_COLORS.primary,
-};
-
-const supportLinkStyle: React.CSSProperties = {
-  color: EMAIL_COLORS.primary,
-  textDecoration: "none",
-  fontWeight: 600,
-};
-
-// ----------------------------------------------------------------------
-// Main Component
-// ----------------------------------------------------------------------
-
-export function ChangeEmailEmail({
-  recipientName,
+export default function ChangeEmailEmail({
+  name,
   newEmail,
-  confirmEmailUrl,
-  expiresInMinutes,
+  confirmationUrl,
+  expiresInMinutes = 30,
 }: ChangeEmailEmailProps): React.JSX.Element {
-  const greeting = formatRecipient(recipientName);
-
   return (
-    <EmailLayout
-      title="Confirm your new email address"
-      subtitle="A request was made to update your account email address."
-      preview={`Confirm your new email address for your ${EMAIL_BRAND.name} account.`}
-    >
-      {/* Primary Call to Action */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={2}>Confirm your new email address</Heading>
+    <EmailLayout previewText={`Confirm your new email address for ${EMAIL_BRAND.name}`}>
+      <Section style={styles.container}>
+        <Heading style={styles.heading}>Confirm Your New Email Address</Heading>
 
-        <Text>
-          Hello <strong>{greeting}</strong>,
+        <Text style={styles.text}>Hello {name},</Text>
+
+        <Text style={styles.text}>
+          We received a request to change the email address associated with your {EMAIL_BRAND.name}{" "}
+          account to <span style={styles.highlight}>{newEmail}</span>. Please click the button below
+          to confirm this change.
         </Text>
 
-        <Text>
-          We received a request to change the primary email address for your{" "}
-          <strong>{EMAIL_BRAND.name}</strong> account to <strong>{newEmail}</strong>.
+        <Section style={styles.buttonContainer}>
+          <Button href={confirmationUrl} style={styles.button}>
+            Confirm Email Change
+          </Button>
+        </Section>
+
+        <Text style={styles.text}>
+          This confirmation link will expire in {expiresInMinutes} minutes. If you did not request
+          to change your email address, please ignore this email or contact support immediately to
+          secure your account.
         </Text>
 
-        <Text>
-          To complete this update, please verify that you have access to this email address by
-          clicking the button below.
-        </Text>
+        <Divider style={styles.divider} />
 
-        <MutedText marginBottom={0}>
-          Your email address will not be changed until you click the confirmation button below.
+        <MutedText style={styles.mutedText}>
+          If you're having trouble clicking the button, copy and paste the URL below into your web
+          browser:
         </MutedText>
+
+        <SmallText style={styles.linkText}>{confirmationUrl}</SmallText>
       </Section>
-
-      <Section paddingTop={8} paddingBottom={8}>
-        <Button href={confirmEmailUrl}>Confirm Email Address</Button>
-
-        <SmallText align="center" marginTop={16} marginBottom={0} color={EMAIL_COLORS.textMuted}>
-          {formatExpiration(expiresInMinutes)}
-        </SmallText>
-      </Section>
-
-      <Divider />
-
-      {/* Fallback URL Box */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={4}>Can't click the button?</Heading>
-
-        <Text>
-          Copy and paste the following link into your web browser to confirm your new email address:
-        </Text>
-
-        <div style={urlBoxStyle}>{confirmEmailUrl}</div>
-
-        <SmallText marginTop={16} marginBottom={0}>
-          This confirmation link can only be used once and will automatically expire after the time
-          shown above.
-        </SmallText>
-      </Section>
-
-      <Divider />
-
-      {/* Security Guidance */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={4}>Keep your account secure</Heading>
-
-        <Text>
-          If you requested this change, no further action is required other than confirming via the
-          link above.
-        </Text>
-
-        <Text>
-          If you did <strong>not</strong> request this change, please ignore this email or contact
-          our support team immediately. Your current email address will remain active and unchanged.
-        </Text>
-
-        <MutedText marginBottom={0}>
-          For your security, never forward this email or share confirmation links with anyone. Our
-          team will never ask for this link.
-        </MutedText>
-      </Section>
-
-      <Divider />
-
-      {/* Support Section */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={4}>Need help?</Heading>
-
-        <Text>
-          If you have questions or suspect unauthorized activity on your account, our support team
-          is ready to assist you.
-        </Text>
-
-        <Button href={EMAIL_BRAND.website} variant="outline">
-          Visit {EMAIL_BRAND.name}
-        </Button>
-
-        <SmallText align="center" marginTop={16} marginBottom={0} color={EMAIL_COLORS.textMuted}>
-          You can also visit{" "}
-          <a
-            href={EMAIL_BRAND.website}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={supportLinkStyle}
-          >
-            {EMAIL_BRAND.website}
-          </a>{" "}
-          for security tips and account assistance.
-        </SmallText>
-      </Section>
-
-      <Divider />
     </EmailLayout>
   );
 }
 
-export default ChangeEmailEmail;
+const styles = {
+  container: {
+    padding: "0 24px",
+  },
+  heading: {
+    color: EMAIL_COLORS.textPrimary,
+    fontSize: "24px",
+    fontWeight: "bold",
+    textAlign: "left" as const,
+    margin: "0 0 20px",
+  },
+  text: {
+    color: EMAIL_COLORS.textSecondary,
+    fontSize: "16px",
+    lineHeight: "24px",
+    margin: "0 0 16px",
+  },
+  highlight: {
+    color: EMAIL_COLORS.textPrimary,
+    fontWeight: "600",
+  },
+  buttonContainer: {
+    margin: "24px 0",
+    textAlign: "center" as const,
+  },
+  button: {
+    backgroundColor: EMAIL_COLORS.primary,
+    borderRadius: "6px",
+    color: "#ffffff",
+    fontSize: "16px",
+    fontWeight: "bold",
+    textDecoration: "none",
+    textAlign: "center" as const,
+    display: "inline-block",
+    padding: "12px 24px",
+  },
+  divider: {
+    borderColor: EMAIL_COLORS.border,
+    margin: "24px 0",
+  },
+  mutedText: {
+    color: EMAIL_COLORS.textMuted,
+    fontSize: "14px",
+    lineHeight: "20px",
+    margin: "0 0 8px",
+  },
+  linkText: {
+    color: EMAIL_COLORS.primary,
+    fontSize: "12px",
+    wordBreak: "break-all" as const,
+    margin: "0",
+  },
+};

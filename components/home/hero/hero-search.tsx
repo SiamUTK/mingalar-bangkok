@@ -1,19 +1,20 @@
 "use client";
 
+import * as React from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { Search, MapPin, Sparkles } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { fadeMotion, hoverButtonMotion, staggerContainer, staggerItem } from "@/lib/motion";
+import { fadeMotion, hoverScale, staggerContainer, staggerItem } from "@/lib/motion";
 
 const suggestedPrompts = [
-  { label: "💼 Factory jobs", href: "/jobs?q=factory" },
-  { label: "🏠 Rooms under ฿3,000", href: "/housing?maxPrice=3000" },
-  { label: "🍜 Myanmar food", href: "/directory?category=restaurants" },
-  { label: "🛂 Visa renewal", href: "/visa" },
-  { label: "💸 Money transfer", href: "/money" },
+  { label: "Factory jobs", href: "/jobs?q=factory" },
+  { label: "Rooms under ฿3,000", href: "/housing?maxPrice=3000" },
+  { label: "Myanmar food", href: "/directory?category=restaurants" },
+  { label: "Visa renewal", href: "/visa" },
+  { label: "Money transfer", href: "/money" },
 ];
 
 export function HeroSearch() {
@@ -21,9 +22,9 @@ export function HeroSearch() {
 
   return (
     <motion.div
-      initial={shouldReduceMotion ? fadeMotion.initial : fadeMotion.initial}
-      animate={shouldReduceMotion ? fadeMotion.animate : fadeMotion.animate}
-      transition={{ ...fadeMotion.transition, delay: 0.05 }}
+      initial={shouldReduceMotion ? undefined : "hidden"}
+      animate={shouldReduceMotion ? undefined : "visible"}
+      variants={fadeMotion}
       className="mx-auto w-full max-w-5xl"
     >
       <div className="rounded-3xl border border-border/60 bg-background/80 p-3 shadow-2xl backdrop-blur-xl md:rounded-4xl">
@@ -66,18 +67,18 @@ export function HeroSearch() {
 
       {/* Suggested Quick Prompts */}
       <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        animate="show"
+        variants={shouldReduceMotion ? undefined : staggerContainer}
+        initial={shouldReduceMotion ? undefined : "hidden"}
+        animate={shouldReduceMotion ? undefined : "visible"}
         className="mt-6 flex flex-wrap items-center justify-center gap-2.5"
       >
         <span className="text-xs font-medium text-muted-foreground mr-1">Suggested:</span>
 
         {suggestedPrompts.map((item) => (
-          <motion.div key={item.label} variants={staggerItem}>
+          <motion.div key={item.label} variants={shouldReduceMotion ? undefined : staggerItem}>
             <Link href={item.href}>
               <motion.button
-                whileHover={shouldReduceMotion ? undefined : hoverButtonMotion.whileHover}
+                whileHover={shouldReduceMotion ? undefined : hoverScale}
                 className="rounded-full border border-border/80 bg-background/90 px-3.5 py-1.5 text-xs font-medium text-muted-foreground transition hover:border-primary/50 hover:bg-primary/5 hover:text-foreground"
               >
                 {item.label}
@@ -86,10 +87,10 @@ export function HeroSearch() {
           </motion.div>
         ))}
 
-        <motion.div variants={staggerItem}>
+        <motion.div variants={shouldReduceMotion ? undefined : staggerItem}>
           <Link href="/ai">
             <motion.button
-              whileHover={shouldReduceMotion ? undefined : hoverButtonMotion.whileHover}
+              whileHover={shouldReduceMotion ? undefined : hoverScale}
               className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1.5 text-xs font-semibold text-primary transition hover:bg-primary/20"
             >
               <Sparkles className="h-3.5 w-3.5" />
@@ -101,4 +102,3 @@ export function HeroSearch() {
     </motion.div>
   );
 }
-

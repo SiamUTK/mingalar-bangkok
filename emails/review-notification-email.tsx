@@ -1,79 +1,17 @@
 import * as React from "react";
+import {
+  EmailLayout,
+  Heading,
+  Section,
+  Text,
+  MutedText,
+  Divider,
+  Button,
+} from "@/lib/email/components";
+import { EMAIL_BRAND, EMAIL_COLORS } from "@/lib/email/constants";
+import type { ReviewNotificationEmailProps } from "@/lib/email/types/email-props";
 
-import { EMAIL_BRAND, EMAIL_COLORS } from "@/lib/email";
-import type { ReviewNotificationEmailProps } from "@/lib/email/types";
-
-import { EmailLayout } from "./layouts";
-import { Button, Divider } from "./partials";
-import { Heading, MutedText, Section, SmallText, Text } from "./shared";
-
-// ----------------------------------------------------------------------
-// Helper Functions
-// ----------------------------------------------------------------------
-
-function formatRecipient(name?: string): string {
-  const value = name?.trim();
-  return value && value.length > 0 ? value : "there";
-}
-
-function renderStars(rating: number): string {
-  const fullStars = "★".repeat(Math.max(0, Math.min(5, Math.floor(rating))));
-  const emptyStars = "☆".repeat(Math.max(0, Math.min(5, 5 - Math.floor(rating))));
-  return `${fullStars}${emptyStars}`;
-}
-
-// ----------------------------------------------------------------------
-// Inline Styles (Reusable design tokens)
-// ----------------------------------------------------------------------
-
-const reviewBoxStyle: React.CSSProperties = {
-  padding: "16px",
-  border: `1px solid ${EMAIL_COLORS.border}`,
-  borderRadius: "10px",
-  backgroundColor: "#F8FAFC",
-  marginBottom: "16px",
-};
-
-const reviewerTableStyle: React.CSSProperties = {
-  width: "100%",
-  borderCollapse: "collapse",
-};
-
-const labelColumnStyle: React.CSSProperties = {
-  padding: "6px 0",
-  fontSize: "14px",
-  color: EMAIL_COLORS.textMuted,
-  width: "40%",
-};
-
-const valueColumnStyle: React.CSSProperties = {
-  padding: "6px 0",
-  fontSize: "14px",
-  color: "#1F2937",
-  fontWeight: 600,
-  textAlign: "right",
-};
-
-const commentBoxStyle: React.CSSProperties = {
-  marginTop: "12px",
-  padding: "12px",
-  borderRadius: "8px",
-  backgroundColor: "#FFFFFF",
-  border: `1px solid ${EMAIL_COLORS.border}`,
-  fontStyle: "italic",
-};
-
-const supportLinkStyle: React.CSSProperties = {
-  color: EMAIL_COLORS.primary,
-  textDecoration: "none",
-  fontWeight: 600,
-};
-
-// ----------------------------------------------------------------------
-// Main Component
-// ----------------------------------------------------------------------
-
-export function ReviewNotificationEmail({
+export default function ReviewNotificationEmail({
   recipientName,
   businessName,
   reviewerName,
@@ -82,129 +20,130 @@ export function ReviewNotificationEmail({
   reviewDate,
   viewReviewUrl,
 }: ReviewNotificationEmailProps): React.JSX.Element {
-  const greeting = formatRecipient(recipientName);
-  const formattedReviewer = formatRecipient(reviewerName);
-  const stars = renderStars(rating);
+  const stars =
+    "★".repeat(Math.min(Math.max(rating, 0), 5)) +
+    "☆".repeat(Math.max(0, 5 - Math.min(Math.max(rating, 0), 5)));
 
   return (
     <EmailLayout
-      title="New Customer Review Received"
-      subtitle="Someone left a review for your business listing."
-      preview={`${formattedReviewer} left a ${rating}-star review for ${businessName} on ${EMAIL_BRAND.name}.`}
+      previewText={`New ${rating}-star review for ${businessName} on ${EMAIL_BRAND.name}`}
     >
-      {/* Primary Notification */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={2}>New Review Received! ⭐</Heading>
+      <Section style={styles.container}>
+        <Heading style={styles.heading}>New Review Received</Heading>
 
-        <Text>
-          Hello <strong>{greeting}</strong>,
+        <Text style={styles.text}>Hello {recipientName},</Text>
+
+        <Text style={styles.text}>
+          <span style={styles.highlight}>{reviewerName}</span> left a new review for{" "}
+          <span style={styles.highlight}>{businessName}</span>.
         </Text>
 
-        <Text>
-          You have received a new review for your business listing <strong>{businessName}</strong>{" "}
-          on <strong>{EMAIL_BRAND.name}</strong>.
-        </Text>
-      </Section>
+        <Section style={styles.reviewCard}>
+          <Text style={styles.ratingText}>
+            {stars} <span style={styles.ratingNumber}>({rating}/5)</span>
+          </Text>
 
-      {/* Review Details Card */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <div style={reviewBoxStyle}>
-          <table
-            role="presentation"
-            width="100%"
-            cellPadding={0}
-            cellSpacing={0}
-            border={0}
-            style={reviewerTableStyle}
-          >
-            <tbody>
-              <tr>
-                <td style={labelColumnStyle}>Reviewer:</td>
-                <td style={valueColumnStyle}>{formattedReviewer}</td>
-              </tr>
-              <tr>
-                <td style={labelColumnStyle}>Rating:</td>
-                <td style={{ ...valueColumnStyle, color: "#F59E0B", fontSize: "16px" }}>
-                  {stars} ({rating}/5)
-                </td>
-              </tr>
-              {reviewDate && (
-                <tr>
-                  <td style={labelColumnStyle}>Date:</td>
-                  <td style={valueColumnStyle}>{reviewDate}</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+          {reviewComment ? <Text style={styles.commentText}>"{reviewComment}"</Text> : null}
 
-          {reviewComment && (
-            <div style={commentBoxStyle}>
-              <Text marginBottom={4} style={{ fontStyle: "normal" }}>
-                <strong>Comment:</strong>
-              </Text>
-              <MutedText marginBottom={0} style={{ color: "#374151" }}>
-                "{reviewComment}"
-              </MutedText>
-            </div>
-          )}
-        </div>
-      </Section>
+          {reviewDate ? <Text style={styles.dateText}>Posted on {reviewDate}</Text> : null}
+        </Section>
 
-      {/* Call to Action Button */}
-      <Section paddingTop={8} paddingBottom={8}>
-        <Button href={viewReviewUrl}>View & Reply to Review</Button>
-
-        <SmallText align="center" marginTop={16} marginBottom={0} color={EMAIL_COLORS.textMuted}>
-          Replying promptly to customer feedback builds trust and improves customer retention.
-        </SmallText>
-      </Section>
-
-      <Divider />
-
-      {/* Community Moderation Guidelines */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={4}>Managing Customer Feedback</Heading>
-
-        <Text>
-          • <strong>Engage Professionally:</strong> Responding politely to both positive and
-          critical feedback demonstrates exceptional customer care.
+        <Text style={styles.text}>
+          You can read the full review and respond to customer feedback directly from your business
+          account.
         </Text>
 
-        <Text>
-          • <strong>Report Abuse:</strong> If you believe this review violates our community
-          guidelines (e.g., spam, profanity, or fraudulent content), you can flag it directly from
-          your vendor portal.
-        </Text>
+        <Section style={styles.buttonContainer}>
+          <Button href={viewReviewUrl} style={styles.button}>
+            View Review
+          </Button>
+        </Section>
+
+        <Divider style={styles.divider} />
+
+        <MutedText style={styles.mutedText}>
+          You are receiving this notification because you manage {businessName} on{" "}
+          {EMAIL_BRAND.name}.
+        </MutedText>
       </Section>
-
-      <Divider />
-
-      {/* Support Section */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={4}>Need assistance?</Heading>
-
-        <Text>
-          If you have questions about review moderation policies or managing your business profile,
-          our vendor support team is here to help.
-        </Text>
-
-        <SmallText align="center" marginTop={16} marginBottom={0}>
-          Visit{" "}
-          <a
-            href={EMAIL_BRAND.website}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={supportLinkStyle}
-          >
-            {EMAIL_BRAND.website}
-          </a>{" "}
-          or access vendor support from your dashboard.
-        </SmallText>
-      </Section>
-
-      <Divider />
     </EmailLayout>
   );
 }
 
-export default ReviewNotificationEmail;
+const styles = {
+  container: {
+    padding: "0 24px",
+  },
+  heading: {
+    color: EMAIL_COLORS.textPrimary,
+    fontSize: "24px",
+    fontWeight: "bold",
+    textAlign: "left" as const,
+    margin: "0 0 20px",
+  },
+  text: {
+    color: EMAIL_COLORS.textSecondary,
+    fontSize: "16px",
+    lineHeight: "24px",
+    margin: "0 0 16px",
+  },
+  highlight: {
+    color: EMAIL_COLORS.textPrimary,
+    fontWeight: "600",
+  },
+  reviewCard: {
+    backgroundColor: "#f8fafc",
+    borderRadius: "6px",
+    border: `1px solid ${EMAIL_COLORS.border}`,
+    padding: "16px",
+    margin: "16px 0",
+  },
+  ratingText: {
+    color: "#f59e0b",
+    fontSize: "18px",
+    fontWeight: "bold",
+    margin: "0 0 8px",
+  },
+  ratingNumber: {
+    color: EMAIL_COLORS.textSecondary,
+    fontSize: "14px",
+    fontWeight: "normal",
+  },
+  commentText: {
+    color: EMAIL_COLORS.textPrimary,
+    fontSize: "15px",
+    fontStyle: "italic",
+    lineHeight: "22px",
+    margin: "0 0 8px",
+  },
+  dateText: {
+    color: EMAIL_COLORS.textMuted,
+    fontSize: "12px",
+    margin: "0",
+  },
+  buttonContainer: {
+    margin: "24px 0",
+    textAlign: "center" as const,
+  },
+  button: {
+    backgroundColor: EMAIL_COLORS.primary,
+    borderRadius: "6px",
+    color: "#ffffff",
+    fontSize: "16px",
+    fontWeight: "bold",
+    textDecoration: "none",
+    textAlign: "center" as const,
+    display: "inline-block",
+    padding: "12px 24px",
+  },
+  divider: {
+    borderColor: EMAIL_COLORS.border,
+    margin: "24px 0",
+  },
+  mutedText: {
+    color: EMAIL_COLORS.textMuted,
+    fontSize: "14px",
+    lineHeight: "20px",
+    margin: "0",
+  },
+};

@@ -1,64 +1,46 @@
 import * as React from "react";
+import {
+  EmailLayout,
+  Heading,
+  Section,
+  Text,
+  MutedText,
+  SmallText,
+  Divider,
+  Button,
+} from "@/lib/email/components";
+import { EMAIL_BRAND, EMAIL_COLORS } from "@/lib/email/constants";
+import type { WeeklyDigestEmailProps, WeeklyDigestItem } from "@/lib/email/types/email-props";
 
-import { EMAIL_BRAND, EMAIL_COLORS } from "@/lib/email";
-import type { WeeklyDigestEmailProps } from "@/lib/email/types";
+function DigestSection({
+  title,
+  items,
+}: {
+  title: string;
+  items: WeeklyDigestItem[];
+}): React.JSX.Element | null {
+  if (!items || items.length === 0) {
+    return null;
+  }
 
-import { EmailLayout } from "./layouts";
-import { Button, Divider } from "./partials";
-import { Heading, MutedText, Section, SmallText, Text } from "./shared";
-
-// ----------------------------------------------------------------------
-// Helper Functions
-// ----------------------------------------------------------------------
-
-function formatRecipient(name?: string): string {
-  const value = name?.trim();
-  return value && value.length > 0 ? value : "there";
+  return (
+    <Section style={styles.sectionContainer}>
+      <Text style={styles.sectionTitle}>{title}</Text>
+      {items.map((item, index) => (
+        <Section key={`${item.title}-${index}`} style={styles.itemCard}>
+          <Text style={styles.itemTitle}>
+            <a href={item.url} style={styles.itemLink}>
+              {item.title}
+            </a>
+          </Text>
+          <Text style={styles.itemDescription}>{item.description}</Text>
+        </Section>
+      ))}
+    </Section>
+  );
 }
 
-// ----------------------------------------------------------------------
-// Inline Styles (Reusable design tokens)
-// ----------------------------------------------------------------------
-
-const cardStyle: React.CSSProperties = {
-  padding: "16px",
-  border: `1px solid ${EMAIL_COLORS.border}`,
-  borderRadius: "10px",
-  backgroundColor: "#F8FAFC",
-  marginBottom: "12px",
-};
-
-const cardTitleStyle: React.CSSProperties = {
-  margin: "0 0 6px",
-  fontSize: "15px",
-  fontWeight: 700,
-  color: "#1F2937",
-};
-
-const cardMetaStyle: React.CSSProperties = {
-  margin: "0 0 8px",
-  fontSize: "13px",
-  color: EMAIL_COLORS.textMuted,
-};
-
-const cardLinkStyle: React.CSSProperties = {
-  color: EMAIL_COLORS.primary,
-  textDecoration: "none",
-  fontWeight: 600,
-  fontSize: "13px",
-};
-
-const supportLinkStyle: React.CSSProperties = {
-  color: EMAIL_COLORS.primary,
-  textDecoration: "none",
-  fontWeight: 600,
-};
-
-// ----------------------------------------------------------------------
-// Main Component
-// ----------------------------------------------------------------------
-
-export function WeeklyDigestEmail({
+export default function WeeklyDigestEmail({
   recipientName,
   weekRange,
   featuredJobs = [],
@@ -68,181 +50,141 @@ export function WeeklyDigestEmail({
   dashboardUrl,
   unsubscribeUrl,
 }: WeeklyDigestEmailProps): React.JSX.Element {
-  const greeting = formatRecipient(recipientName);
-
-  const hasJobs = featuredJobs.length > 0;
-  const hasBusinesses = featuredBusinesses.length > 0;
-  const hasHousing = featuredHousing.length > 0;
-  const hasHighlights = communityHighlights.length > 0;
-
   return (
-    <EmailLayout
-      title={`Weekly Digest ${weekRange ? `(${weekRange})` : ""}`}
-      subtitle="Your weekly roundup of top updates, jobs, and community highlights."
-      preview={`Explore this week's top opportunities and highlights on ${EMAIL_BRAND.name}.`}
-    >
-      {/* Header & Main Greeting */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={2}>Weekly Highlights 🗞️</Heading>
+    <EmailLayout previewText={`Your ${EMAIL_BRAND.name} Weekly Digest (${weekRange})`}>
+      <Section style={styles.container}>
+        <Heading style={styles.heading}>Your Weekly Digest</Heading>
 
-        <Text>
-          Hello <strong>{greeting}</strong>,
+        <Text style={styles.subheading}>{weekRange}</Text>
+
+        <Text style={styles.text}>Hello {recipientName},</Text>
+
+        <Text style={styles.text}>
+          Here is your curated weekly roundup of top updates, opportunities, and community activity
+          from {EMAIL_BRAND.name}.
         </Text>
 
-        <Text>
-          Here is your weekly digest from <strong>{EMAIL_BRAND.name}</strong> featuring the latest
-          job openings, verified businesses, housing opportunities, and community updates tailored
-          for you in Thailand.
-        </Text>
-      </Section>
+        <DigestSection title="Featured Jobs" items={featuredJobs} />
+        <DigestSection title="Featured Businesses" items={featuredBusinesses} />
+        <DigestSection title="Featured Housing" items={featuredHousing} />
+        <DigestSection title="Community Highlights" items={communityHighlights} />
 
-      {/* Featured Jobs Section */}
-      {hasJobs && (
-        <>
-          <Divider />
-          <Section paddingTop={8} paddingBottom={0}>
-            <Heading level={4}>💼 Top Career Opportunities</Heading>
-            {featuredJobs.map((job) => (
-              <div key={job.id} style={cardStyle}>
-                <p style={cardTitleStyle}>{job.title}</p>
-                <p style={cardMetaStyle}>
-                  {job.company} • {job.location} {job.salary ? `• ${job.salary}` : ""}
-                </p>
-                {job.url && (
-                  <a href={job.url} target="_blank" rel="noopener noreferrer" style={cardLinkStyle}>
-                    View Job Details →
-                  </a>
-                )}
-              </div>
-            ))}
-          </Section>
-        </>
-      )}
+        <Section style={styles.buttonContainer}>
+          <Button href={dashboardUrl} style={styles.button}>
+            Go to Your Dashboard
+          </Button>
+        </Section>
 
-      {/* Featured Businesses Section */}
-      {hasBusinesses && (
-        <>
-          <Divider />
-          <Section paddingTop={8} paddingBottom={0}>
-            <Heading level={4}>📍 Featured Local Businesses</Heading>
-            {featuredBusinesses.map((biz) => (
-              <div key={biz.id} style={cardStyle}>
-                <p style={cardTitleStyle}>{biz.name}</p>
-                <p style={cardMetaStyle}>
-                  {biz.category} • {biz.location}
-                </p>
-                {biz.description && (
-                  <Text marginBottom={8} style={{ fontSize: "14px", color: "#4B5563" }}>
-                    {biz.description}
-                  </Text>
-                )}
-                {biz.url && (
-                  <a href={biz.url} target="_blank" rel="noopener noreferrer" style={cardLinkStyle}>
-                    Explore Business Profile →
-                  </a>
-                )}
-              </div>
-            ))}
-          </Section>
-        </>
-      )}
-
-      {/* Featured Housing Listings */}
-      {hasHousing && (
-        <>
-          <Divider />
-          <Section paddingTop={8} paddingBottom={0}>
-            <Heading level={4}>🏠 Available Housing & Rentals</Heading>
-            {featuredHousing.map((house) => (
-              <div key={house.id} style={cardStyle}>
-                <p style={cardTitleStyle}>{house.title}</p>
-                <p style={cardMetaStyle}>
-                  {house.location} • {house.price}
-                </p>
-                {house.url && (
-                  <a
-                    href={house.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={cardLinkStyle}
-                  >
-                    View Listing →
-                  </a>
-                )}
-              </div>
-            ))}
-          </Section>
-        </>
-      )}
-
-      {/* Community Highlights */}
-      {hasHighlights && (
-        <>
-          <Divider />
-          <Section paddingTop={8} paddingBottom={0}>
-            <Heading level={4}>🌟 Community Updates & Guides</Heading>
-            {communityHighlights.map((item) => (
-              <div key={item.id} style={cardStyle}>
-                <p style={cardTitleStyle}>{item.title}</p>
-                {item.summary && (
-                  <Text marginBottom={8} style={{ fontSize: "14px", color: "#4B5563" }}>
-                    {item.summary}
-                  </Text>
-                )}
-                {item.url && (
-                  <a
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={cardLinkStyle}
-                  >
-                    Read Full Story →
-                  </a>
-                )}
-              </div>
-            ))}
-          </Section>
-        </>
-      )}
-
-      {/* Main Call to Action */}
-      <Section paddingTop={8} paddingBottom={8}>
-        <Button href={dashboardUrl}>Open My Dashboard</Button>
-
-        <SmallText align="center" marginTop={16} marginBottom={0} color={EMAIL_COLORS.textMuted}>
-          Sign in to access personalized AI recommendations and search all categories.
-        </SmallText>
-      </Section>
-
-      <Divider />
-
-      {/* Preferences & Unsubscribe */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={4}>Email Preferences</Heading>
-
-        <Text>
-          You are receiving this weekly digest because you are a registered member of{" "}
-          <strong>{EMAIL_BRAND.name}</strong>.
-        </Text>
+        <Divider style={styles.divider} />
 
         {unsubscribeUrl ? (
-          <MutedText marginBottom={0}>
-            If you prefer not to receive weekly summary emails, you can{" "}
-            <a href={unsubscribeUrl} style={supportLinkStyle}>
-              update your email preferences
-            </a>{" "}
-            anytime.
+          <MutedText style={styles.unsubscribeText}>
+            Don't want to receive these emails?{" "}
+            <a href={unsubscribeUrl} style={styles.footerLink}>
+              Unsubscribe from weekly digest
+            </a>
           </MutedText>
-        ) : (
-          <MutedText marginBottom={0}>
-            You can update your notification settings anytime from your account dashboard.
-          </MutedText>
-        )}
-      </Section>
+        ) : null}
 
-      <Divider />
+        <SmallText style={styles.mutedText}>
+          You are receiving this digest because you are a registered user on {EMAIL_BRAND.name}.
+        </SmallText>
+      </Section>
     </EmailLayout>
   );
 }
 
-export default WeeklyDigestEmail;
+const styles = {
+  container: {
+    padding: "0 24px",
+  },
+  heading: {
+    color: EMAIL_COLORS.textPrimary,
+    fontSize: "24px",
+    fontWeight: "bold",
+    textAlign: "left" as const,
+    margin: "0 0 4px",
+  },
+  subheading: {
+    color: EMAIL_COLORS.textMuted,
+    fontSize: "14px",
+    fontWeight: "600",
+    margin: "0 0 20px",
+  },
+  text: {
+    color: EMAIL_COLORS.textSecondary,
+    fontSize: "16px",
+    lineHeight: "24px",
+    margin: "0 0 16px",
+  },
+  sectionContainer: {
+    margin: "24px 0 12px",
+  },
+  sectionTitle: {
+    color: EMAIL_COLORS.textPrimary,
+    fontSize: "18px",
+    fontWeight: "bold",
+    margin: "0 0 12px",
+    paddingBottom: "6px",
+    borderBottom: `2px solid ${EMAIL_COLORS.primary}`,
+  },
+  itemCard: {
+    backgroundColor: "#f8fafc",
+    borderRadius: "6px",
+    border: `1px solid ${EMAIL_COLORS.border}`,
+    padding: "14px 16px",
+    margin: "0 0 10px",
+  },
+  itemTitle: {
+    fontSize: "15px",
+    fontWeight: "bold",
+    margin: "0 0 4px",
+  },
+  itemLink: {
+    color: EMAIL_COLORS.primary,
+    textDecoration: "none",
+  },
+  itemDescription: {
+    color: EMAIL_COLORS.textSecondary,
+    fontSize: "14px",
+    lineHeight: "20px",
+    margin: "0",
+  },
+  buttonContainer: {
+    margin: "32px 0 24px",
+    textAlign: "center" as const,
+  },
+  button: {
+    backgroundColor: EMAIL_COLORS.primary,
+    borderRadius: "6px",
+    color: "#ffffff",
+    fontSize: "16px",
+    fontWeight: "bold",
+    textDecoration: "none",
+    textAlign: "center" as const,
+    display: "inline-block",
+    padding: "12px 24px",
+  },
+  divider: {
+    borderColor: EMAIL_COLORS.border,
+    margin: "24px 0",
+  },
+  unsubscribeText: {
+    color: EMAIL_COLORS.textMuted,
+    fontSize: "13px",
+    lineHeight: "18px",
+    margin: "0 0 8px",
+    textAlign: "center" as const,
+  },
+  footerLink: {
+    color: EMAIL_COLORS.textMuted,
+    textDecoration: "underline",
+  },
+  mutedText: {
+    color: EMAIL_COLORS.textMuted,
+    fontSize: "12px",
+    lineHeight: "18px",
+    margin: "0",
+    textAlign: "center" as const,
+  },
+};

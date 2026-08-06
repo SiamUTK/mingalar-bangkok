@@ -1,177 +1,104 @@
 import * as React from "react";
+import {
+  EmailLayout,
+  Heading,
+  Section,
+  Text,
+  MutedText,
+  SmallText,
+  Divider,
+  Button,
+} from "@/lib/email/components";
+import { EMAIL_BRAND, EMAIL_COLORS } from "@/lib/email/constants";
+import type { VerificationEmailProps } from "@/lib/email/types/email-props";
 
-import { EMAIL_BRAND, EMAIL_COLORS, EMAIL_LINKS } from "@/lib/email";
-import type { VerificationEmailProps } from "@/lib/email/types";
-
-import { EmailLayout } from "./layouts";
-import { Button, Divider } from "./partials";
-import { Heading, MutedText, Section, SmallText, Text } from "./shared";
-
-// ----------------------------------------------------------------------
-// Helper Functions (Memoized/Cleaned)
-// ----------------------------------------------------------------------
-
-function formatExpiration(minutes: number): string {
-  if (minutes <= 0) {
-    return "This verification link expires soon.";
-  }
-  if (minutes === 1) {
-    return "This verification link expires in 1 minute.";
-  }
-  if (minutes < 60) {
-    return `This verification link expires in ${minutes} minutes.`;
-  }
-
-  const hours = Math.floor(minutes / 60);
-  if (hours === 1) {
-    return "This verification link expires in 1 hour.";
-  }
-
-  return `This verification link expires in ${hours} hours.`;
-}
-
-function formatRecipient(name?: string): string {
-  const value = name?.trim();
-  return value && value.length > 0 ? value : "there";
-}
-
-// ----------------------------------------------------------------------
-// Inline Styles (Reusable tokens to clean up JSX)
-// ----------------------------------------------------------------------
-
-const codeContainerStyle: React.CSSProperties = {
-  backgroundColor: "#F8FAFC",
-  border: `1px solid ${EMAIL_COLORS.border}`,
-  borderRadius: "8px",
-  padding: "16px",
-  overflowWrap: "anywhere",
-  wordBreak: "break-word",
-  fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace",
-  fontSize: "13px",
-  lineHeight: "22px",
-  color: EMAIL_COLORS.primary,
-};
-
-const linkStyle: React.CSSProperties = {
-  color: EMAIL_COLORS.primary,
-  textDecoration: "none",
-  fontWeight: 600,
-};
-
-// ----------------------------------------------------------------------
-// Main Component
-// ----------------------------------------------------------------------
-
-export function VerificationEmail({
-  recipientName,
+export default function VerificationEmail({
+  name,
   verificationUrl,
-  expiresInMinutes,
+  expiresInMinutes = 30,
 }: VerificationEmailProps): React.JSX.Element {
-  const greeting = formatRecipient(recipientName);
-
-  // Safely construct absolute URL
-  const loginUrl = React.useMemo(() => {
-    try {
-      return new URL(EMAIL_LINKS.login, EMAIL_BRAND.website).toString();
-    } catch {
-      return EMAIL_LINKS.login;
-    }
-  }, []);
-
   return (
-    <EmailLayout
-      title="Verify your email address"
-      subtitle="Complete your account verification to start using Mingalar Bangkok."
-      preview="Verify your email address to activate your Mingalar Bangkok account."
-    >
-      {/* Primary Call to Action */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={2}>Verify your email address</Heading>
+    <EmailLayout previewText={`Verify your email address for ${EMAIL_BRAND.name}`}>
+      <Section style={styles.container}>
+        <Heading style={styles.heading}>Verify Your Email Address</Heading>
 
-        <Text>
-          Hello <strong>{greeting}</strong>,
+        <Text style={styles.text}>Hello {name},</Text>
+
+        <Text style={styles.text}>
+          Thank you for signing up with {EMAIL_BRAND.name}! Please click the button below to verify
+          your email address and activate your account.
         </Text>
 
-        <Text>
-          Thank you for creating your <strong>{EMAIL_BRAND.name}</strong> account. Before you can
-          start using all features, we need to verify that this email address belongs to you.
+        <Section style={styles.buttonContainer}>
+          <Button href={verificationUrl} style={styles.button}>
+            Verify Email Address
+          </Button>
+        </Section>
+
+        <Text style={styles.text}>
+          This verification link will expire in {expiresInMinutes} minutes. If you did not request
+          this verification, please ignore this email.
         </Text>
 
-        <MutedText marginBottom={0}>
-          Please click the button below to verify your email address.
+        <Divider style={styles.divider} />
+
+        <MutedText style={styles.mutedText}>
+          If you're having trouble clicking the button, copy and paste the URL below into your web
+          browser:
         </MutedText>
-      </Section>
 
-      <Section paddingTop={8} paddingBottom={8}>
-        <Button href={verificationUrl}>Verify Email Address</Button>
-
-        <SmallText align="center" color={EMAIL_COLORS.textMuted} marginTop={16} marginBottom={0}>
-          {formatExpiration(expiresInMinutes)}
-        </SmallText>
-      </Section>
-
-      <Divider />
-
-      {/* Fallback URL Box */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={4}>Can't click the button?</Heading>
-
-        <Text>Copy and paste the following URL into your web browser:</Text>
-
-        <div style={codeContainerStyle}>{verificationUrl}</div>
-
-        <SmallText marginTop={16} marginBottom={0}>
-          This verification link can only be used once.
-        </SmallText>
-      </Section>
-
-      <Divider />
-
-      {/* Security Guidance */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={4}>Keep your account secure</Heading>
-
-        <Text>
-          If you did not create a <strong>{EMAIL_BRAND.name}</strong> account, you can safely ignore
-          this email. No account will be activated unless this verification link is used.
-        </Text>
-
-        <Text>
-          For your security, never forward this email or share the verification link with anyone.
-          Our support team will never ask you for this link.
-        </Text>
-
-        <Text marginBottom={0}>
-          If you believe someone is attempting to use your email address without your permission,
-          please contact our support team immediately.
-        </Text>
-      </Section>
-
-      <Divider />
-
-      {/* Support Section */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={4}>Need help?</Heading>
-
-        <Text>
-          If you have any questions or experience any issues while verifying your account, our team
-          is ready to help.
-        </Text>
-
-        <Button href={loginUrl} variant="outline">
-          Go to Sign In
-        </Button>
-
-        <SmallText align="center" marginTop={16} marginBottom={0}>
-          You can also visit{" "}
-          <a href={EMAIL_BRAND.website} target="_blank" rel="noopener noreferrer" style={linkStyle}>
-            {EMAIL_BRAND.website}
-          </a>{" "}
-          for additional support and documentation.
-        </SmallText>
+        <SmallText style={styles.linkText}>{verificationUrl}</SmallText>
       </Section>
     </EmailLayout>
   );
 }
 
-export default VerificationEmail;
+const styles = {
+  container: {
+    padding: "0 24px",
+  },
+  heading: {
+    color: EMAIL_COLORS.textPrimary,
+    fontSize: "24px",
+    fontWeight: "bold",
+    textAlign: "left" as const,
+    margin: "0 0 20px",
+  },
+  text: {
+    color: EMAIL_COLORS.textSecondary,
+    fontSize: "16px",
+    lineHeight: "24px",
+    margin: "0 0 16px",
+  },
+  buttonContainer: {
+    margin: "24px 0",
+    textAlign: "center" as const,
+  },
+  button: {
+    backgroundColor: EMAIL_COLORS.primary,
+    borderRadius: "6px",
+    color: "#ffffff",
+    fontSize: "16px",
+    fontWeight: "bold",
+    textDecoration: "none",
+    textAlign: "center" as const,
+    display: "inline-block",
+    padding: "12px 24px",
+  },
+  divider: {
+    borderColor: EMAIL_COLORS.border,
+    margin: "24px 0",
+  },
+  mutedText: {
+    color: EMAIL_COLORS.textMuted,
+    fontSize: "14px",
+    lineHeight: "20px",
+    margin: "0 0 8px",
+  },
+  linkText: {
+    color: EMAIL_COLORS.primary,
+    fontSize: "12px",
+    wordBreak: "break-all" as const,
+    margin: "0",
+  },
+};

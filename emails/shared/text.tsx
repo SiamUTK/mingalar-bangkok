@@ -1,43 +1,43 @@
 import * as React from "react";
 
-import { EMAIL_COLORS } from "@/lib/email";
-
 export interface TextProps {
   readonly children: React.ReactNode;
+  readonly align?: "left" | "center" | "right";
   readonly color?: string;
   readonly fontSize?: number;
   readonly fontWeight?: React.CSSProperties["fontWeight"];
-  readonly lineHeight?: number;
-  readonly align?: React.CSSProperties["textAlign"];
+  readonly lineHeight?: string | number;
   readonly marginTop?: number;
   readonly marginBottom?: number;
+  readonly style?: React.CSSProperties;
 }
 
 export function Text({
   children,
-  color = EMAIL_COLORS.text,
+  align = "left",
+  color = "#374151",
   fontSize = 16,
   fontWeight = 400,
-  lineHeight = 24,
-  align = "left",
+  lineHeight = "26px",
   marginTop = 0,
   marginBottom = 16,
+  style,
 }: TextProps): React.JSX.Element {
   return (
     <p
       style={{
-        margin: `${marginTop}px 0 ${marginBottom}px`,
-        padding: 0,
+        margin: 0,
+        marginTop,
+        marginBottom,
         color,
-        fontSize: `${fontSize}px`,
+        fontSize,
         fontWeight,
-        lineHeight: `${lineHeight}px`,
+        lineHeight,
         textAlign: align,
         fontFamily:
-          "Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-        wordBreak: "break-word",
-        WebkitTextSizeAdjust: "100%",
+          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
         msoLineHeightRule: "exactly",
+        ...style,
       }}
     >
       {children}
@@ -45,13 +45,16 @@ export function Text({
   );
 }
 
-export function MutedText(props: Omit<TextProps, "color">): React.JSX.Element {
-  return <Text {...props} color={EMAIL_COLORS.textMuted} />;
+export interface MutedTextProps extends Omit<TextProps, "color"> {}
+
+export function MutedText(props: MutedTextProps): React.JSX.Element {
+  return <Text {...props} color="#6B7280" />;
 }
 
-export function SmallText(props: Omit<TextProps, "fontSize" | "lineHeight">): React.JSX.Element {
-  return <Text {...props} fontSize={14} lineHeight={22} />;
+export interface SmallTextProps extends Omit<TextProps, "fontSize" | "lineHeight"> {}
+
+export function SmallText(props: SmallTextProps): React.JSX.Element {
+  return <Text {...props} fontSize={13} lineHeight="20px" />;
 }
 
 export default Text;
-

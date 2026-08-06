@@ -1,19 +1,27 @@
 "use client";
 
-import { ReactNode } from "react";
+import * as React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
+import { cn } from "@/lib/utils";
 
-interface AuthLayoutProps {
+export interface AuthLayoutProps extends React.HTMLAttributes<HTMLElement> {
   title: string;
   description: string;
-  children: ReactNode;
-  footer?: ReactNode;
+  children: React.ReactNode;
+  footer?: React.ReactNode;
 }
 
-export function AuthLayout({ title, description, children, footer }: AuthLayoutProps) {
+export function AuthLayout({
+  title,
+  description,
+  children,
+  footer,
+  className,
+  ...props
+}: AuthLayoutProps) {
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className={cn("min-h-screen bg-slate-50", className)} {...props}>
       <Container className="flex min-h-screen items-center justify-center py-12">
         <Card className="w-full max-w-md shadow-xl">
           <CardContent className="space-y-8 p-8">
@@ -26,7 +34,9 @@ export function AuthLayout({ title, description, children, footer }: AuthLayoutP
             <div>{children}</div>
 
             {footer && (
-              <div className="border-t pt-6 text-center text-sm text-slate-600">{footer}</div>
+              <div className="border-t border-slate-200 pt-6 text-center text-sm text-slate-600">
+                {footer}
+              </div>
             )}
           </CardContent>
         </Card>
@@ -34,4 +44,3 @@ export function AuthLayout({ title, description, children, footer }: AuthLayoutP
     </main>
   );
 }
-

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import * as React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,25 +11,28 @@ import { AuthSubmitButton } from "@/components/auth/auth-submit-button";
 
 const resetPasswordSchema = z
   .object({
-    password: z.string().min(8, "Password must be at least 8 characters."),
-
-    confirmPassword: z.string(),
+    password: z
+      .string()
+      .min(8, "Password must be at least 8 characters.")
+      .regex(/[A-Z]/, "Password must contain at least one uppercase letter.")
+      .regex(/[a-z]/, "Password must contain at least one lowercase letter.")
+      .regex(/[0-9]/, "Password must contain at least one number."),
+    confirmPassword: z.string().min(1, "Please confirm your password."),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    path: ["confirmPassword"],
     message: "Passwords do not match.",
+    path: ["confirmPassword"],
   });
 
 export type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
 
-interface ResetPasswordFormProps {
+export interface ResetPasswordFormProps {
   onSubmit: (values: ResetPasswordFormValues) => Promise<void>;
-
   error?: string | null;
 }
 
 export function ResetPasswordForm({ onSubmit, error }: ResetPasswordFormProps) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const {
     register,
@@ -76,10 +79,9 @@ export function ResetPasswordForm({ onSubmit, error }: ResetPasswordFormProps) {
         {...register("confirmPassword")}
       />
 
-      <AuthSubmitButton loading={isLoading} loadingText="Updating password...">
+      <AuthSubmitButton loading={isLoading} loadingText="Resetting...">
         Reset Password
       </AuthSubmitButton>
     </form>
   );
 }
-

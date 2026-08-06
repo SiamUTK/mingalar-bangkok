@@ -25,43 +25,44 @@ export interface ResetPasswordEmailProps extends BaseEmailProps {
 
 export interface ChangeEmailEmailProps extends BaseEmailProps {
   readonly newEmail: string;
-  readonly confirmationUrl: string;
+  readonly confirmEmailUrl: string;
   readonly expiresInMinutes: number;
 }
 
 export interface MembershipUpgradedEmailProps extends BaseEmailProps {
-  readonly planName: string;
-  readonly startedAt: Date;
-  readonly expiresAt?: Date;
+  readonly newPlanName: string;
+  readonly effectiveDate: string;
+  readonly nextBillingDate?: string;
   readonly dashboardUrl: string;
 }
 
 export interface MembershipExpiredEmailProps extends BaseEmailProps {
-  readonly planName: string;
-  readonly expiredAt: Date;
+  readonly previousPlanName: string;
+  readonly expirationDate: string;
   readonly renewUrl: string;
 }
 
 export interface BusinessApprovedEmailProps extends BaseEmailProps {
   readonly businessName: string;
-  readonly businessUrl: string;
-  readonly dashboardUrl?: string;
-  readonly approvalDate?: Date;
+  readonly businessUrl?: string;
+  readonly dashboardUrl: string;
+  readonly approvalDate?: string;
 }
 
 export interface BusinessRejectedEmailProps extends BaseEmailProps {
   readonly businessName: string;
-  readonly reason: string;
+  readonly rejectionReason?: string;
   readonly editListingUrl: string;
+  readonly rejectionDate?: string;
 }
 
 export interface ReviewNotificationEmailProps extends BaseEmailProps {
   readonly businessName: string;
   readonly reviewerName: string;
   readonly rating: number;
-  readonly review: string;
-  readonly reviewComment?: string;
-  readonly reviewUrl: string;
+  readonly reviewComment: string;
+  readonly reviewDate?: string;
+  readonly viewReviewUrl: string;
 }
 
 export interface WeeklyDigestItem {
@@ -71,46 +72,43 @@ export interface WeeklyDigestItem {
 }
 
 export interface WeeklyDigestEmailProps extends BaseEmailProps {
-  readonly weekLabel: string;
-  readonly items: readonly WeeklyDigestItem[];
-}
-
-export interface InvoiceItem {
-  readonly description: string;
-  readonly quantity: number;
-  readonly unitPrice: number;
-  readonly total: number;
+  readonly weekRange?: string;
+  readonly featuredJobs?: readonly WeeklyDigestItem[];
+  readonly featuredBusinesses?: readonly WeeklyDigestItem[];
+  readonly featuredHousing?: readonly WeeklyDigestItem[];
+  readonly communityHighlights?: readonly WeeklyDigestItem[];
+  readonly dashboardUrl: string;
+  readonly unsubscribeUrl?: string;
 }
 
 export interface InvoiceEmailProps extends BaseEmailProps {
   readonly invoiceNumber: string;
-  readonly invoiceDate: Date;
-  readonly dueDate: Date;
-  readonly currency: string;
-  readonly items: readonly InvoiceItem[];
-  readonly subtotal: number;
-  readonly tax: number;
-  readonly total: number;
-  readonly invoiceUrl: string;
+  readonly issueDate: string;
+  readonly dueDate?: string;
+  readonly amount: number;
+  readonly currency?: string;
+  readonly description?: string;
+  readonly invoiceUrl?: string;
+  readonly paymentUrl?: string;
 }
 
 export interface PaymentSuccessEmailProps extends BaseEmailProps {
   readonly amount: number;
-  readonly currency: string;
-  readonly paymentDate: Date;
-  readonly receiptUrl: string;
-  readonly referenceNumber: string;
-  readonly paymentUrl?: string;
+  readonly currency?: string;
+  readonly transactionId: string;
+  readonly paymentDate: string;
   readonly planName?: string;
+  readonly receiptUrl: string;
+  readonly dashboardUrl: string;
 }
 
 export interface PaymentFailedEmailProps extends BaseEmailProps {
   readonly amount: number;
-  readonly currency: string;
-  readonly failureReason: string;
-  readonly retryUrl: string;
-  readonly paymentUrl?: string;
+  readonly currency?: string;
   readonly planName?: string;
+  readonly failureReason: string;
+  readonly updatePaymentUrl: string;
+  readonly retryDate?: string;
 }
 
 export type EmailPropsMap = {
@@ -130,5 +128,6 @@ export type EmailPropsMap = {
   "payment-failed": PaymentFailedEmailProps;
 };
 
-export type EmailTemplateProps<T extends keyof EmailPropsMap = keyof EmailPropsMap> =
-  EmailPropsMap[T];
+export type EmailTemplateName = keyof EmailPropsMap;
+
+export type EmailTemplateProps<T extends EmailTemplateName = EmailTemplateName> = EmailPropsMap[T];

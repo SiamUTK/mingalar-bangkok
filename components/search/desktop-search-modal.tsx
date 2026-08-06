@@ -1,14 +1,15 @@
 "use client";
 
+import * as React from "react";
 import { useEffect } from "react";
 import { X, Search } from "lucide-react";
-import { Button } from "@/components/ui";
+import { Button } from "@/components/ui/button";
 import { RecentSearches } from "./recent-searches";
 import { PopularSearches } from "./popular-searches";
 import { TrendingCategories } from "./trending-categories";
 import { TrendingBusinesses } from "./trending-businesses";
 
-interface DesktopSearchModalProps {
+export interface DesktopSearchModalProps {
   query: string;
   onQueryChange: (query: string) => void;
   onClose: () => void;
@@ -26,7 +27,7 @@ export function DesktopSearchModal({ query, onQueryChange, onClose }: DesktopSea
   return (
     <>
       {/* Backdrop */}
-      <div className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+      <div className="fixed inset-0 z-40 bg-black/50 backdrop-blur-xs" onClick={onClose} />
 
       {/* Modal */}
       <div className="fixed left-1/2 top-1/2 z-50 w-full max-w-2xl -translate-x-1/2 -translate-y-1/2 transform rounded-2xl bg-card shadow-2xl">
@@ -57,8 +58,8 @@ export function DesktopSearchModal({ query, onQueryChange, onClose }: DesktopSea
         <div className="max-h-96 overflow-y-auto p-6">
           {query.length === 0 ? (
             <div className="space-y-8">
-              <RecentSearches />
-              <PopularSearches />
+              <RecentSearches onSearchClick={onQueryChange} />
+              <PopularSearches onSearchClick={onQueryChange} />
               <TrendingCategories />
               <TrendingBusinesses />
             </div>
@@ -72,4 +73,3 @@ export function DesktopSearchModal({ query, onQueryChange, onClose }: DesktopSea
     </>
   );
 }
-

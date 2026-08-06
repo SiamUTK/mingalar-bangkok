@@ -2,6 +2,7 @@
 
 import { AnimatePresence, LazyMotion, m, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
+import type { TargetAndTransition, Transition } from "framer-motion";
 
 import { dropdownMotion } from "@/lib/motion";
 
@@ -20,10 +21,20 @@ export function AnimatedPopover({ open, children, className }: AnimatedPopoverPr
         {open ? (
           <m.div
             className={className}
-            initial={dropdownMotion.initial}
-            animate={shouldReduceMotion ? { opacity: 1, y: 0, scale: 1 } : dropdownMotion.animate}
-            exit={shouldReduceMotion ? { opacity: 0, y: 0, scale: 1 } : dropdownMotion.exit}
-            transition={shouldReduceMotion ? { duration: 0 } : dropdownMotion.transition}
+            initial={dropdownMotion.initial as TargetAndTransition}
+            animate={
+              shouldReduceMotion
+                ? { opacity: 1, y: 0, scale: 1 }
+                : (dropdownMotion.animate as TargetAndTransition)
+            }
+            exit={
+              shouldReduceMotion
+                ? { opacity: 0, y: 0, scale: 1 }
+                : (dropdownMotion.exit as TargetAndTransition)
+            }
+            transition={
+              shouldReduceMotion ? { duration: 0 } : (dropdownMotion.transition as Transition)
+            }
           >
             {children}
           </m.div>
@@ -32,4 +43,3 @@ export function AnimatedPopover({ open, children, className }: AnimatedPopoverPr
     </LazyMotion>
   );
 }
-

@@ -1,13 +1,13 @@
 "use client";
 
+import * as React from "react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-interface AuthSocialProps {
+export interface AuthSocialProps extends React.HTMLAttributes<HTMLDivElement> {
   onGoogle?: () => Promise<void> | void;
   onApple?: () => Promise<void> | void;
-
   loading?: boolean;
-
   enableGoogle?: boolean;
   enableApple?: boolean;
 }
@@ -18,9 +18,11 @@ export function AuthSocial({
   loading = false,
   enableGoogle = true,
   enableApple = false,
+  className,
+  ...props
 }: AuthSocialProps) {
   return (
-    <div className="space-y-3">
+    <div className={cn("space-y-3", className)} {...props}>
       {enableGoogle && (
         <Button
           type="button"
@@ -47,4 +49,3 @@ export function AuthSocial({
     </div>
   );
 }
-

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
   ShieldCheck,
@@ -72,6 +73,7 @@ const mockVisaServices = [
 ];
 
 export default function VisaPage() {
+  const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState("All Services");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -148,9 +150,9 @@ export default function VisaPage() {
                 key={cat}
                 type="button"
                 onClick={() => setSelectedCategory(cat)}
-                className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all ${
+                className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all cursor-pointer ${
                   selectedCategory === cat
-                    ? "bg-primary text-primary-foreground shadow-sm"
+                    ? "bg-primary text-primary-foreground shadow-xs"
                     : "border border-border/80 bg-card text-muted-foreground hover:border-primary/50 hover:text-foreground"
                 }`}
               >
@@ -167,7 +169,7 @@ export default function VisaPage() {
           {filteredServices.map((service) => (
             <div
               key={service.id}
-              className="group rounded-3xl border border-border/80 bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-amber-500/40 hover:shadow-lg flex flex-col justify-between"
+              className="group rounded-3xl border border-border/80 bg-card p-6 shadow-xs transition-all hover:-translate-y-1 hover:border-amber-500/40 hover:shadow-lg flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between gap-2">
@@ -208,7 +210,7 @@ export default function VisaPage() {
                 <Button
                   onClick={() => handleLockedAction("Start Visa Application")}
                   size="sm"
-                  className="flex-1 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-600 text-white"
+                  className="flex-1 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-600 text-white cursor-pointer"
                 >
                   <CheckCircle2 className="mr-1.5 h-3.5 w-3.5" />
                   View Checklist & Steps
@@ -217,7 +219,7 @@ export default function VisaPage() {
                   onClick={() => handleLockedAction("Consult AI on Visa")}
                   variant="outline"
                   size="sm"
-                  className="rounded-xl px-3"
+                  className="rounded-xl px-3 cursor-pointer"
                 >
                   <Lock className="h-3.5 w-3.5" />
                 </Button>

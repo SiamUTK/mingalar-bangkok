@@ -1,289 +1,315 @@
-import React from "react";
 import { render } from "@react-email/render";
+import { Resend } from "resend";
 import type { CreateEmailOptions } from "resend";
 
-import { EMAIL_HEADERS, EMAIL_PRIORITY, EMAIL_TEMPLATE, emailConfig, resend } from "@/lib/email";
+import VerificationEmail from "@/emails/verification";
+import WelcomeEmail from "@/emails/welcome";
+import ForgotPasswordEmail from "@/emails/forgot-password";
+import ResetPasswordEmail from "@/emails/reset-password";
+import ChangeEmailEmail from "@/emails/change-email";
+import MembershipUpgradedEmail from "@/emails/membership-upgraded";
+import MembershipExpiredEmail from "@/emails/membership-expired";
+import BusinessApprovedEmail from "@/emails/business-approved";
+import BusinessRejectedEmail from "@/emails/business-rejected";
+import ReviewNotificationEmail from "@/emails/review-notification";
+import WeeklyDigestEmail from "@/emails/weekly-digest";
+import InvoiceEmail from "@/emails/invoice";
+import PaymentSuccessEmail from "@/emails/payment-success";
+import PaymentFailedEmail from "@/emails/payment-failed";
 
 import type {
-  EmailAttachment,
-  EmailRecipient,
   EmailTemplateName,
+  EmailPropsMap,
+  EmailRecipient,
   SendEmailOptions,
-  EmailTemplateProps,
-} from "@/lib/email/types";
+  SendEmailResult,
+} from "./types/email";
 
-import VerificationEmail from "@/emails/verification-email";
-import WelcomeEmail from "@/emails/welcome-email";
-import ForgotPasswordEmail from "@/emails/forgot-password-email";
-import ResetPasswordEmail from "@/emails/reset-password-email";
+const resend = new Resend(process.env.RESEND_API_KEY);
+const DEFAULT_FROM = process.env.EMAIL_FROM || "noreply@example.com";
 
-import { generateSubject } from "./utils";
+const TEMPLATE_REGISTRY: {
+  [K in EmailTemplateName]: React.ComponentType<EmailPropsMap[K]>;
+} = {
+  verification: VerificationEmail,
+  welcome: WelcomeEmail,
+  "forgot-password": ForgotPasswordEmail,
+  "reset-password": ResetPasswordEmail,
+  "change-email": ChangeEmailEmail,
+  "membership-upgraded": MembershipUpgradedEmail,
+  "membership-expired": MembershipExpiredEmail,
+  "business-approved": BusinessApprovedEmail,
+  "business-rejected": BusinessRejectedEmail,
+  "review-notification": ReviewNotificationEmail,
+  "weekly-digest": WeeklyDigestEmail,
+  invoice: InvoiceEmail,
+  "payment-success": PaymentSuccessEmail,
+  "payment-failed": PaymentFailedEmail,
+};
 
-export interface SendEmailResult {
-  readonly id: string;
-  readonly success: boolean;
+export function normalizeRecipients(
+  recipient: EmailRecipient | EmailRecipient[] | string | string[]
+): string[] {
+  const recipients = Array.isArray(recipient) ? recipient : [recipient];
+
+  return recipients.map((item) => {
+    if (typeof item === "string") {
+      return item;
+    }
+    if (typeof item === "object" && item !== null && "email" in item) {
+      const emailValue = (item as { email: unknown }).email;
+      if (typeof emailValue === "string") {
+        return emailValue;
+      }
+    }
+    throw new Error("Invalid recipient format");
+  });
 }
 
-type RecipientInput = EmailRecipient | readonly EmailRecipient[] | string | readonly string[];
+export function renderTemplate<TName extends EmailTemplateName>(
+  templateName: TName,
+  props: EmailPropsMap[TName]
+): React.ReactElement {
+  const Component = TEMPLATE_REGISTRY[templateName] as React.ComponentType<EmailPropsMap[TName]>;
+  return <Component {...props} />;
+}
 
-const normalizeRecipient = (recipient: EmailRecipient): string => {
-  const email = recipient.email.trim();
-  if (recipient.name?.trim()) {
-    return `${recipient.name.trim()} <${email}>`;
-  }
-  return email;
-};
+export async function buildPayload<TName extends EmailTemplateName>(
+  options: SendEmailOptions<TName>
+): Promise<CreateEmailOptions> {
+  const element = renderTemplate(options.template, options.props);
 
-// แก้ไข normalizeRecipients ให้รองรับทั้ง Single Item และ Array
-const normalizeRecipients = (recipients: RecipientInput): string[] => {
-  if (typeof recipients === "string") {
-    return [recipients.trim()];
-  }
-
-  if (Array.isArray(recipients)) {
-    return recipients.map((recipient) => {
-      if (typeof recipient === "string") {
-        return recipient.trim();
-      }
-      return normalizeRecipient(recipient);
-    });
-  }
-
-  return [normalizeRecipient(recipients)];
-};
-
-const normalizeAttachments = (
-  attachments?: readonly EmailAttachment[]
-): CreateEmailOptions["attachments"] => {
-  if (!attachments?.length) {
-    return undefined;
-  }
-  return attachments.map((attachment) => ({
-    filename: attachment.filename,
-    content: attachment.content,
-    contentType: attachment.contentType,
-    contentId: attachment.contentId,
-  }));
-};
-
-const createHeaders = (headers?: Readonly<Record<string, string>>): Record<string, string> => ({
-  "Auto-Submitted": EMAIL_HEADERS.autoSubmitted,
-  "X-Mailer": EMAIL_HEADERS.xMailer,
-  Precedence: EMAIL_HEADERS.precedence,
-  ...(headers ?? {}),
-});
-
-const createTags = (
-  template: EmailTemplateName,
-  tags?: Readonly<Record<string, string>>
-): NonNullable<CreateEmailOptions["tags"]> => [
-  { name: "template", value: template },
-  { name: "environment", value: emailConfig.app.environment },
-  ...(tags
-    ? Object.entries(tags).map(([name, value]) => ({
-        name,
-        value,
-      }))
-    : []),
-];
-
-const validateSubject = (subject: string): string => {
-  const value = subject.trim();
-  if (!value) {
-    throw new Error("Email subject cannot be empty.");
-  }
-  return value;
-};
-
-// แก้ไข Registry Type และ renderTemplate เพื่อหลีกเลี่ยง any / never
-const templateRegistry: Partial<
-  Record<EmailTemplateName, React.ComponentType<Record<string, unknown>>>
-> = {
-  verification: VerificationEmail as React.ComponentType<Record<string, unknown>>,
-  welcome: WelcomeEmail as React.ComponentType<Record<string, unknown>>,
-  "forgot-password": ForgotPasswordEmail as React.ComponentType<Record<string, unknown>>,
-  "reset-password": ResetPasswordEmail as React.ComponentType<Record<string, unknown>>,
-};
-
-const renderTemplate = (
-  template: EmailTemplateName,
-  props: EmailTemplateProps
-): React.ReactElement => {
-  const Component = templateRegistry[template];
-
-  if (!Component) {
-    throw new Error(`Email template "${template}" is not registered.`);
-  }
-
-  const ComponentProps = (props ?? {}) as Record<string, unknown>;
-  return <Component {...ComponentProps} />;
-};
-
-const resolveSubject = (options: SendEmailOptions): string => {
-  if (options.subject?.trim()) {
-    return validateSubject(options.subject);
-  }
-  return generateSubject(options.template);
-};
-
-const resolvePriority = (priority: keyof typeof EMAIL_PRIORITY = "NORMAL"): string =>
-  EMAIL_PRIORITY[priority];
-
-const isKnownTemplate = (template: string): template is EmailTemplateName =>
-  Object.values(EMAIL_TEMPLATE).includes(
-    template as (typeof EMAIL_TEMPLATE)[keyof typeof EMAIL_TEMPLATE]
-  );
-
-const buildPayload = async (options: SendEmailOptions): Promise<CreateEmailOptions> => {
-  if (!isKnownTemplate(options.template)) {
-    throw new Error(`Unknown email template "${options.template}".`);
-  }
-
-  const react = renderTemplate(options.template, options.props);
-  const html = await render(react, { pretty: true });
-  const text = await render(react, { plainText: true });
+  const [html, text] = await Promise.all([
+    render(element, { pretty: false }),
+    render(element, { plainText: true }),
+  ]);
 
   return {
-    from: emailConfig.sender.from,
+    from: options.from || DEFAULT_FROM,
     to: normalizeRecipients(options.to),
-    cc: options.cc ? normalizeRecipients(options.cc) : undefined,
-    bcc: options.bcc ? normalizeRecipients(options.bcc) : undefined,
-    replyTo: options.replyTo ?? emailConfig.sender.replyTo,
-    subject: resolveSubject(options),
+    ...(options.cc ? { cc: normalizeRecipients(options.cc) } : {}),
+    ...(options.bcc ? { bcc: normalizeRecipients(options.bcc) } : {}),
+    ...(options.replyTo ? { replyTo: options.replyTo } : {}),
+    subject: options.subject,
     html,
     text,
-    headers: createHeaders(options.headers),
-    tags: createTags(options.template, options.tags),
-    attachments: normalizeAttachments(options.attachments),
+    ...(options.headers ? { headers: options.headers } : {}),
+    ...(options.tags ? { tags: options.tags } : {}),
+    ...(options.attachments ? { attachments: options.attachments } : {}),
   };
-};
+}
 
-export const sendEmail = async (options: SendEmailOptions): Promise<SendEmailResult> => {
-  const payload = await buildPayload(options);
-  const { data, error } = await resend.emails.send(payload);
+export async function sendEmail<TName extends EmailTemplateName>(
+  options: SendEmailOptions<TName>
+): Promise<SendEmailResult> {
+  try {
+    const payload = await buildPayload(options);
+    const { data, error } = await resend.emails.send(payload);
 
-  if (error) {
-    throw new Error(error.message || "Failed to send email.");
+    if (error) {
+      return {
+        success: false,
+        error: new Error(error.message),
+      };
+    }
+
+    if (!data) {
+      return {
+        success: false,
+        error: new Error("Unknown error occurred while sending email"),
+      };
+    }
+
+    return {
+      success: true,
+      data: { id: data.id },
+    };
+  } catch (err) {
+    return {
+      success: false,
+      error: err instanceof Error ? err : new Error(String(err)),
+    };
   }
-  if (!data?.id) {
-    throw new Error("Resend did not return an email ID.");
-  }
+}
 
-  return Object.freeze({
-    id: data.id,
-    success: true,
-  });
-};
-
-export const sendVerificationEmail = (props: EmailTemplateProps<"verification">) =>
-  sendEmail({
-    to: { email: props.recipientEmail, name: props.recipientName },
+export async function sendVerificationEmail(
+  to: EmailRecipient | EmailRecipient[] | string | string[],
+  props: EmailPropsMap["verification"],
+  subject = "Verify your email address"
+): Promise<SendEmailResult> {
+  return sendEmail({
     template: "verification",
+    to,
+    subject,
     props,
   });
+}
 
-export const sendWelcomeEmail = (props: EmailTemplateProps<"welcome">) =>
-  sendEmail({
-    to: { email: props.recipientEmail, name: props.recipientName },
+export async function sendWelcomeEmail(
+  to: EmailRecipient | EmailRecipient[] | string | string[],
+  props: EmailPropsMap["welcome"],
+  subject = "Welcome to our platform!"
+): Promise<SendEmailResult> {
+  return sendEmail({
     template: "welcome",
+    to,
+    subject,
     props,
   });
+}
 
-export const sendForgotPasswordEmail = (props: EmailTemplateProps<"forgot-password">) =>
-  sendEmail({
-    to: { email: props.recipientEmail, name: props.recipientName },
+export async function sendForgotPasswordEmail(
+  to: EmailRecipient | EmailRecipient[] | string | string[],
+  props: EmailPropsMap["forgot-password"],
+  subject = "Reset your password"
+): Promise<SendEmailResult> {
+  return sendEmail({
     template: "forgot-password",
+    to,
+    subject,
     props,
   });
+}
 
-export const sendResetPasswordEmail = (props: EmailTemplateProps<"reset-password">) =>
-  sendEmail({
-    to: { email: props.recipientEmail, name: props.recipientName },
+export async function sendResetPasswordEmail(
+  to: EmailRecipient | EmailRecipient[] | string | string[],
+  props: EmailPropsMap["reset-password"],
+  subject = "Your password has been reset"
+): Promise<SendEmailResult> {
+  return sendEmail({
     template: "reset-password",
+    to,
+    subject,
     props,
   });
+}
 
-export const sendChangeEmailEmail = (props: EmailTemplateProps<"change-email">) =>
-  sendEmail({
-    to: { email: props.recipientEmail, name: props.recipientName },
+export async function sendChangeEmailEmail(
+  to: EmailRecipient | EmailRecipient[] | string | string[],
+  props: EmailPropsMap["change-email"],
+  subject = "Confirm your new email address"
+): Promise<SendEmailResult> {
+  return sendEmail({
     template: "change-email",
+    to,
+    subject,
     props,
   });
+}
 
-export const sendMembershipUpgradedEmail = (props: EmailTemplateProps<"membership-upgraded">) =>
-  sendEmail({
-    to: { email: props.recipientEmail, name: props.recipientName },
+export async function sendMembershipUpgradedEmail(
+  to: EmailRecipient | EmailRecipient[] | string | string[],
+  props: EmailPropsMap["membership-upgraded"],
+  subject = "Your membership has been upgraded!"
+): Promise<SendEmailResult> {
+  return sendEmail({
     template: "membership-upgraded",
+    to,
+    subject,
     props,
   });
+}
 
-export const sendMembershipExpiredEmail = (props: EmailTemplateProps<"membership-expired">) =>
-  sendEmail({
-    to: { email: props.recipientEmail, name: props.recipientName },
+export async function sendMembershipExpiredEmail(
+  to: EmailRecipient | EmailRecipient[] | string | string[],
+  props: EmailPropsMap["membership-expired"],
+  subject = "Your membership has expired"
+): Promise<SendEmailResult> {
+  return sendEmail({
     template: "membership-expired",
+    to,
+    subject,
     props,
   });
+}
 
-export const sendBusinessApprovedEmail = (props: EmailTemplateProps<"business-approved">) =>
-  sendEmail({
-    to: { email: props.recipientEmail, name: props.recipientName },
+export async function sendBusinessApprovedEmail(
+  to: EmailRecipient | EmailRecipient[] | string | string[],
+  props: EmailPropsMap["business-approved"],
+  subject = "Your business account has been approved!"
+): Promise<SendEmailResult> {
+  return sendEmail({
     template: "business-approved",
+    to,
+    subject,
     props,
   });
+}
 
-export const sendBusinessRejectedEmail = (props: EmailTemplateProps<"business-rejected">) =>
-  sendEmail({
-    to: { email: props.recipientEmail, name: props.recipientName },
+export async function sendBusinessRejectedEmail(
+  to: EmailRecipient | EmailRecipient[] | string | string[],
+  props: EmailPropsMap["business-rejected"],
+  subject = "Update regarding your business account application"
+): Promise<SendEmailResult> {
+  return sendEmail({
     template: "business-rejected",
+    to,
+    subject,
     props,
   });
+}
 
-export const sendReviewNotificationEmail = (props: EmailTemplateProps<"review-notification">) =>
-  sendEmail({
-    to: { email: props.recipientEmail, name: props.recipientName },
+export async function sendReviewNotificationEmail(
+  to: EmailRecipient | EmailRecipient[] | string | string[],
+  props: EmailPropsMap["review-notification"],
+  subject = "You have a new review"
+): Promise<SendEmailResult> {
+  return sendEmail({
     template: "review-notification",
+    to,
+    subject,
     props,
   });
+}
 
-export const sendWeeklyDigestEmail = (props: EmailTemplateProps<"weekly-digest">) =>
-  sendEmail({
-    to: { email: props.recipientEmail, name: props.recipientName },
+export async function sendWeeklyDigestEmail(
+  to: EmailRecipient | EmailRecipient[] | string | string[],
+  props: EmailPropsMap["weekly-digest"],
+  subject = "Your Weekly Digest"
+): Promise<SendEmailResult> {
+  return sendEmail({
     template: "weekly-digest",
+    to,
+    subject,
     props,
   });
+}
 
-export const sendInvoiceEmail = (props: EmailTemplateProps<"invoice">) =>
-  sendEmail({
-    to: { email: props.recipientEmail, name: props.recipientName },
+export async function sendInvoiceEmail(
+  to: EmailRecipient | EmailRecipient[] | string | string[],
+  props: EmailPropsMap["invoice"],
+  subject = "Your Invoice"
+): Promise<SendEmailResult> {
+  return sendEmail({
     template: "invoice",
+    to,
+    subject,
     props,
   });
+}
 
-export const sendPaymentSuccessEmail = (props: EmailTemplateProps<"payment-success">) =>
-  sendEmail({
-    to: { email: props.recipientEmail, name: props.recipientName },
+export async function sendPaymentSuccessEmail(
+  to: EmailRecipient | EmailRecipient[] | string | string[],
+  props: EmailPropsMap["payment-success"],
+  subject = "Payment Successful"
+): Promise<SendEmailResult> {
+  return sendEmail({
     template: "payment-success",
+    to,
+    subject,
     props,
   });
+}
 
-export const sendPaymentFailedEmail = (props: EmailTemplateProps<"payment-failed">) =>
-  sendEmail({
-    to: { email: props.recipientEmail, name: props.recipientName },
+export async function sendPaymentFailedEmail(
+  to: EmailRecipient | EmailRecipient[] | string | string[],
+  props: EmailPropsMap["payment-failed"],
+  subject = "Payment Failed"
+): Promise<SendEmailResult> {
+  return sendEmail({
     template: "payment-failed",
+    to,
+    subject,
     props,
   });
-
-export {
-  buildPayload,
-  createHeaders,
-  createTags,
-  generateSubject,
-  isKnownTemplate,
-  normalizeAttachments,
-  normalizeRecipients,
-  renderTemplate,
-  resolvePriority,
-  resolveSubject,
-};
-
-export default sendEmail;
+}

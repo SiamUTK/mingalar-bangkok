@@ -1,13 +1,14 @@
 "use client";
 
+import * as React from "react";
 import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 
-import { Button } from "@/components/ui";
+import { Button } from "@/components/ui/button";
 import { DesktopSearchModal } from "./desktop-search-modal";
 import { MobileFullscreenSearch } from "./mobile-fullscreen-search";
 
-interface GlobalSearchOverlayProps {
+export interface GlobalSearchOverlayProps {
   isOpen?: boolean;
   onClose?: () => void;
 }
@@ -17,7 +18,9 @@ export function GlobalSearchOverlay({ isOpen = false, onClose }: GlobalSearchOve
   const [query, setQuery] = useState("");
   const [isMobile, setIsMobile] = useState(false);
 
-  // useEffect removed to prevent cascading renders
+  useEffect(() => {
+    setSearchOpen(isOpen);
+  }, [isOpen]);
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -25,7 +28,6 @@ export function GlobalSearchOverlay({ isOpen = false, onClose }: GlobalSearchOve
     };
 
     checkScreenSize();
-
     window.addEventListener("resize", checkScreenSize);
 
     return () => {
@@ -50,16 +52,21 @@ export function GlobalSearchOverlay({ isOpen = false, onClose }: GlobalSearchOve
   );
 }
 
-export function SearchTrigger() {
+export type SearchTriggerProps = React.ComponentPropsWithoutRef<typeof Button>;
+
+export function SearchTrigger({ className, ...props }: SearchTriggerProps) {
   const [searchOpen, setSearchOpen] = useState(false);
 
   return (
     <>
       <Button
         variant="ghost"
-        size="md"
+        size="default"
         onClick={() => setSearchOpen(true)}
-        className="w-full max-w-xs gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm text-muted-foreground hover:border-primary hover:bg-card md:max-w-sm"
+        className={`w-full max-w-xs gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm text-muted-foreground hover:border-primary hover:bg-card md:max-w-sm ${
+          className ?? ""
+        }`}
+        {...props}
       >
         <Search className="h-4 w-4" />
         <span>Search...</span>
@@ -69,4 +76,3 @@ export function SearchTrigger() {
     </>
   );
 }
-

@@ -1,35 +1,40 @@
+// components/ui/AnimatedDropdown.tsx
 "use client";
 
-import { AnimatePresence, LazyMotion, m, useReducedMotion } from "framer-motion";
-import type { ReactNode } from "react";
-
+import * as React from "react";
+import { motion, useReducedMotion, TargetAndTransition, Transition } from "framer-motion";
 import { dropdownMotion } from "@/lib/motion";
 
-interface AnimatedDropdownProps {
-  open: boolean;
-  children: ReactNode;
+export interface AnimatedDropdownProps {
+  open?: boolean;
+  children: React.ReactNode;
   className?: string;
 }
 
-export function AnimatedDropdown({ open, children, className }: AnimatedDropdownProps) {
+export function AnimatedDropdown({ children, className }: AnimatedDropdownProps) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <LazyMotion features={async () => (await import("framer-motion")).domAnimation}>
-      <AnimatePresence>
-        {open ? (
-          <m.div
-            className={className}
-            initial={dropdownMotion.initial}
-            animate={shouldReduceMotion ? { opacity: 1, y: 0, scale: 1 } : dropdownMotion.animate}
-            exit={shouldReduceMotion ? { opacity: 0, y: 0, scale: 1 } : dropdownMotion.exit}
-            transition={shouldReduceMotion ? { duration: 0 } : dropdownMotion.transition}
-          >
-            {children}
-          </m.div>
-        ) : null}
-      </AnimatePresence>
-    </LazyMotion>
+    <motion.div
+      initial={
+        shouldReduceMotion
+          ? { opacity: 1, y: 0, scale: 1 }
+          : (dropdownMotion.initial as TargetAndTransition)
+      }
+      animate={
+        shouldReduceMotion
+          ? { opacity: 1, y: 0, scale: 1 }
+          : (dropdownMotion.animate as TargetAndTransition)
+      }
+      exit={
+        shouldReduceMotion
+          ? { opacity: 0, y: 0, scale: 1 }
+          : (dropdownMotion.exit as TargetAndTransition)
+      }
+      transition={shouldReduceMotion ? { duration: 0 } : (dropdownMotion.transition as Transition)}
+      className={className}
+    >
+      {children}
+    </motion.div>
   );
 }
-

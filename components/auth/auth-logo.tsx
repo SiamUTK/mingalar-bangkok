@@ -1,10 +1,12 @@
+import * as React from "react";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
-interface AuthLogoProps {
+export interface AuthLogoProps extends React.HTMLAttributes<HTMLAnchorElement> {
   size?: "sm" | "md" | "lg";
 }
 
-export function AuthLogo({ size = "md" }: AuthLogoProps) {
+export function AuthLogo({ size = "md", className, ...props }: AuthLogoProps) {
   const sizes = {
     sm: {
       icon: "h-10 w-10",
@@ -26,21 +28,30 @@ export function AuthLogo({ size = "md" }: AuthLogoProps) {
   const current = sizes[size];
 
   return (
-    <Link href="/" className="flex flex-col items-center gap-4 transition-opacity hover:opacity-90">
+    <Link
+      href="/"
+      className={cn(
+        "flex flex-col items-center gap-4 transition-opacity hover:opacity-90",
+        className
+      )}
+      {...props}
+    >
       <div
-        className={`flex ${current.icon} items-center justify-center rounded-2xl bg-linear-to-br from-blue-600 to-cyan-500 text-lg font-bold text-white shadow-lg`}
+        className={cn(
+          "flex items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 text-lg font-bold text-white shadow-lg",
+          current.icon
+        )}
       >
         MB
       </div>
 
       <div className="text-center">
-        <h2 className={`${current.title} font-bold tracking-tight`}>Mingalar Bangkok</h2>
+        <h2 className={cn("font-bold tracking-tight", current.title)}>Mingalar Bangkok</h2>
 
-        <p className={`${current.subtitle} text-muted-foreground`}>
+        <p className={cn("text-muted-foreground", current.subtitle)}>
           AI Platform for Myanmar Community
         </p>
       </div>
     </Link>
   );
 }
-

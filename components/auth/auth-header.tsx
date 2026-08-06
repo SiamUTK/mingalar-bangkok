@@ -1,14 +1,22 @@
+import * as React from "react";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
-interface AuthHeaderProps {
+export interface AuthHeaderProps extends React.HTMLAttributes<HTMLElement> {
   title: string;
   description: string;
   showLogo?: boolean;
 }
 
-export function AuthHeader({ title, description, showLogo = true }: AuthHeaderProps) {
+export function AuthHeader({
+  title,
+  description,
+  showLogo = true,
+  className,
+  ...props
+}: AuthHeaderProps) {
   return (
-    <header className="space-y-6 text-center">
+    <header className={cn("space-y-6 text-center", className)} {...props}>
       {showLogo && (
         <Link href="/" className="inline-flex items-center justify-center">
           <span className="text-3xl font-bold tracking-tight">Mingalar Bangkok</span>
@@ -23,4 +31,3 @@ export function AuthHeader({ title, description, showLogo = true }: AuthHeaderPr
     </header>
   );
 }
-

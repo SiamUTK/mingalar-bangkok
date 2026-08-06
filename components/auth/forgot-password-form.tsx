@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import * as React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,19 +10,18 @@ import { AuthInput } from "@/components/auth/auth-input";
 import { AuthSubmitButton } from "@/components/auth/auth-submit-button";
 
 const forgotPasswordSchema = z.object({
-  email: z.email("Please enter a valid email address.").trim(),
+  email: z.string().email("Please enter a valid email address.").trim(),
 });
 
 export type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
 
-interface ForgotPasswordFormProps {
+export interface ForgotPasswordFormProps {
   onSubmit: (values: ForgotPasswordFormValues) => Promise<void>;
-
   error?: string | null;
 }
 
 export function ForgotPasswordForm({ onSubmit, error }: ForgotPasswordFormProps) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const {
     register,
@@ -64,4 +63,3 @@ export function ForgotPasswordForm({ onSubmit, error }: ForgotPasswordFormProps)
     </form>
   );
 }
-

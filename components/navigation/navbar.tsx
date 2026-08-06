@@ -1,18 +1,23 @@
 "use client";
 
+import * as React from "react";
 import { useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import { LayoutDashboard, LogIn, UserPlus, Bot } from "lucide-react";
-import { createClient } from "@/lib/supabase/client"; // หรือ Supabase Auth Helper ในโปรเจกต์ของคุณ
+import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
+
+export interface NavItem {
+  label: string;
+  href: string;
+}
 
 export function Navbar() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // เช็คเซสชันผู้ใช้จาก Supabase
     const supabase = createClient();
     supabase.auth.getUser().then(({ data }) => {
       setUser(data.user);
@@ -24,7 +29,7 @@ export function Navbar() {
     });
 
     return () => {
-      authListener.subscription.unsubscribe();
+      authListener.subscription?.unsubscribe();
     };
   }, []);
 
@@ -33,7 +38,7 @@ export function Navbar() {
       <div className="container mx-auto flex h-16 items-center justify-between px-6">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 font-black text-xl text-primary">
-          <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-sm">
+          <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-xs">
             M
           </span>
           <span>Mingalar BKK</span>
@@ -74,7 +79,7 @@ export function Navbar() {
           {!loading && (
             <>
               {user ? (
-                /* 🟢 สำหรับสมาชิกที่ล็อกอินแล้ว */
+                /* Member logged in */
                 <Link href="/dashboard">
                   <Button
                     size="sm"
@@ -85,7 +90,7 @@ export function Navbar() {
                   </Button>
                 </Link>
               ) : (
-                /* 🔴 สำหรับคนทั่วไป (Guest) */
+                /* Guest */
                 <div className="flex items-center gap-2">
                   <Link href="/login">
                     <Button variant="ghost" size="sm" className="rounded-2xl text-xs font-bold">
@@ -106,4 +111,3 @@ export function Navbar() {
     </header>
   );
 }
-

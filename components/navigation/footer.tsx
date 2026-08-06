@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { MessageCircle, Send, Phone, Mail, MapPin, ArrowRight } from "lucide-react";
@@ -17,7 +18,7 @@ export interface FooterSection {
   links: FooterLink[];
 }
 
-interface FooterProps {
+export interface FooterProps {
   description?: string;
   sections?: FooterSection[];
   socialLinks?: {
@@ -29,7 +30,6 @@ interface FooterProps {
   className?: string;
 }
 
-// 🔴 SVG Custom Icons สำหรับไอคอนแบรนด์ที่ไม่มีใน Lucide-React
 function FacebookIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg fill="currentColor" viewBox="0 0 24 24" className="h-4 w-4" {...props}>
@@ -46,7 +46,6 @@ function YoutubeIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-// 🟢 Default Navigation Sections ที่ตรงกับ Routes ในโปรเจกต์ 100%
 const defaultSections: FooterSection[] = [
   {
     title: "Services",
@@ -80,7 +79,6 @@ const defaultSections: FooterSection[] = [
   },
 ];
 
-// 🟢 Default Social Links
 const defaultSocialLinks = [
   { label: "Facebook", href: "https://facebook.com", icon: <FacebookIcon /> },
   { label: "LINE", href: "https://line.me", icon: <MessageCircle className="h-4 w-4" /> },
@@ -103,7 +101,7 @@ export function Footer({
       className={cn("relative overflow-hidden border-t border-border bg-background", className)}
     >
       {/* Brand Gradient Bar */}
-      <div className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-[#AA2429] via-[#D9A441] to-[#1F2D49]" />
+      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#AA2429] via-[#D9A441] to-[#1F2D49]" />
 
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
         {/* Main Grid Container */}
@@ -247,4 +245,3 @@ export function Footer({
     </footer>
   );
 }
-

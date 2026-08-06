@@ -1,35 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import * as React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { authService } from "@/lib/auth/auth.service";
+import { AuthErrorMessage } from "@/components/auth/auth-error-message";
+import { AuthInput } from "@/components/auth/auth-input";
+import { AuthSubmitButton } from "@/components/auth/auth-submit-button";
 
 const registerSchema = z
   .object({
-    fullName: z.string().min(2, "Full name is required"),
-
-    email: z.string().email("Invalid email address"),
-
-    password: z.string().min(8, "Password must be at least 8 characters"),
-
-    confirmPassword: z.string(),
+    name: z.string().min(2, "Name must be at least 2 characters.").trim(),
+    email: z.string().email("Please enter a valid email address.").trim(),
+    password: z
+      .string()
+      .min(8, "Password must be at least 8 characters.")
+      .regex(/[A-Z]/, "Password must contain at least one uppercase letter.")
+      .regex(/[a-z]/, "Password must contain at least one lowercase letter.")
+      .regex(/[0-9]/, "Password must contain at least one number."),
+    confirmPassword: z.string().min(1, "Please confirm your password."),
   })
   .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match.",
     path: ["confirmPassword"],
-    message: "Passwords do not match",
   });
 
-type RegisterFormValues = z.infer<typeof registerSchema>;
+export type RegisterFormValues = z.infer<typeof registerSchema>;
 
-export function RegisterForm() {
-  const [loading, setLoading] = useState(false);
+export interface RegisterFormProps {
+  onSubmit: (values: RegisterFormValues) => Promise<void>;
+  error?: string | null;
+}
 
-  const [success, setSuccess] = useState(false);
+export function RegisterForm({ onSubmit, error }: RegisterFormProps) {
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const {
     register,
@@ -37,71 +42,70 @@ export function RegisterForm() {
     formState: { errors },
   } = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
   });
 
-  async function onSubmit(values: RegisterFormValues) {
+  async function submit(values: RegisterFormValues) {
     try {
-      setLoading(true);
-
-      await authService.register({
-        email: values.email,
-        password: values.password,
-        fullName: values.fullName,
-      });
-
-      setSuccess(true);
-    } catch (error) {
-      console.error(error);
-      alert("Registration failed.");
+      setIsLoading(true);
+      await onSubmit(values);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }
 
-  if (success) {
-    return (
-      <div className="space-y-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-6 text-center">
-        <h2 className="text-xl font-semibold">Check your email</h2>
-
-        <p className="text-sm text-muted-foreground">
-          We&apos;ve sent you a verification email. Please verify your account before logging in.
-        </p>
-      </div>
-    );
-  }
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-      <div>
-        <Input placeholder="Full name" {...register("fullName")} />
+    <form onSubmit={handleSubmit(submit)} className="space-y-6">
+      <AuthErrorMessage message={error} />
 
-        {errors.fullName && <p className="mt-1 text-sm text-red-500">{errors.fullName.message}</p>}
-      </div>
+      <AuthInput
+        id="name"
+        type="text"
+        label="Full Name"
+        placeholder="John Doe"
+        autoComplete="name"
+        error={errors.name?.message}
+        {...register("name")}
+      />
 
-      <div>
-        <Input type="email" placeholder="Email" {...register("email")} />
+      <AuthInput
+        id="email"
+        type="email"
+        label="Email"
+        placeholder="name@example.com"
+        autoComplete="email"
+        error={errors.email?.message}
+        {...register("email")}
+      />
 
-        {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>}
-      </div>
+      <AuthInput
+        id="password"
+        type="password"
+        label="Password"
+        placeholder="••••••••"
+        autoComplete="new-password"
+        error={errors.password?.message}
+        {...register("password")}
+      />
 
-      <div>
-        <Input type="password" placeholder="Password" {...register("password")} />
+      <AuthInput
+        id="confirmPassword"
+        type="password"
+        label="Confirm Password"
+        placeholder="••••••••"
+        autoComplete="new-password"
+        error={errors.confirmPassword?.message}
+        {...register("confirmPassword")}
+      />
 
-        {errors.password && <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>}
-      </div>
-
-      <div>
-        <Input type="password" placeholder="Confirm Password" {...register("confirmPassword")} />
-
-        {errors.confirmPassword && (
-          <p className="mt-1 text-sm text-red-500">{errors.confirmPassword.message}</p>
-        )}
-      </div>
-
-      <Button type="submit" disabled={loading} className="w-full">
-        {loading ? "Creating account..." : "Create Account"}
-      </Button>
+      <AuthSubmitButton loading={isLoading} loadingText="Creating account...">
+        Create Account
+      </AuthSubmitButton>
     </form>
   );
 }
-

@@ -1,186 +1,124 @@
 import * as React from "react";
+import {
+  EmailLayout,
+  Heading,
+  Section,
+  Text,
+  MutedText,
+  Divider,
+  Button,
+} from "@/lib/email/components";
+import { EMAIL_BRAND, EMAIL_COLORS } from "@/lib/email/constants";
+import type { MembershipExpiredEmailProps } from "@/lib/email/types/email-props";
 
-import { EMAIL_BRAND, EMAIL_COLORS } from "@/lib/email";
-import type { MembershipExpiredEmailProps } from "@/lib/email/types";
-
-import { EmailLayout } from "./layouts";
-import { Button, Divider } from "./partials";
-import { Heading, MutedText, Section, SmallText, Text } from "./shared";
-
-// ----------------------------------------------------------------------
-// Helper Functions
-// ----------------------------------------------------------------------
-
-function formatRecipient(name?: string): string {
-  const value = name?.trim();
-  return value && value.length > 0 ? value : "there";
-}
-
-// ----------------------------------------------------------------------
-// Inline Styles (Reusable design tokens)
-// ----------------------------------------------------------------------
-
-const expiredBoxStyle: React.CSSProperties = {
-  padding: "16px",
-  border: `1px solid ${EMAIL_COLORS.border}`,
-  borderRadius: "10px",
-  backgroundColor: "#F8FAFC",
-  marginBottom: "16px",
-};
-
-const expiredTableStyle: React.CSSProperties = {
-  width: "100%",
-  borderCollapse: "collapse",
-};
-
-const labelColumnStyle: React.CSSProperties = {
-  padding: "6px 0",
-  fontSize: "14px",
-  color: EMAIL_COLORS.textMuted,
-  width: "40%",
-};
-
-const valueColumnStyle: React.CSSProperties = {
-  padding: "6px 0",
-  fontSize: "14px",
-  color: "#1F2937",
-  fontWeight: 600,
-  textAlign: "right",
-};
-
-const supportLinkStyle: React.CSSProperties = {
-  color: EMAIL_COLORS.primary,
-  textDecoration: "none",
-  fontWeight: 600,
-};
-
-// ----------------------------------------------------------------------
-// Main Component
-// ----------------------------------------------------------------------
-
-export function MembershipExpiredEmail({
-  recipientName,
-  previousPlanName,
-  expirationDate,
+export default function MembershipExpiredEmail({
+  name,
+  planName,
   renewUrl,
+  expirationDate,
 }: MembershipExpiredEmailProps): React.JSX.Element {
-  const greeting = formatRecipient(recipientName);
-
   return (
-    <EmailLayout
-      title="Membership Expired"
-      subtitle="Your premium membership plan has ended."
-      preview={`Your ${previousPlanName} membership on ${EMAIL_BRAND.name} has expired. Renew to restore full access.`}
-    >
-      {/* Primary Expiration Notification */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={2}>Your Membership Has Expired ⌛</Heading>
+    <EmailLayout previewText={`Your ${EMAIL_BRAND.name} membership has expired`}>
+      <Section style={styles.container}>
+        <Heading style={styles.heading}>Membership Expired</Heading>
 
-        <Text>
-          Hello <strong>{greeting}</strong>,
+        <Text style={styles.text}>Hello {name},</Text>
+
+        <Text style={styles.text}>
+          This is a notification that your <span style={styles.highlight}>{planName}</span> plan
+          membership with {EMAIL_BRAND.name} has expired.
         </Text>
 
-        <Text>
-          This email is to notify you that your <strong>{previousPlanName}</strong> membership on{" "}
-          <strong>{EMAIL_BRAND.name}</strong> has officially expired on{" "}
-          <strong>{expirationDate}</strong>.
+        <Section style={styles.detailsBox}>
+          <Text style={styles.detailsRow}>
+            <strong>Expired Plan:</strong> {planName}
+          </Text>
+          {expirationDate ? (
+            <Text style={styles.detailsRow}>
+              <strong>Expiration Date:</strong> {expirationDate}
+            </Text>
+          ) : null}
+        </Section>
+
+        <Text style={styles.text}>
+          Your account has been moved to a free tier. To restore access to premium features and
+          retain your existing service limits, please renew your subscription.
         </Text>
 
-        <MutedText marginBottom={0}>
-          Your account has been safely transitioned to our standard Free tier. All your saved data,
-          profile settings, and history remain intact.
+        <Section style={styles.buttonContainer}>
+          <Button href={renewUrl} style={styles.button}>
+            Renew Subscription
+          </Button>
+        </Section>
+
+        <Divider style={styles.divider} />
+
+        <MutedText style={styles.mutedText}>
+          If you have already renewed or believe this notification was sent in error, please
+          disregard this email or contact support.
         </MutedText>
       </Section>
-
-      {/* Plan Summary Card */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <div style={expiredBoxStyle}>
-          <table
-            role="presentation"
-            width="100%"
-            cellPadding={0}
-            cellSpacing={0}
-            border={0}
-            style={expiredTableStyle}
-          >
-            <tbody>
-              <tr>
-                <td style={labelColumnStyle}>Expired Plan:</td>
-                <td style={valueColumnStyle}>{previousPlanName}</td>
-              </tr>
-              <tr>
-                <td style={labelColumnStyle}>Expiration Date:</td>
-                <td style={valueColumnStyle}>{expirationDate}</td>
-              </tr>
-              <tr>
-                <td style={labelColumnStyle}>Current Status:</td>
-                <td style={{ ...valueColumnStyle, color: "#D97706" }}>Free Tier Active</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </Section>
-
-      {/* Primary CTA */}
-      <Section paddingTop={8} paddingBottom={8}>
-        <Button href={renewUrl}>Renew Membership</Button>
-
-        <SmallText align="center" marginTop={16} marginBottom={0} color={EMAIL_COLORS.textMuted}>
-          Renew today to instantly restore your unlimited features and priority access.
-        </SmallText>
-      </Section>
-
-      <Divider />
-
-      {/* What Changes Guidance */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={4}>What changes with the Free tier?</Heading>
-
-        <Text>
-          On the Free tier, you can still search the business directory, view public listings, and
-          access basic community features.
-        </Text>
-
-        <Text>
-          However, advanced features such as unlimited AI assistant queries, priority business
-          visibility, direct application tools, and premium community perks will be restricted until
-          you renew.
-        </Text>
-
-        <MutedText marginBottom={0}>
-          You can upgrade or renew your subscription at any time directly from your account
-          settings.
-        </MutedText>
-      </Section>
-
-      <Divider />
-
-      {/* Support Section */}
-      <Section paddingTop={8} paddingBottom={0}>
-        <Heading level={4}>Have questions about your account?</Heading>
-
-        <Text>
-          If you need help choosing a plan or have any questions regarding your billing history, our
-          support team is always here for you.
-        </Text>
-
-        <SmallText align="center" marginTop={16} marginBottom={0}>
-          Visit{" "}
-          <a
-            href={EMAIL_BRAND.website}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={supportLinkStyle}
-          >
-            {EMAIL_BRAND.website}
-          </a>{" "}
-          or reply to this email for assistance.
-        </SmallText>
-      </Section>
-
-      <Divider />
     </EmailLayout>
   );
 }
 
-export default MembershipExpiredEmail;
+const styles = {
+  container: {
+    padding: "0 24px",
+  },
+  heading: {
+    color: EMAIL_COLORS.textPrimary,
+    fontSize: "24px",
+    fontWeight: "bold",
+    textAlign: "left" as const,
+    margin: "0 0 20px",
+  },
+  text: {
+    color: EMAIL_COLORS.textSecondary,
+    fontSize: "16px",
+    lineHeight: "24px",
+    margin: "0 0 16px",
+  },
+  highlight: {
+    color: EMAIL_COLORS.textPrimary,
+    fontWeight: "600",
+  },
+  detailsBox: {
+    backgroundColor: "#f8fafc",
+    borderRadius: "6px",
+    border: `1px solid ${EMAIL_COLORS.border}`,
+    padding: "16px",
+    margin: "16px 0",
+  },
+  detailsRow: {
+    color: EMAIL_COLORS.textPrimary,
+    fontSize: "14px",
+    lineHeight: "20px",
+    margin: "0 0 8px",
+  },
+  buttonContainer: {
+    margin: "24px 0",
+    textAlign: "center" as const,
+  },
+  button: {
+    backgroundColor: EMAIL_COLORS.primary,
+    borderRadius: "6px",
+    color: "#ffffff",
+    fontSize: "16px",
+    fontWeight: "bold",
+    textDecoration: "none",
+    textAlign: "center" as const,
+    display: "inline-block",
+    padding: "12px 24px",
+  },
+  divider: {
+    borderColor: EMAIL_COLORS.border,
+    margin: "24px 0",
+  },
+  mutedText: {
+    color: EMAIL_COLORS.textMuted,
+    fontSize: "14px",
+    lineHeight: "20px",
+    margin: "0",
+  },
+};

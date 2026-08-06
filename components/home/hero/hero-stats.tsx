@@ -1,9 +1,10 @@
 "use client";
 
+import * as React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Users, BriefcaseBusiness, Building2, Bot } from "lucide-react";
 
-import { fadeMotion, hoverCardMotion, staggerContainer, staggerItem } from "@/lib/motion";
+import { fadeMotion, hoverScale, staggerContainer, staggerItem } from "@/lib/motion";
 
 const stats = [
   {
@@ -37,9 +38,9 @@ export function HeroStats() {
 
   return (
     <motion.div
-      variants={staggerContainer}
-      initial="hidden"
-      animate="show"
+      variants={shouldReduceMotion ? undefined : staggerContainer}
+      initial={shouldReduceMotion ? undefined : "hidden"}
+      animate={shouldReduceMotion ? undefined : "visible"}
       className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4"
     >
       {stats.map((stat) => {
@@ -48,11 +49,8 @@ export function HeroStats() {
         return (
           <motion.div
             key={stat.label}
-            variants={staggerItem}
-            whileHover={shouldReduceMotion ? undefined : hoverCardMotion.whileHover}
-            initial={fadeMotion.initial}
-            animate={fadeMotion.animate}
-            transition={fadeMotion.transition}
+            variants={shouldReduceMotion ? undefined : staggerItem}
+            whileHover={shouldReduceMotion ? undefined : hoverScale}
             className="group rounded-3xl border border-border/60 bg-background/70 p-6 text-left shadow-lg backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl"
           >
             <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary transition group-hover:scale-110">
@@ -68,4 +66,3 @@ export function HeroStats() {
     </motion.div>
   );
 }
-

@@ -1,14 +1,15 @@
 "use client";
 
+import * as React from "react";
 import { useEffect } from "react";
 import { X, Search } from "lucide-react";
-import { Button } from "@/components/ui";
+import { Button } from "@/components/ui/button";
 import { RecentSearches } from "./recent-searches";
 import { PopularSearches } from "./popular-searches";
 import { TrendingCategories } from "./trending-categories";
 import { TrendingBusinesses } from "./trending-businesses";
 
-interface MobileFullscreenSearchProps {
+export interface MobileFullscreenSearchProps {
   query: string;
   onQueryChange: (query: string) => void;
   onClose: () => void;
@@ -54,8 +55,8 @@ export function MobileFullscreenSearch({
         <div className="space-y-6 p-4">
           {query.length === 0 ? (
             <>
-              <RecentSearches />
-              <PopularSearches />
+              <RecentSearches onSearchClick={onQueryChange} />
+              <PopularSearches onSearchClick={onQueryChange} />
               <TrendingCategories />
               <TrendingBusinesses />
             </>
@@ -69,4 +70,3 @@ export function MobileFullscreenSearch({
     </div>
   );
 }
-

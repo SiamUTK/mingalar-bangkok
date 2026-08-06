@@ -1,12 +1,13 @@
-'use client'
+"use client";
 
-import { SearchX } from 'lucide-react'
-import { EmptyState as FoundationEmptyState } from '@/components/ui'
-import { Button } from '@/components/ui'
+import * as React from "react";
+import { SearchX } from "lucide-react";
+import { EmptyState as FoundationEmptyState } from "@/components/ui/empty-state";
+import { Button } from "@/components/ui/button";
 
-interface NoResultsStateProps {
-  query: string
-  onClearSearch?: () => void
+export interface NoResultsStateProps {
+  query: string;
+  onClearSearch?: () => void;
 }
 
 export function NoResultsState({ query, onClearSearch }: NoResultsStateProps) {
@@ -16,10 +17,8 @@ export function NoResultsState({ query, onClearSearch }: NoResultsStateProps) {
         icon={<SearchX className="h-12 w-12 text-muted-foreground" />}
         title="No results found"
         description={`We couldn't find anything matching "${query}". Try adjusting your search terms or browsing categories.`}
-        action={<Button onClick={onClearSearch}>Clear search</Button>}
+        action={onClearSearch ? <Button onClick={onClearSearch}>Clear search</Button> : undefined}
       />
     </div>
-  )
+  );
 }
-
-

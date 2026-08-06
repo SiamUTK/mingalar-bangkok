@@ -1,24 +1,23 @@
 "use client";
 
+import * as React from "react";
 import { useState } from "react";
 import { Check, ChevronDown, Globe } from "lucide-react";
-import { Menu } from "@base-ui/react/menu";
 import { cn } from "@/lib/utils";
-import { AnimatedDropdown } from "@/components/ui/AnimatedDropdown";
 
-type LanguageCode = "en" | "my" | "th";
+export type LanguageCode = "en" | "my" | "th";
 
-interface LanguageSwitcherProps {
+export interface LanguageSwitcherProps {
   variant?: "dropdown" | "mobile" | "inline";
   value?: LanguageCode;
   onChange?: (language: LanguageCode) => void;
   className?: string;
 }
 
-const languages = [
-  { code: "en" as const, label: "English" },
-  { code: "my" as const, label: "မြန်မာ" },
-  { code: "th" as const, label: "ไทย" },
+const languages: { code: LanguageCode; label: string }[] = [
+  { code: "en", label: "English" },
+  { code: "my", label: "မြန်မာ" },
+  { code: "th", label: "ไทย" },
 ];
 
 export function LanguageSwitcher({
@@ -45,7 +44,7 @@ export function LanguageSwitcher({
               type="button"
               onClick={() => handleChange(language.code)}
               className={cn(
-                "transition-colors hover:text-primary",
+                "transition-colors hover:text-primary cursor-pointer",
                 value === language.code && "font-semibold text-primary"
               )}
             >
@@ -77,7 +76,7 @@ export function LanguageSwitcher({
               onClick={() => handleChange(language.code)}
               aria-pressed={value === language.code}
               className={cn(
-                "flex w-full items-center rounded-xl px-3 py-2 text-left text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                "flex w-full items-center rounded-xl px-3 py-2 text-left text-sm transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 value === language.code ? "bg-primary text-primary-foreground" : "hover:bg-muted"
               )}
             >
@@ -90,47 +89,50 @@ export function LanguageSwitcher({
   }
 
   return (
-    <div className={cn("relative", className)}>
-      <Menu.Root open={open} onOpenChange={setOpen}>
-        <Menu.Trigger
-          className="flex h-10 items-center gap-2 rounded-full border border-border/80 bg-background/80 px-3 text-sm font-medium text-foreground shadow-sm backdrop-blur-xl transition-colors hover:border-primary/40 hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          aria-label="Select language"
-        >
-          <Globe className="h-4 w-4" />
-          <span>{languages.find((language) => language.code === value)?.label ?? "English"}</span>
-          <ChevronDown className="h-4 w-4 text-muted-foreground" />
-        </Menu.Trigger>
+    <div className={cn("relative inline-block text-left", className)}>
+      <button
+        type="button"
+        onClick={() => setOpen((prev) => !prev)}
+        className="flex h-10 items-center gap-2 rounded-full border border-border/80 bg-background/80 px-3 text-sm font-medium text-foreground shadow-xs backdrop-blur-xl transition-colors hover:border-primary/40 hover:bg-primary/5 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        aria-label="Select language"
+        aria-expanded={open}
+      >
+        <Globe className="h-4 w-4" />
+        <span>{languages.find((language) => language.code === value)?.label ?? "English"}</span>
+        <ChevronDown className="h-4 w-4 text-muted-foreground" />
+      </button>
 
-        <Menu.Portal>
-          <Menu.Positioner className="z-50">
-            <AnimatedDropdown
-              open={open}
-              className="w-44 overflow-hidden rounded-2xl border border-white/20 bg-white/80 p-2 shadow-2xl backdrop-blur-xl"
-            >
-              <Menu.Popup className="space-y-1">
-                {languages.map((language) => {
-                  const selected = value === language.code;
+      {open && (
+        <>
+          {/* Backdrop for closing popover */}
+          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
 
-                  return (
-                    <Menu.Item
-                      key={language.code}
-                      onClick={() => handleChange(language.code)}
-                      className={cn(
-                        "flex w-full items-center justify-between rounded-xl px-3 py-2 text-sm text-left transition-colors",
-                        selected ? "bg-primary text-white" : "text-foreground hover:bg-primary/10"
-                      )}
-                    >
-                      <span>{language.label}</span>
-                      {selected ? <Check className="h-4 w-4" /> : null}
-                    </Menu.Item>
-                  );
-                })}
-              </Menu.Popup>
-            </AnimatedDropdown>
-          </Menu.Positioner>
-        </Menu.Portal>
-      </Menu.Root>
+          <div className="absolute right-0 top-full z-50 mt-2 w-44 rounded-2xl border border-border bg-card p-2 shadow-2xl backdrop-blur-xl">
+            <div className="space-y-1">
+              {languages.map((language) => {
+                const selected = value === language.code;
+
+                return (
+                  <button
+                    key={language.code}
+                    type="button"
+                    onClick={() => handleChange(language.code)}
+                    className={cn(
+                      "flex w-full items-center justify-between rounded-xl px-3 py-2 text-sm text-left transition-colors cursor-pointer",
+                      selected
+                        ? "bg-primary text-primary-foreground font-semibold"
+                        : "text-foreground hover:bg-muted"
+                    )}
+                  >
+                    <span>{language.label}</span>
+                    {selected && <Check className="h-4 w-4" />}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
-

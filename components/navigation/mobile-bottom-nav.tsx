@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -15,7 +16,7 @@ export interface BottomNavItem {
   action?: () => void;
 }
 
-interface MobileBottomNavProps {
+export interface MobileBottomNavProps {
   items?: BottomNavItem[];
   className?: string;
 }
@@ -52,7 +53,9 @@ export function MobileBottomNav({ items = defaultItems, className }: MobileBotto
   const { setIsMobileDrawerOpen } = useNavigationState();
 
   const resolvedItems = items.map((item) =>
-    item.label === "More" ? { ...item, action: () => setIsMobileDrawerOpen(true) } : item
+    item.label === "More" && !item.action
+      ? { ...item, action: () => setIsMobileDrawerOpen(true) }
+      : item
   );
 
   return (
@@ -75,8 +78,8 @@ export function MobileBottomNav({ items = defaultItems, className }: MobileBotto
                 type="button"
                 onClick={item.action}
                 className={cn(
-                  "flex flex-col items-center justify-center gap-1 transition-colors",
-                  active ? "text-primary" : "text-muted-foreground hover:text-primary"
+                  "flex flex-col items-center justify-center gap-1 transition-colors cursor-pointer",
+                  active ? "text-primary font-bold" : "text-muted-foreground hover:text-primary"
                 )}
               >
                 {item.icon}
@@ -103,4 +106,3 @@ export function MobileBottomNav({ items = defaultItems, className }: MobileBotto
     </nav>
   );
 }
-

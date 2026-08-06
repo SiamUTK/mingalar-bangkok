@@ -1,31 +1,28 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-
+import * as React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { authService } from "@/lib/auth/auth.service";
-
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { AuthErrorMessage } from "@/components/auth/auth-error-message";
+import { AuthInput } from "@/components/auth/auth-input";
+import { AuthSubmitButton } from "@/components/auth/auth-submit-button";
 
 const loginSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
-
-  password: z.string().min(8, "Password must be at least 8 characters"),
+  email: z.string().email("Please enter a valid email address.").trim(),
+  password: z.string().min(1, "Password is required."),
 });
 
-type LoginFormValues = z.infer<typeof loginSchema>;
+export type LoginFormValues = z.infer<typeof loginSchema>;
 
-export function LoginForm() {
-  const router = useRouter();
+export interface LoginFormProps {
+  onSubmit: (values: LoginFormValues) => Promise<void>;
+  error?: string | null;
+}
 
-  const [loading, setLoading] = useState(false);
-
-  const [error, setError] = useState("");
+export function LoginForm({ onSubmit, error }: LoginFormProps) {
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const {
     register,
@@ -33,58 +30,48 @@ export function LoginForm() {
     formState: { errors },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
-  async function onSubmit(values: LoginFormValues) {
+  async function submit(values: LoginFormValues) {
     try {
-      setLoading(true);
-      setError("");
-
-      await authService.login({
-        email: values.email,
-        password: values.password,
-      });
-
-      router.replace("/dashboard");
-      router.refresh();
-    } catch (err) {
-      console.error(err);
-
-      setError(err instanceof Error ? err.message : "Unable to sign in.");
+      setIsLoading(true);
+      await onSubmit(values);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-      {error && (
-        <div className="rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-500">
-          {error}
-        </div>
-      )}
+    <form onSubmit={handleSubmit(submit)} className="space-y-6">
+      <AuthErrorMessage message={error} />
 
-      <div className="space-y-2">
-        <Input type="email" placeholder="Email" autoComplete="email" {...register("email")} />
+      <AuthInput
+        id="email"
+        type="email"
+        label="Email"
+        placeholder="name@example.com"
+        autoComplete="email"
+        error={errors.email?.message}
+        {...register("email")}
+      />
 
-        {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
-      </div>
+      <AuthInput
+        id="password"
+        type="password"
+        label="Password"
+        placeholder="••••••••"
+        autoComplete="current-password"
+        error={errors.password?.message}
+        {...register("password")}
+      />
 
-      <div className="space-y-2">
-        <Input
-          type="password"
-          placeholder="Password"
-          autoComplete="current-password"
-          {...register("password")}
-        />
-
-        {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
-      </div>
-
-      <Button type="submit" className="w-full" disabled={loading}>
-        {loading ? "Signing in..." : "Sign In"}
-      </Button>
+      <AuthSubmitButton loading={isLoading} loadingText="Signing in...">
+        Sign In
+      </AuthSubmitButton>
     </form>
   );
 }
-
