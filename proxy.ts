@@ -1,7 +1,15 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextRequest, NextResponse } from "next/server";
 
-const PUBLIC_ROUTES = ["/", "/login", "/register", "/forgot-password", "/reset-password"];
+// เพิ่ม /api/agent เข้าไปใน PUBLIC_ROUTES khrãb!
+const PUBLIC_ROUTES = [
+  "/",
+  "/login",
+  "/register",
+  "/forgot-password",
+  "/reset-password",
+  "/api/agent",
+];
 
 export async function proxy(request: NextRequest) {
   const response = NextResponse.next({
@@ -30,6 +38,11 @@ export async function proxy(request: NextRequest) {
   } = await supabase.auth.getSession();
 
   const pathname = request.nextUrl.pathname;
+
+  // ถ้าต้องการยกเว้น API ทั้งหมดไม่ให้โดน Redirect ไปหน้า Login สามารถเพิ่มเงื่อนไขนี้ได้ khrãb:
+  if (pathname.startsWith("/api/")) {
+    return response;
+  }
 
   const isPublicRoute = PUBLIC_ROUTES.some(
     (route) => pathname === route || pathname.startsWith(`${route}/`)
