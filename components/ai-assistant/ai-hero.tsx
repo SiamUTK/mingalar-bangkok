@@ -1,16 +1,16 @@
-'use client'
+"use client";
 
-import { Container, Button } from '@/components/ui'
-import { ArrowRight, Sparkles } from 'lucide-react'
+import { Container, Button } from "@/components/ui";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 export interface AIHeroProps {
-  onGetStarted?: () => void
-  onLearnMore?: () => void
+  onGetStarted?: () => void;
+  onLearnMore?: () => void;
 }
 
 export function AIHero({ onGetStarted, onLearnMore }: AIHeroProps) {
   return (
-    <section className="relative min-h-screen bg-gradient-to-b from-background via-background to-muted/30 flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen bg-linear-to-b from-background via-background to-muted/30 flex items-center justify-center overflow-hidden">
       {/* Animated background gradient orbs */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-pulse" />
@@ -32,13 +32,14 @@ export function AIHero({ onGetStarted, onLearnMore }: AIHeroProps) {
           {/* Main headline */}
           <div className="space-y-4">
             <h1 className="text-5xl md:text-7xl font-bold leading-tight text-foreground">
-              Chat with{' '}
-              <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+              Chat with{" "}
+              <span className="bg-linear-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
                 Intelligent AI
               </span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              Get instant answers, creative ideas, and expert insights. Powered by advanced AI technology designed for Myanmar community in Thailand.
+              Get instant answers, creative ideas, and expert insights. Powered by advanced AI
+              technology designed for Myanmar community in Thailand.
             </p>
           </div>
 
@@ -71,6 +72,5 @@ export function AIHero({ onGetStarted, onLearnMore }: AIHeroProps) {
         </div>
       </Container>
     </section>
-  )
+  );
 }
-

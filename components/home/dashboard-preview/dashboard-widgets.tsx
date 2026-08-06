@@ -1,9 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+
 import {
   Banknote,
-  Bell,
   Briefcase,
   Building2,
   Calendar,
@@ -14,11 +13,9 @@ import {
   Heart,
   MapPin,
   Sparkles,
-  TrendingUp,
-  User,
-} from "lucide-react";
+  TrendingUp } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+
 
 export function DashboardWidgets() {
   return (
@@ -90,7 +87,7 @@ export function DashboardWidgets() {
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-600">
               <Banknote className="h-5 w-5" />
             </div>
-            <h5 className="font-bold text-sm text-foreground">Today's Exchange Rate</h5>
+            <h5 className="font-bold text-sm text-foreground">Today&apos;s Exchange Rate</h5>
           </div>
           <span className="flex items-center gap-1 text-[11px] font-bold text-emerald-600">
             <TrendingUp className="h-3 w-3" /> +0.4%

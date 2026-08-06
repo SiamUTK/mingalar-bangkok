@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Bot, Sparkles, X, Send, Lock, ArrowRight, ShieldCheck } from "lucide-react";
+import { Bot, Sparkles, X, Send, Lock, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -40,7 +40,7 @@ export function StickyAiWidget() {
           "You have used your 3 free AI questions. Please sign in or register to continue unlimited chats.",
         action: {
           label: "Create Account",
-          onClick: () => (window.location.href = "/register"),
+          onClick: () => router.push("/register"),
         },
       });
       return;

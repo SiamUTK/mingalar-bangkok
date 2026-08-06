@@ -6,16 +6,9 @@ import {
   ArrowLeft,
   HelpCircle,
   Search,
-  Sparkles,
   ChevronDown,
-  MessageSquare,
   Bot,
-  Mail,
-  FileText,
-  Briefcase,
-  Home,
-  ShieldCheck,
-} from "lucide-react";
+  Mail } from "lucide-react";
 
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Button } from "@/components/ui/button";
@@ -35,38 +28,32 @@ const faqs = [
     category: "ai",
     question: "Is Mingalar AI free to use?",
     answer:
-      "Guests can ask up to 3 free questions to test out the AI. Once you create a free member account, you unlock unlimited AI chats for job matching, visa guidance, and document translation.",
-  },
+      "Guests can ask up to 3 free questions to test out the AI. Once you create a free member account, you unlock unlimited AI chats for job matching, visa guidance, and document translation." },
   {
     category: "account",
     question: "How do I create a free account on Mingalar Bangkok?",
     answer:
-      "Click the 'Register' button in the top right corner. You can quickly sign up using your email address or phone number in less than 1 minute.",
-  },
+      "Click the 'Register' button in the top right corner. You can quickly sign up using your email address or phone number in less than 1 minute." },
   {
     category: "visa",
     question: "Can Mingalar AI help me extend my 90-day report or work permit?",
     answer:
-      "Yes! Mingalar AI provides step-by-step guidance on 90-day online report procedures, document checklists, and renewal deadlines tailored to Thai immigration rules.",
-  },
+      "Yes! Mingalar AI provides step-by-step guidance on 90-day online report procedures, document checklists, and renewal deadlines tailored to Thai immigration rules." },
   {
     category: "jobs",
     question: "Are job listings on Mingalar Bangkok verified?",
     answer:
-      "We screen job postings to ensure legitimate employment opportunities. Look for the 'Verified' badge on job cards for vetted workplaces.",
-  },
+      "We screen job postings to ensure legitimate employment opportunities. Look for the 'Verified' badge on job cards for vetted workplaces." },
   {
     category: "housing",
     question: "How can I contact property owners or landlords?",
     answer:
-      "To contact landlords directly or view complete phone numbers/LINE IDs, please sign in or create a free member account.",
-  },
+      "To contact landlords directly or view complete phone numbers/LINE IDs, please sign in or create a free member account." },
   {
     category: "account",
     question: "How do I reset my account password?",
     answer:
-      "Go to the Login page and click 'Forgot Password'. Enter your registered email address to receive a secure password reset link.",
-  },
+      "Go to the Login page and click 'Forgot Password'. Enter your registered email address to receive a secure password reset link." },
 ];
 
 export default function SupportPage() {
@@ -85,7 +72,7 @@ export default function SupportPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <AnimatedSection className="border-b border-border/60 bg-gradient-to-b from-primary/10 via-background to-background py-12">
+      <AnimatedSection className="border-b border-border/60 bg-linear-to-b from-primary/10 via-background to-background py-12">
         <div className="container mx-auto px-6">
           <Link
             href="/"

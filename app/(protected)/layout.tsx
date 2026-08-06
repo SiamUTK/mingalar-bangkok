@@ -65,7 +65,7 @@ export default function ProtectedLayout({ children }: { children: React.ReactNod
       } else {
         router.push("/login");
       }
-    } catch (error) {
+    } catch {
       toast.error("Logout failed, redirecting...");
       router.push("/login");
     } finally {

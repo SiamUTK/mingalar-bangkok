@@ -1,6 +1,6 @@
 "use client";
 
-import { Star, Quote } from "lucide-react";
+import { Star } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 
 const reviews = [
@@ -9,22 +9,19 @@ const reviews = [
     role: "Factory Supervisor • Samut Sakhon",
     comment:
       "Mingalar AI helped me translate my workplace documents and renew my 90-day report without stress!",
-    rating: 5,
-  },
+    rating: 5 },
   {
     name: "May Thu",
     role: "Hotel Receptionist • Bangkok",
     comment:
       "Found my current apartment near BTS On Nut within 2 days of searching. Highly recommended for Myanmar workers!",
-    rating: 5,
-  },
+    rating: 5 },
   {
     name: "Zaw Min",
     role: "Business Owner • Mahachai",
     comment:
       "The best super app for our community in Thailand. Daily exchange rates and visa reminders are extremely helpful.",
-    rating: 5,
-  },
+    rating: 5 },
 ];
 
 export function TestimonialSection() {
@@ -53,7 +50,9 @@ export function TestimonialSection() {
                     <Star key={i} className="h-4 w-4 fill-current" />
                   ))}
                 </div>
-                <p className="text-sm leading-relaxed text-foreground italic">"{rev.comment}"</p>
+                <p className="text-sm leading-relaxed text-foreground italic">
+                  &quot;{rev.comment}&quot;
+                </p>
               </div>
 
               <div className="mt-6 pt-4 border-t border-border/40 flex items-center gap-3">

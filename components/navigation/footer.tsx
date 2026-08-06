@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { MessageCircle, Send, Phone, Mail, MapPin, ArrowRight, Globe } from "lucide-react";
+import { MessageCircle, Send, Phone, Mail, MapPin, ArrowRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "./language-switcher";
@@ -103,7 +103,7 @@ export function Footer({
       className={cn("relative overflow-hidden border-t border-border bg-background", className)}
     >
       {/* Brand Gradient Bar */}
-      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#AA2429] via-[#D9A441] to-[#1F2D49]" />
+      <div className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-[#AA2429] via-[#D9A441] to-[#1F2D49]" />
 
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
         {/* Main Grid Container */}

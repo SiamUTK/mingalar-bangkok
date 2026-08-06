@@ -1,6 +1,6 @@
 'use client'
 
-import { Container, Card, Badge } from '@/components/ui'
+import { Container, Card } from '@/components/ui'
 import { ArrowRight } from 'lucide-react'
 
 export interface Category {
@@ -18,8 +18,7 @@ export interface PopularCategoriesProps {
 const colorClasses = {
   primary: 'bg-primary/10 text-primary border-primary/20',
   secondary: 'bg-secondary/10 text-secondary border-secondary/20',
-  accent: 'bg-accent/10 text-accent border-accent/20',
-}
+  accent: 'bg-accent/10 text-accent border-accent/20' }
 
 export function PopularCategories({
   categories = [
@@ -27,41 +26,34 @@ export function PopularCategories({
       id: '1',
       name: 'Work & Career',
       description: 'Job search, resume tips, interview prep, career development',
-      color: 'primary' as const,
-    },
+      color: 'primary' as const },
     {
       id: '2',
       name: 'Learning Thai',
       description: 'Language tips, cultural insights, pronunciation guides',
-      color: 'secondary' as const,
-    },
+      color: 'secondary' as const },
     {
       id: '3',
       name: 'Business',
       description: 'Starting a business, regulations, marketing strategies',
-      color: 'accent' as const,
-    },
+      color: 'accent' as const },
     {
       id: '4',
       name: 'Housing & Living',
       description: 'Finding apartments, neighborhood guides, utilities setup',
-      color: 'primary' as const,
-    },
+      color: 'primary' as const },
     {
       id: '5',
       name: 'Community',
       description: 'Events, social groups, cultural celebrations',
-      color: 'secondary' as const,
-    },
+      color: 'secondary' as const },
     {
       id: '6',
       name: 'Travel & Tours',
       description: 'Destination guides, trip planning, local attractions',
-      color: 'accent' as const,
-    },
+      color: 'accent' as const },
   ],
-  onSelectCategory,
-}: PopularCategoriesProps) {
+  onSelectCategory }: PopularCategoriesProps) {
   return (
     <section className="py-16 bg-background">
       <Container>

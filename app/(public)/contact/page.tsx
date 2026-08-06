@@ -5,14 +5,12 @@ import Link from "next/link";
 import {
   ArrowLeft,
   Clock,
-  Globe,
   Mail,
   MapPin,
   MessageSquare,
   Phone,
   Send,
-  Sparkles,
-} from "lucide-react";
+  Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
@@ -26,8 +24,7 @@ export default function ContactPage() {
     email: "",
     phone: "",
     subject: "General Inquiry",
-    message: "",
-  });
+    message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -43,22 +40,20 @@ export default function ContactPage() {
     setTimeout(() => {
       setIsSubmitting(false);
       toast.success("Message sent successfully!", {
-        description: "Thank you for reaching out. Our team will get back to you within 24 hours.",
-      });
+        description: "Thank you for reaching out. Our team will get back to you within 24 hours." });
       setFormData({
         name: "",
         email: "",
         phone: "",
         subject: "General Inquiry",
-        message: "",
-      });
+        message: "" });
     }, 1000);
   };
 
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <AnimatedSection className="border-b border-border/60 bg-gradient-to-b from-primary/10 via-background to-background py-12 lg:py-16">
+      <AnimatedSection className="border-b border-border/60 bg-linear-to-b from-primary/10 via-background to-background py-12 lg:py-16">
         <div className="container mx-auto px-6">
           <Link
             href="/"
@@ -143,7 +138,7 @@ export default function ContactPage() {
             </div>
 
             {/* AI Assistant Callout */}
-            <div className="rounded-3xl border border-primary/20 bg-gradient-to-r from-primary/10 via-background to-primary/5 p-6 shadow-sm">
+            <div className="rounded-3xl border border-primary/20 bg-linear-to-r from-primary/10 via-background to-primary/5 p-6 shadow-sm">
               <div className="flex items-center gap-2 text-xs font-bold text-primary">
                 <Sparkles className="h-4 w-4" />
                 Need Instant Answers?

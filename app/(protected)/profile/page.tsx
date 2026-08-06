@@ -5,14 +5,11 @@ import {
   User,
   Mail,
   Phone,
-  FileText,
   ShieldCheck,
-  Calendar,
   Globe,
   Save,
   Sparkles,
-  CheckCircle2,
-} from "lucide-react";
+  CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { AnimatedPage } from "@/components/ui/AnimatedPage";
@@ -29,8 +26,7 @@ export default function ProfilePage() {
     passportNumber: "M-1234567",
     passportExpiry: "2027-05-15",
     workPermitNumber: "WP-98765432",
-    next90DayReport: "2026-09-12",
-  });
+    next90DayReport: "2026-09-12" });
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,8 +35,7 @@ export default function ProfilePage() {
     setTimeout(() => {
       setIsSaving(false);
       toast.success("Profile updated successfully!", {
-        description: "Your personal details and document reminder dates have been saved.",
-      });
+        description: "Your personal details and document reminder dates have been saved." });
     }, 800);
   };
 

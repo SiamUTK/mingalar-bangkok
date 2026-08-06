@@ -1,7 +1,7 @@
 'use client'
 
 import { Container, Card, CardContent, CardHeader, CardTitle, Avatar, Badge, Button } from '@/components/ui'
-import { Star, MapPin, Phone } from 'lucide-react'
+import { Star, MapPin } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 export interface Business {
@@ -36,8 +36,7 @@ const DEFAULT_BUSINESSES: Business[] = [
     description: 'Authentic Myanmar cuisine in the heart of Bangkok',
     initials: 'SM',
     verified: true,
-    featured: true,
-  },
+    featured: true },
   {
     id: '2',
     name: 'Myanmar Tech Solutions',
@@ -48,8 +47,7 @@ const DEFAULT_BUSINESSES: Business[] = [
     description: 'Professional software development and consulting',
     initials: 'MTS',
     verified: true,
-    featured: true,
-  },
+    featured: true },
   {
     id: '3',
     name: 'Golden Mandalay Travel',
@@ -60,8 +58,7 @@ const DEFAULT_BUSINESSES: Business[] = [
     description: 'Tour packages and travel assistance for Myanmar',
     initials: 'GMT',
     verified: true,
-    featured: true,
-  },
+    featured: true },
   {
     id: '4',
     name: 'Thai Learning Hub',
@@ -72,16 +69,14 @@ const DEFAULT_BUSINESSES: Business[] = [
     description: 'Personalized Thai language courses for expats',
     initials: 'TLH',
     verified: true,
-    featured: true,
-  },
+    featured: true },
 ]
 
 export function FeaturedBusinesses({
   businesses = DEFAULT_BUSINESSES,
   title = 'Featured Businesses',
   subtitle = 'Discover trusted businesses from our Myanmar community',
-  onViewMore = () => {},
-}: FeaturedBusinessesProps) {
+  onViewMore = () => {} }: FeaturedBusinessesProps) {
   return (
     <section className="w-full py-16 md:py-24 bg-background">
       <Container>

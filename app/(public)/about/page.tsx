@@ -6,14 +6,12 @@ import {
   Bot,
   Briefcase,
   Building2,
-  CheckCircle2,
   FileText,
   Globe2,
   Heart,
   ShieldCheck,
   Sparkles,
-  Users,
-} from "lucide-react";
+  Users } from "lucide-react";
 
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Button } from "@/components/ui/button";
@@ -30,27 +28,24 @@ const coreValues = [
     icon: Bot,
     title: "AI-First Community Support",
     description:
-      "Empowering everyday life with 24/7 AI translation, visa assistance, and job matching in Burmese, Thai, and English.",
-  },
+      "Empowering everyday life with 24/7 AI translation, visa assistance, and job matching in Burmese, Thai, and English." },
   {
     icon: ShieldCheck,
     title: "Verified & Safe Listings",
     description:
-      "Strict screening for workplaces, housing options, and service providers to ensure safety for all members.",
-  },
+      "Strict screening for workplaces, housing options, and service providers to ensure safety for all members." },
   {
     icon: Users,
     title: "Inclusive & Empowering",
     description:
-      "Built with care to bridge cultural gaps, simplify administrative tasks, and help foreign workers thrive in Thailand.",
-  },
+      "Built with care to bridge cultural gaps, simplify administrative tasks, and help foreign workers thrive in Thailand." },
 ];
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <AnimatedSection className="relative overflow-hidden bg-gradient-to-b from-primary/10 via-background to-background py-20 lg:py-28">
+      <AnimatedSection className="relative overflow-hidden bg-linear-to-b from-primary/10 via-background to-background py-20 lg:py-28">
         <div className="container mx-auto px-6 text-center">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary">
             <Sparkles className="h-3.5 w-3.5" /> About Mingalar Bangkok
@@ -58,7 +53,7 @@ export default function AboutPage() {
 
           <h1 className="mt-6 text-4xl font-black tracking-tight text-foreground sm:text-5xl lg:text-6xl">
             Empowering the Myanmar Community in Thailand with{" "}
-            <span className="bg-gradient-to-r from-primary via-sky-500 to-cyan-500 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-primary via-sky-500 to-cyan-500 bg-clip-text text-transparent">
               Smart AI Solutions
             </span>
           </h1>
@@ -206,7 +201,7 @@ export default function AboutPage() {
       </AnimatedSection>
 
       {/* Final CTA Banner */}
-      <AnimatedSection className="py-16 bg-gradient-to-b from-background via-primary/5 to-background">
+      <AnimatedSection className="py-16 bg-linear-to-b from-background via-primary/5 to-background">
         <div className="container mx-auto px-6">
           <div className="mx-auto max-w-4xl rounded-3xl border border-primary/20 bg-card p-8 md:p-12 text-center shadow-xl">
             <h2 className="text-3xl font-black text-foreground md:text-4xl">

@@ -1,7 +1,8 @@
 "use client";
 
+// import Image from "next/image";
 import Link from "next/link";
-import { Calendar, MapPin, Bookmark, Lock } from "lucide-react";
+import { Calendar, MapPin, Lock } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 
@@ -24,7 +25,7 @@ export function EventCard({ id, title, date, location, category, image }: EventC
         description: "Please create a free account to save upcoming events to your calendar.",
         action: {
           label: "Create Account",
-          onClick: () => (window.location.href = "/register"),
+          onClick: () => router.push("/register"),
         },
       });
     }
@@ -33,7 +34,8 @@ export function EventCard({ id, title, date, location, category, image }: EventC
   return (
     <div className="group overflow-hidden rounded-3xl border border-border/80 bg-card transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg">
       <div className="relative aspect-[16/9] overflow-hidden">
-        <img
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img 
           src={image}
           alt={title}
           className="h-full w-full object-cover transition duration-500 group-hover:scale-105"

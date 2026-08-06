@@ -2,19 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Store,
-  MapPin,
-  Phone,
-  Star,
-  Search,
-  Filter,
-  Lock,
-  Heart,
-  Sparkles,
-  ExternalLink,
-} from "lucide-react";
+import { ArrowLeft, Store, MapPin, Phone, Star, Search, Lock, Heart, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
@@ -94,7 +82,7 @@ export default function DirectoryPage() {
         description: `Please create a free account to ${actionName.toLowerCase()} and access full business contacts.`,
         action: {
           label: "Create Account",
-          onClick: () => (window.location.href = "/register"),
+          onClick: () => router.push("/register"),
         },
       });
     }
@@ -111,7 +99,7 @@ export default function DirectoryPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <AnimatedSection className="border-b border-border/60 bg-gradient-to-b from-primary/10 via-background to-background py-12">
+      <AnimatedSection className="border-b border-border/60 bg-linear-to-b from-primary/10 via-background to-background py-12">
         <div className="container mx-auto px-6">
           <Link
             href="/"
@@ -175,8 +163,8 @@ export default function DirectoryPage() {
             >
               {/* Image */}
               <div className="relative aspect-[4/3] sm:w-44 shrink-0 overflow-hidden rounded-2xl">
-                <img
-                  src={biz.image}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img                   src={biz.image}
                   alt={biz.name}
                   className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                 />
@@ -249,7 +237,7 @@ export default function DirectoryPage() {
         </div>
 
         {/* Bottom Banner */}
-        <div className="mt-16 rounded-3xl border border-primary/20 bg-gradient-to-r from-primary/10 via-background to-primary/5 p-8 text-center shadow-lg">
+        <div className="mt-16 rounded-3xl border border-primary/20 bg-linear-to-r from-primary/10 via-background to-primary/5 p-8 text-center shadow-lg">
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-md">
             <Sparkles className="h-6 w-6" />
           </div>

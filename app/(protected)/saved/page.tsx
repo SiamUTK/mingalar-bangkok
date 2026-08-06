@@ -8,12 +8,8 @@ import {
   Briefcase,
   Building2,
   Calendar,
-  Store,
   Trash2,
-  MapPin,
-  ExternalLink,
-  Sparkles,
-} from "lucide-react";
+  MapPin } from "lucide-react";
 import { toast } from "sonner";
 
 import { AnimatedPage } from "@/components/ui/AnimatedPage";
@@ -25,15 +21,13 @@ const mockSavedJobs = [
     title: "Bilingual Supervisor (Thai-Burmese)",
     company: "Mahachai Seafood Co., Ltd.",
     location: "Samut Sakhon",
-    salary: "฿18,000 - ฿22,000 / month",
-  },
+    salary: "฿18,000 - ฿22,000 / month" },
   {
     id: "job-2",
     title: "Warehouse Staff & Logistic Support",
     company: "Bangkok Logistics Express",
     location: "Bang Na, Bangkok",
-    salary: "฿15,000 - ฿17,000 / month",
-  },
+    salary: "฿15,000 - ฿17,000 / month" },
 ];
 
 const mockSavedHousing = [
@@ -41,8 +35,7 @@ const mockSavedHousing = [
     id: "house-1",
     title: "Charming Studio Apartment near BTS On Nut",
     location: "Sukhumvit 77, Bangkok",
-    price: "฿4,500 / month",
-  },
+    price: "฿4,500 / month" },
 ];
 
 const mockSavedEvents = [
@@ -50,8 +43,7 @@ const mockSavedEvents = [
     id: "evt-1",
     title: "Thingyan Water Festival Celebration 2026",
     date: "Sun, 12 Apr 2026",
-    location: "Bangkok Cultural Center",
-  },
+    location: "Bangkok Cultural Center" },
 ];
 
 export default function SavedPage() {
@@ -292,8 +284,7 @@ export default function SavedPage() {
 function EmptyState({
   label,
   href,
-  buttonText,
-}: {
+  buttonText }: {
   label: string;
   href: string;
   buttonText: string;

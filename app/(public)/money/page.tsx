@@ -11,7 +11,6 @@ import {
   Bell,
   Sparkles,
   Lock,
-  Building,
   Info,
   Clock,
 } from "lucide-react";
@@ -71,7 +70,7 @@ export default function MoneyPage() {
         description: `Please create a free account to ${actionName.toLowerCase()} and receive daily exchange rate SMS/LINE alerts.`,
         action: {
           label: "Create Account",
-          onClick: () => (window.location.href = "/register"),
+          onClick: () => router.push("/register"),
         },
       });
     }
@@ -80,7 +79,7 @@ export default function MoneyPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <AnimatedSection className="border-b border-border/60 bg-gradient-to-b from-primary/10 via-background to-background py-12">
+      <AnimatedSection className="border-b border-border/60 bg-linear-to-b from-primary/10 via-background to-background py-12">
         <div className="container mx-auto px-6">
           <Link
             href="/"
@@ -252,7 +251,7 @@ export default function MoneyPage() {
             </div>
 
             {/* Bottom Member Banner */}
-            <div className="rounded-3xl border border-primary/20 bg-gradient-to-r from-primary/10 via-background to-primary/5 p-6 text-center shadow-lg">
+            <div className="rounded-3xl border border-primary/20 bg-linear-to-r from-primary/10 via-background to-primary/5 p-6 text-center shadow-lg">
               <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-md mb-3">
                 <Sparkles className="h-5 w-5" />
               </div>

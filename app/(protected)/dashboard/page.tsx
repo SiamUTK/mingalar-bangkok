@@ -12,8 +12,7 @@ import {
   Bot,
   Sparkles,
   ArrowRight,
-  Bell,
-} from "lucide-react";
+  Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const services = [
@@ -23,71 +22,63 @@ const services = [
     desc: "Factories, hospitality, logistics & tech positions",
     href: "/jobs",
     icon: Briefcase,
-    color: "bg-blue-500/10 text-blue-600 border-blue-500/20",
-  },
+    color: "bg-blue-500/10 text-blue-600 border-blue-500/20" },
   {
     title: "Housing & Rooms",
     count: "850+",
     desc: "Budget rooms, condos & worker apartments",
     href: "/housing",
     icon: Building2,
-    color: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
-  },
+    color: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20" },
   {
     title: "Ask Mingalar AI",
     count: "AI Active",
     desc: "24/7 Personal assistant for living in Thailand",
     href: "/ai",
     icon: Bot,
-    color: "bg-primary/10 text-primary border-primary/20",
-  },
+    color: "bg-primary/10 text-primary border-primary/20" },
   {
     title: "Visa & Legal Help",
     count: "Verified",
     desc: "90-day report, work permit & passport assistance",
     href: "/visa",
     icon: ShieldCheck,
-    color: "bg-amber-500/10 text-amber-600 border-amber-500/20",
-  },
+    color: "bg-amber-500/10 text-amber-600 border-amber-500/20" },
   {
     title: "Travel & Flights",
     count: "Top Deals",
     desc: "Bus tickets, flights & attractions guidance",
     href: "/travel",
     icon: Plane,
-    color: "bg-sky-500/10 text-sky-600 border-sky-500/20",
-  },
+    color: "bg-sky-500/10 text-sky-600 border-sky-500/20" },
   {
     title: "Money Services",
     count: "Daily Rates",
     desc: "Daily exchange rates & trusted remittance info",
     href: "/money",
     icon: Banknote,
-    color: "bg-rose-500/10 text-rose-600 border-rose-500/20",
-  },
+    color: "bg-rose-500/10 text-rose-600 border-rose-500/20" },
   {
     title: "Local Businesses",
     count: "12,000+",
     desc: "Myanmar restaurants, shops, clinics & services",
     href: "/directory",
     icon: Store,
-    color: "bg-purple-500/10 text-purple-600 border-purple-500/20",
-  },
+    color: "bg-purple-500/10 text-purple-600 border-purple-500/20" },
   {
     title: "Community & Events",
     count: "Upcoming",
     desc: "Cultural celebrations, workshops & meetups",
     href: "/events",
     icon: Calendar,
-    color: "bg-indigo-500/10 text-indigo-600 border-indigo-500/20",
-  },
+    color: "bg-indigo-500/10 text-indigo-600 border-indigo-500/20" },
 ];
 
 export default function DashboardPage() {
   return (
     <div className="space-y-8">
       {/* Welcome Banner */}
-      <div className="rounded-3xl border border-primary/20 bg-gradient-to-r from-primary/10 via-card to-background p-6 md:p-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="rounded-3xl border border-primary/20 bg-linear-to-r from-primary/10 via-card to-background p-6 md:p-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 border border-primary/20 px-3 py-0.5 text-[11px] font-bold text-primary">
             <Sparkles className="h-3 w-3" /> Member Dashboard

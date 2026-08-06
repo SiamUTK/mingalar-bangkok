@@ -9,7 +9,7 @@ import { DashboardWidgets } from "./dashboard-widgets";
 
 export function DashboardPreviewSection() {
   return (
-    <AnimatedSection className="relative overflow-hidden py-20 lg:py-24 bg-gradient-to-b from-background via-muted/30 to-background">
+    <AnimatedSection className="relative overflow-hidden py-20 lg:py-24 bg-linear-to-b from-background via-muted/30 to-background">
       <div className="container relative mx-auto px-6">
         {/* Section Header */}
         <div className="mx-auto max-w-3xl text-center">
@@ -20,7 +20,7 @@ export function DashboardPreviewSection() {
 
           <h2 className="mt-4 text-4xl font-black tracking-tight text-foreground md:text-5xl">
             Your Life in Thailand,{" "}
-            <span className="bg-gradient-to-r from-primary via-sky-500 to-cyan-500 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-primary via-sky-500 to-cyan-500 bg-clip-text text-transparent">
               Organized in One Dashboard
             </span>
           </h2>

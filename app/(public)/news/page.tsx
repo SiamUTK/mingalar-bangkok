@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Newspaper, Search, Sparkles, BookOpen, Clock, TrendingUp } from "lucide-react";
+import { ArrowLeft, Newspaper, Search, Sparkles, BookOpen } from "lucide-react";
 
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Button } from "@/components/ui/button";
@@ -19,8 +19,7 @@ const mockNewsArticles: NewsCardProps[] = [
       "New simplified online procedures announced for foreign workers residing in Thailand to submit 90-day notifications.",
     date: "1 Aug 2026",
     category: "Visa & Rules",
-    image: "https://images.unsplash.com/photo-1450133064473-71024230f91b?w=800&q=80",
-  },
+    image: "https://images.unsplash.com/photo-1450133064473-71024230f91b?w=800&q=80" },
   {
     id: "2",
     title: "Top 5 Factory Job Hubs Expanding Recruitment in Samut Sakhon",
@@ -28,8 +27,7 @@ const mockNewsArticles: NewsCardProps[] = [
       "Seafood processing and manufacturing plants seeking bilingual supervisors and workers this month.",
     date: "30 Jul 2026",
     category: "Jobs News",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
-  },
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80" },
   {
     id: "3",
     title: "How to Use Mingalar AI to Translate Documents Quickly",
@@ -37,8 +35,7 @@ const mockNewsArticles: NewsCardProps[] = [
       "A practical step-by-step guide to translating official forms and workplace notices between Myanmar and Thai.",
     date: "28 Jul 2026",
     category: "Guides & Living",
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80",
-  },
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80" },
   {
     id: "4",
     title: "MOU Work Permit Extension Deadline Announced for Late 2026",
@@ -46,8 +43,7 @@ const mockNewsArticles: NewsCardProps[] = [
       "Important notice for legal workers regarding document submission windows and required health checkups.",
     date: "22 Jul 2026",
     category: "Visa & Rules",
-    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
-  },
+    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80" },
   {
     id: "5",
     title: "Finding Affordable Housing Near BTS/MRT: Essential Tips",
@@ -55,8 +51,7 @@ const mockNewsArticles: NewsCardProps[] = [
       "How to avoid common rental scams, understand Thai rental contracts, and negotiate monthly deposits.",
     date: "18 Jul 2026",
     category: "Guides & Living",
-    image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80",
-  },
+    image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80" },
   {
     id: "6",
     title: "Annual Community Cultural Festival Preparation Underway in Bangkok",
@@ -64,8 +59,7 @@ const mockNewsArticles: NewsCardProps[] = [
       "Organizers invite local food vendors, performers, and volunteers to participate in the upcoming festival.",
     date: "15 Jul 2026",
     category: "Community News",
-    image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&q=80",
-  },
+    image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&q=80" },
 ];
 
 export default function NewsPage() {
@@ -83,7 +77,7 @@ export default function NewsPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <AnimatedSection className="border-b border-border/60 bg-gradient-to-b from-primary/10 via-background to-background py-12">
+      <AnimatedSection className="border-b border-border/60 bg-linear-to-b from-primary/10 via-background to-background py-12">
         <div className="container mx-auto px-6">
           <Link
             href="/"
@@ -156,7 +150,7 @@ export default function NewsPage() {
         )}
 
         {/* Bottom Banner */}
-        <div className="mt-16 rounded-3xl border border-primary/20 bg-gradient-to-r from-primary/10 via-background to-primary/5 p-8 text-center shadow-lg">
+        <div className="mt-16 rounded-3xl border border-primary/20 bg-linear-to-r from-primary/10 via-background to-primary/5 p-8 text-center shadow-lg">
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-md">
             <Sparkles className="h-6 w-6" />
           </div>

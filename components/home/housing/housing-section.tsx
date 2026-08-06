@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Home, Sparkles, UserPlus } from "lucide-react";
+import { ArrowRight, Home, Sparkles } from "lucide-react";
 
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Button } from "@/components/ui/button";
@@ -81,7 +81,7 @@ export function HousingSection() {
         </div>
 
         {/* Bottom Member Register CTA */}
-        <div className="mt-14 rounded-3xl border border-primary/20 bg-gradient-to-r from-primary/5 via-background to-primary/10 p-8 text-center shadow-lg">
+        <div className="mt-14 rounded-3xl border border-primary/20 bg-linear-to-r from-primary/5 via-background to-primary/10 p-8 text-center shadow-lg">
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-md">
             <Home className="h-6 w-6" />
           </div>

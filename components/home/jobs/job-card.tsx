@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Banknote, BriefcaseBusiness, Building2, Clock3, Heart, MapPin, Lock } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Banknote, BriefcaseBusiness, Building2, Clock3, Heart, Lock, MapPin } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -32,9 +33,11 @@ export function JobCard({
   verified = false,
   postedAt,
 }: JobCardProps) {
+  const router = useRouter();
+
   const [isSaved, setIsSaved] = useState(false);
 
-  // สมมติสถานะการล็อกอิน (ในอนาคตดึงจาก Auth State / Context)
+  // TODO: Replace with actual authentication state
   const isAuthenticated = false;
 
   const handleSaveJob = () => {
@@ -43,31 +46,33 @@ export function JobCard({
         description: "Create a free account to bookmark jobs and receive alert updates.",
         action: {
           label: "Create Account",
-          onClick: () => (window.location.href = "/register"),
+          onClick: () => router.push("/register"),
         },
       });
       return;
     }
-    setIsSaved(!isSaved);
-    toast.success(isSaved ? "Removed from saved jobs" : "Job saved to your profile!");
+
+    setIsSaved((prev) => !prev);
+
+    toast.success(isSaved ? "Removed from saved jobs." : "Job saved to your profile!");
   };
 
-  const handleApplyJob = (e: React.MouseEvent) => {
-    if (!isAuthenticated) {
-      e.preventDefault();
-      toast("Sign in to Apply", {
-        description: "You need a free account to apply directly and send your CV to employers.",
-        action: {
-          label: "Sign In",
-          onClick: () => (window.location.href = "/login"),
-        },
-      });
-    }
+  const handleApplyJob = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (isAuthenticated) return;
+
+    e.preventDefault();
+
+    toast("Sign in to Apply", {
+      description: "You need a free account to apply directly and send your CV to employers.",
+      action: {
+        label: "Sign In",
+        onClick: () => router.push("/login"),
+      },
+    });
   };
 
   return (
     <article className="group rounded-3xl border border-border/80 bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl md:rounded-4xl">
-      {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary shadow-inner">
@@ -86,7 +91,6 @@ export function JobCard({
           </div>
         </div>
 
-        {/* Heart / Save Job Button */}
         <button
           type="button"
           onClick={handleSaveJob}
@@ -101,7 +105,6 @@ export function JobCard({
         </button>
       </div>
 
-      {/* Badges */}
       <div className="mt-5 flex flex-wrap gap-2">
         {featured && (
           <span className="rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground shadow-sm">
@@ -124,25 +127,23 @@ export function JobCard({
         <span className="rounded-full bg-muted px-3 py-1 text-xs font-medium">{type}</span>
       </div>
 
-      {/* Information */}
       <div className="mt-6 grid gap-2.5">
         <div className="flex items-center gap-2.5 text-xs text-muted-foreground md:text-sm">
-          <MapPin className="h-4 w-4 text-primary shrink-0" />
+          <MapPin className="h-4 w-4 shrink-0 text-primary" />
           <span>{location}</span>
         </div>
 
         <div className="flex items-center gap-2.5 text-xs text-muted-foreground md:text-sm">
-          <Banknote className="h-4 w-4 text-primary shrink-0" />
+          <Banknote className="h-4 w-4 shrink-0 text-primary" />
           <span className="font-semibold text-foreground">{salary}</span>
         </div>
 
         <div className="flex items-center gap-2.5 text-xs text-muted-foreground md:text-sm">
-          <Clock3 className="h-4 w-4 text-primary shrink-0" />
+          <Clock3 className="h-4 w-4 shrink-0 text-primary" />
           <span>Posted {postedAt}</span>
         </div>
       </div>
 
-      {/* Footer Actions */}
       <div className="mt-8 flex gap-3">
         <Link href={`/jobs/${id}`} className="flex-1">
           <Button variant="outline" className="w-full rounded-2xl font-medium">
@@ -150,7 +151,6 @@ export function JobCard({
           </Button>
         </Link>
 
-        {/* Apply Button with Lock Prompt */}
         <Link href={`/jobs/${id}/apply`} onClick={handleApplyJob}>
           <Button className="rounded-2xl font-semibold shadow-md shadow-primary/20">
             <Lock className="mr-1.5 h-3.5 w-3.5" />

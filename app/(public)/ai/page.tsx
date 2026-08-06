@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   ArrowRight,
   Bot,
@@ -10,8 +11,6 @@ import {
   Briefcase,
   FileText,
   Lock,
-  MessageSquare,
-  Paperclip,
   Send,
   Sparkles,
   Zap,
@@ -46,6 +45,7 @@ const suggestedPrompts = [
 ];
 
 export default function AIPage() {
+  const router = useRouter();
   const [messages, setMessages] = useState([
     {
       role: "assistant",
@@ -70,7 +70,7 @@ export default function AIPage() {
           "You've used all 3 free questions! Create a free account to unlock unlimited AI chats.",
         action: {
           label: "Create Free Account",
-          onClick: () => (window.location.href = "/register"),
+          onClick: () => router.push("/register"),
         },
       });
       return;
@@ -99,7 +99,7 @@ export default function AIPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Top Banner Header */}
-      <AnimatedSection className="border-b border-border/60 bg-gradient-to-b from-primary/10 via-background to-background py-12">
+      <AnimatedSection className="border-b border-border/60 bg-linear-to-b from-primary/10 via-background to-background py-12">
         <div className="container mx-auto px-6 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary">
             <Sparkles className="h-3.5 w-3.5" />
@@ -108,7 +108,7 @@ export default function AIPage() {
 
           <h1 className="mt-4 text-3xl font-black tracking-tight text-foreground md:text-5xl">
             Ask{" "}
-            <span className="bg-gradient-to-r from-primary via-sky-500 to-cyan-500 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-primary via-sky-500 to-cyan-500 bg-clip-text text-transparent">
               Mingalar AI
             </span>{" "}
             Anything
@@ -133,7 +133,7 @@ export default function AIPage() {
       <div className="container mx-auto max-w-4xl px-6 py-8">
         <div className="rounded-3xl border border-border/80 bg-card shadow-2xl overflow-hidden">
           {/* Chat Messages Body */}
-          <div className="min-h-[380px] max-h-[500px] overflow-y-auto p-6 space-y-4">
+          <div className="min-h-[380px] max-h-125 overflow-y-auto p-6 space-y-4">
             {messages.map((msg, idx) => (
               <div
                 key={idx}
@@ -172,7 +172,7 @@ export default function AIPage() {
                 </p>
                 <Link href="/register" className="inline-block">
                   <Button
-                    size="md"
+                    size="default"
                     className="rounded-2xl font-bold shadow-md shadow-primary/20 px-6"
                   >
                     Create Free Account

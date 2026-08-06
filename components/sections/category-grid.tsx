@@ -10,8 +10,7 @@ import {
   Calendar,
   BookOpen,
   Newspaper,
-  Users,
-} from 'lucide-react'
+  Users } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 export interface Category {
@@ -35,64 +34,55 @@ const DEFAULT_CATEGORIES: Category[] = [
     label: 'Jobs',
     icon: <Briefcase className="h-8 w-8" />,
     count: 3284,
-    color: 'bg-primary',
-  },
+    color: 'bg-primary' },
   {
     id: 'housing',
     label: 'Housing',
     icon: <Home className="h-8 w-8" />,
     count: 1856,
-    color: 'bg-secondary',
-  },
+    color: 'bg-secondary' },
   {
     id: 'businesses',
     label: 'Businesses',
     icon: <Store className="h-8 w-8" />,
     count: 2147,
-    color: 'bg-accent',
-  },
+    color: 'bg-accent' },
   {
     id: 'travel',
     label: 'Travel & Tours',
     icon: <MapPin className="h-8 w-8" />,
     count: 892,
-    color: 'bg-blue-600',
-  },
+    color: 'bg-blue-600' },
   {
     id: 'events',
     label: 'Events',
     icon: <Calendar className="h-8 w-8" />,
     count: 456,
-    color: 'bg-orange-600',
-  },
+    color: 'bg-orange-600' },
   {
     id: 'learn',
     label: 'Learn Thai',
     icon: <BookOpen className="h-8 w-8" />,
     count: 145,
-    color: 'bg-green-600',
-  },
+    color: 'bg-green-600' },
   {
     id: 'news',
     label: 'News',
     icon: <Newspaper className="h-8 w-8" />,
     count: 324,
-    color: 'bg-purple-600',
-  },
+    color: 'bg-purple-600' },
   {
     id: 'community',
     label: 'Community',
     icon: <Users className="h-8 w-8" />,
     count: 5634,
-    color: 'bg-pink-600',
-  },
+    color: 'bg-pink-600' },
 ]
 
 export function CategoryGrid({
   categories = DEFAULT_CATEGORIES,
   title = 'Browse by Category',
-  subtitle = 'Explore different sections of our community platform',
-}: CategoryGridProps) {
+  subtitle = 'Explore different sections of our community platform' }: CategoryGridProps) {
   return (
     <section className="w-full py-16 md:py-24 bg-background">
       <Container>

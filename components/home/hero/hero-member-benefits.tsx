@@ -43,7 +43,7 @@ export function HeroMemberBenefits() {
       initial={shouldReduceMotion ? false : fadeMotion.initial}
       animate={shouldReduceMotion ? undefined : fadeMotion.animate}
       transition={fadeMotion.transition}
-      className="mx-auto max-w-5xl rounded-3xl border border-primary/20 bg-gradient-to-b from-primary/5 via-background to-background p-6 md:p-8 text-left shadow-xl"
+      className="mx-auto max-w-5xl rounded-3xl border border-primary/20 bg-linear-to-b from-primary/5 via-background to-background p-6 md:p-8 text-left shadow-xl"
     >
       <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
         {/* Left Info */}
@@ -70,7 +70,7 @@ export function HeroMemberBenefits() {
         </div>
 
         {/* Benefits List */}
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 lg:w-[360px]">
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 lg:w-90">
           {benefits.map((item) => {
             const Icon = item.icon;
 

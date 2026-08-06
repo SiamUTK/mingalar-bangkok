@@ -3,17 +3,12 @@
 import { useState } from "react";
 import {
   Bell,
-  Lock,
-  Globe,
   Shield,
   Smartphone,
   Save,
-  CheckCircle2,
   KeyRound,
   Eye,
-  EyeOff,
-  Sparkles,
-} from "lucide-react";
+  EyeOff } from "lucide-react";
 import { toast } from "sonner";
 
 import { AnimatedPage } from "@/components/ui/AnimatedPage";
@@ -30,14 +25,12 @@ export default function SettingsPage() {
     exchangeRateAlerts: true,
     jobAlerts: false,
     lineNotify: true,
-    smsNotify: true,
-  });
+    smsNotify: true });
 
   const [passwordData, setPasswordData] = useState({
     currentPassword: "",
     newPassword: "",
-    confirmPassword: "",
-  });
+    confirmPassword: "" });
 
   const handleSaveSettings = (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,8 +39,7 @@ export default function SettingsPage() {
     setTimeout(() => {
       setIsSaving(false);
       toast.success("Settings saved successfully!", {
-        description: "Your notification and account preferences have been updated.",
-      });
+        description: "Your notification and account preferences have been updated." });
     }, 800);
   };
 
@@ -63,8 +55,7 @@ export default function SettingsPage() {
     }
 
     toast.success("Password updated!", {
-      description: "Your account password has been changed successfully.",
-    });
+      description: "Your account password has been changed successfully." });
     setPasswordData({ currentPassword: "", newPassword: "", confirmPassword: "" });
   };
 
@@ -268,7 +259,7 @@ export default function SettingsPage() {
             </div>
 
             {/* Account Privacy Card */}
-            <div className="rounded-3xl border border-primary/20 bg-gradient-to-r from-primary/10 via-background to-primary/5 p-6 shadow-sm space-y-2">
+            <div className="rounded-3xl border border-primary/20 bg-linear-to-r from-primary/10 via-background to-primary/5 p-6 shadow-sm space-y-2">
               <div className="flex items-center gap-2 text-xs font-bold text-primary">
                 <Shield className="h-4 w-4" /> Data Protection Guarantee
               </div>

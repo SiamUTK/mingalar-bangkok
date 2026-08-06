@@ -8,7 +8,7 @@ import { useState } from 'react'
 export interface ReviewCardProps {
   id: string
   authorName: string
-  authorAvatar?: string
+  _authorAvatar?: string
   rating: number
   date: string
   title?: string
@@ -21,7 +21,7 @@ export interface ReviewCardProps {
 export function ReviewCard({
   id,
   authorName,
-  authorAvatar,
+  _authorAvatar,
   rating,
   date,
   title,

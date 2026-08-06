@@ -44,7 +44,7 @@ export function HeroSection() {
             className="text-5xl font-black tracking-tight md:text-7xl"
           >
             Everything the{" "}
-            <span className="bg-gradient-to-r from-primary via-sky-500 to-cyan-500 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-primary via-sky-500 to-cyan-500 bg-clip-text text-transparent">
               Myanmar Community
             </span>{" "}
             Needs in Thailand
@@ -74,7 +74,7 @@ export function HeroSection() {
           >
             <motion.div variants={shouldReduceMotion ? undefined : staggerItem}>
               <Link href="/register">
-                <Button size="lg" className="min-w-[220px] rounded-2xl shadow-lg shadow-primary/20">
+                <Button size="lg" className="min-w-55 rounded-2xl shadow-lg shadow-primary/20">
                   Create Free Account
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -83,7 +83,7 @@ export function HeroSection() {
 
             <motion.div variants={shouldReduceMotion ? undefined : staggerItem}>
               <Link href="/ai">
-                <Button variant="outline" size="lg" className="min-w-[220px] rounded-2xl">
+                <Button variant="outline" size="lg" className="min-w-55 rounded-2xl">
                   <Bot className="mr-2 h-4 w-4 text-primary" />
                   Ask Mingalar AI
                 </Button>

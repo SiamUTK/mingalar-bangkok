@@ -4,10 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import {
   ArrowLeft,
-  FileText,
   ShieldCheck,
   Clock,
-  Sparkles,
   Lock,
   Search,
   Bell,
@@ -85,7 +83,7 @@ export default function VisaPage() {
         description: `Please create a free account to ${actionName.toLowerCase()} and set up automated visa expiry alerts.`,
         action: {
           label: "Create Account",
-          onClick: () => (window.location.href = "/register"),
+          onClick: () => router.push("/register"),
         },
       });
     }
@@ -103,7 +101,7 @@ export default function VisaPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <AnimatedSection className="border-b border-border/60 bg-gradient-to-b from-primary/10 via-background to-background py-12">
+      <AnimatedSection className="border-b border-border/60 bg-linear-to-b from-primary/10 via-background to-background py-12">
         <div className="container mx-auto px-6">
           <Link
             href="/"
@@ -229,7 +227,7 @@ export default function VisaPage() {
         </div>
 
         {/* AI Assistant Callout Banner */}
-        <div className="mt-16 rounded-3xl border border-primary/20 bg-gradient-to-r from-primary/10 via-background to-primary/5 p-8 text-center shadow-lg">
+        <div className="mt-16 rounded-3xl border border-primary/20 bg-linear-to-r from-primary/10 via-background to-primary/5 p-8 text-center shadow-lg">
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-md">
             <Bot className="h-6 w-6" />
           </div>

@@ -126,7 +126,7 @@ export default function JobsPage() {
       </div>
 
       {/* Conversion Banner at Bottom */}
-      <div className="mt-16 rounded-3xl border border-primary/20 bg-gradient-to-r from-primary/10 via-background to-primary/5 p-8 text-center shadow-lg">
+      <div className="mt-16 rounded-3xl border border-primary/20 bg-linear-to-r from-primary/10 via-background to-primary/5 p-8 text-center shadow-lg">
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-md">
           <Sparkles className="h-6 w-6" />
         </div>

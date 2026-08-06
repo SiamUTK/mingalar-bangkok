@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Card } from '@/components/ui'
 import { ChevronDown } from 'lucide-react'
 
-interface FilterOption {
+interface _FilterOption {
   id: string
   label: string
   value: string

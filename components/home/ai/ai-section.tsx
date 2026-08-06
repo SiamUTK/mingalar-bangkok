@@ -1,6 +1,6 @@
 "use client";
 
-import { Sparkles, Bot } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { AIChatPreview } from "./ai-chat-preview";
 import { AIFeatureList } from "./ai-feature-list";
@@ -9,7 +9,7 @@ export function AISection() {
   return (
     <AnimatedSection className="relative overflow-hidden py-20 lg:py-24">
       {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background pointer-events-none" />
+      <div className="absolute inset-0 bg-linear-to-b from-background via-primary/5 to-background pointer-events-none" />
 
       <div className="container relative mx-auto px-6">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
@@ -22,7 +22,7 @@ export function AISection() {
 
             <h2 className="mt-5 text-4xl font-black tracking-tight text-foreground md:text-5xl">
               Ask{" "}
-              <span className="inline-block bg-gradient-to-r from-blue-600 via-cyan-500 to-sky-500 bg-clip-text text-transparent">
+              <span className="inline-block bg-linear-to-r from-blue-600 via-cyan-500 to-sky-500 bg-clip-text text-transparent">
                 Mingalar AI
               </span>
             </h2>

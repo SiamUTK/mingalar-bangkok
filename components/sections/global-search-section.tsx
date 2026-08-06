@@ -1,69 +1,63 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Container } from '@/components/ui'
-import { Input } from '@/components/ui'
-import { Select } from '@/components/ui'
-import { Button } from '@/components/ui'
-import { Search, MapPin, Mic, Sparkles } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { useState } from "react";
+import { Container } from "@/components/ui";
+import { motion } from "framer-motion";
+import { Search, Mic, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export interface GlobalSearchSectionProps {
-  onSearch?: (query: string, category: string, location: string) => void
-  categories?: Array<{ value: string; label: string }>
-  locations?: Array<{ value: string; label: string }>
-  title?: string
-  subtitle?: string
+  onSearch?: (query: string, category: string, location: string) => void;
+  categories?: Array<{ value: string; label: string }>;
+  locations?: Array<{ value: string; label: string }>;
+  title?: string;
+  subtitle?: string;
 }
 
 const DEFAULT_CATEGORIES = [
-  { value: '', label: 'All Categories' },
-  { value: 'jobs', label: 'Jobs' },
-  { value: 'housing', label: 'Housing' },
-  { value: 'businesses', label: 'Businesses' },
-  { value: 'services', label: 'Services' },
-  { value: 'events', label: 'Events' },
-]
+  { value: "", label: "All Categories" },
+  { value: "jobs", label: "Jobs" },
+  { value: "housing", label: "Housing" },
+  { value: "businesses", label: "Businesses" },
+  { value: "services", label: "Services" },
+  { value: "events", label: "Events" },
+];
 
 const DEFAULT_LOCATIONS = [
-  { value: '', label: 'All Locations' },
-  { value: 'bangkok', label: 'Bangkok' },
-  { value: 'chiang-mai', label: 'Chiang Mai' },
-  { value: 'phuket', label: 'Phuket' },
-  { value: 'pattaya', label: 'Pattaya' },
-  { value: 'chiang-rai', label: 'Chiang Rai' },
-]
+  { value: "", label: "All Locations" },
+  { value: "bangkok", label: "Bangkok" },
+  { value: "chiang-mai", label: "Chiang Mai" },
+  { value: "phuket", label: "Phuket" },
+  { value: "pattaya", label: "Pattaya" },
+  { value: "chiang-rai", label: "Chiang Rai" },
+];
 
 export function GlobalSearchSection({
   onSearch = () => {},
   categories = DEFAULT_CATEGORIES,
   locations = DEFAULT_LOCATIONS,
-  title = 'Find What You Need',
-  subtitle = 'Search jobs, housing, businesses, and community events',
+  title = "Find What You Need",
+  subtitle = "Search jobs, housing, businesses, and community events",
 }: GlobalSearchSectionProps) {
-  const [query, setQuery] = useState('')
-  const [category, setCategory] = useState('')
-  const [location, setLocation] = useState('')
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("");
+  const [location, setLocation] = useState("");
 
   const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
-    onSearch(query, category, location)
-  }
+    e.preventDefault();
+    onSearch(query, category, location);
+  };
 
   const handleSearchClick = () => {
-    onSearch(query, category, location)
-  }
+    onSearch(query, category, location);
+  };
 
   return (
     <section className="w-full py-16 md:py-20 bg-secondary/3">
       <Container>
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            {title}
-          </h2>
-          <p className="text-lg text-muted-foreground">
-            {subtitle}
-          </p>
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">{title}</h2>
+          <p className="text-lg text-muted-foreground">{subtitle}</p>
         </div>
 
         {/* Search Form */}
@@ -119,7 +113,7 @@ export function GlobalSearchSection({
               {/* Microphone Button */}
               <button
                 type="button"
-                className="p-2 rounded-xl bg-background hover:bg-secondary/10 transition-colors text-muted-foreground hover:text-primary"
+                className="p-2 rounded-xl bg-background hover:bg-secondary/10 transition-colors text-muted-foreground hover:text-primary flex items-center justify-center"
                 title="Voice search (coming soon)"
               >
                 <Mic className="h-5 w-5" />
@@ -130,7 +124,7 @@ export function GlobalSearchSection({
                 type="submit"
                 size="lg"
                 onClick={handleSearchClick}
-                className="rounded-xl px-6 md:px-8 hover:shadow-lg transition-all duration-300"
+                className="rounded-xl px-6 md:px-8 hover:shadow-lg transition-all duration-300 flex items-center gap-2"
               >
                 <Search className="h-5 w-5" />
                 <span className="hidden md:inline">Search</span>
@@ -149,18 +143,19 @@ export function GlobalSearchSection({
             <p className="text-sm text-muted-foreground mb-4">Popular searches:</p>
             <div className="flex flex-wrap justify-center gap-3">
               {[
-                'IT Jobs Bangkok',
-                'House Rent',
-                'Myanmar Restaurant',
-                'Thai Language Class',
-                'Community Events',
+                "IT Jobs Bangkok",
+                "House Rent",
+                "Myanmar Restaurant",
+                "Thai Language Class",
+                "Community Events",
               ].map((tag, i) => (
                 <motion.button
                   key={i}
+                  type="button"
                   onClick={() => setQuery(tag)}
                   className="px-4 py-2 rounded-full bg-card border border-border text-sm font-medium text-foreground hover:bg-secondary/10 hover:border-secondary transition-colors"
                   whileHover={{ scale: 1.05 }}
-                  transition={{ type: 'spring', stiffness: 300 }}
+                  transition={{ type: "spring", stiffness: 300 }}
                 >
                   {tag}
                 </motion.button>
@@ -168,10 +163,7 @@ export function GlobalSearchSection({
             </div>
           </div>
         </motion.form>
-
-
       </Container>
     </section>
-  )
+  );
 }
-

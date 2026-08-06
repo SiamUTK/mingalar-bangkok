@@ -1,20 +1,20 @@
-'use client'
+"use client";
 
-import { Container, Button } from '@/components/ui'
-import { ArrowRight, Sparkles } from 'lucide-react'
+import { Container, Button } from "@/components/ui";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 export interface CTASectionProps {
-  onGetStarted?: () => void
-  onLearnMore?: () => void
+  onGetStarted?: () => void;
+  onLearnMore?: () => void;
 }
 
 export function CTASection({ onGetStarted, onLearnMore }: CTASectionProps) {
   return (
-    <section className="py-20 bg-gradient-to-b from-background to-muted/20">
+    <section className="py-20 bg-linear-to-b from-background to-muted/20">
       <Container>
         <div className="relative rounded-2xl overflow-hidden">
           {/* Background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-accent opacity-10" />
+          <div className="absolute inset-0 bg-linear-to-r from-primary via-secondary to-accent opacity-10" />
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/10 rounded-full blur-3xl" />
           <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent/10 rounded-full blur-3xl" />
 
@@ -31,7 +31,8 @@ export function CTASection({ onGetStarted, onLearnMore }: CTASectionProps) {
               </h2>
 
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Start chatting with our AI Assistant today. No signup required. No credit card needed. Just pure, powerful AI at your fingertips.
+                Start chatting with our AI Assistant today. No signup required. No credit card
+                needed. Just pure, powerful AI at your fingertips.
               </p>
             </div>
 
@@ -67,6 +68,5 @@ export function CTASection({ onGetStarted, onLearnMore }: CTASectionProps) {
         </div>
       </Container>
     </section>
-  )
+  );
 }
-

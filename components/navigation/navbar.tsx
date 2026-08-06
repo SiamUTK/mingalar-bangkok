@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import { LayoutDashboard, LogIn, UserPlus, Bot } from "lucide-react";
 import { createClient } from "@/lib/supabase/client"; // หรือ Supabase Auth Helper ในโปรเจกต์ของคุณ
 import { Button } from "@/components/ui/button";
 
 export function Navbar() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

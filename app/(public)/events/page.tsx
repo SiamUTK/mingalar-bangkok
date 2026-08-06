@@ -6,7 +6,6 @@ import {
   ArrowLeft,
   Calendar,
   MapPin,
-  Clock,
   Sparkles,
   Lock,
   Bookmark,
@@ -99,7 +98,7 @@ export default function EventsPage() {
         description: `Please create a free account to ${actionName.toLowerCase()} and receive event reminders.`,
         action: {
           label: "Create Account",
-          onClick: () => (window.location.href = "/register"),
+          onClick: () => router.push("/register"),
         },
       });
     }
@@ -116,7 +115,7 @@ export default function EventsPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <AnimatedSection className="border-b border-border/60 bg-gradient-to-b from-primary/10 via-background to-background py-12">
+      <AnimatedSection className="border-b border-border/60 bg-linear-to-b from-primary/10 via-background to-background py-12">
         <div className="container mx-auto px-6">
           <Link
             href="/"
@@ -180,8 +179,8 @@ export default function EventsPage() {
             >
               {/* Event Image */}
               <div className="relative aspect-[16/10] sm:w-52 shrink-0 overflow-hidden rounded-2xl">
-                <img
-                  src={evt.image}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img                   src={evt.image}
                   alt={evt.title}
                   className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                 />
@@ -255,7 +254,7 @@ export default function EventsPage() {
         </div>
 
         {/* Conversion Banner */}
-        <div className="mt-16 rounded-3xl border border-primary/20 bg-gradient-to-r from-primary/10 via-background to-primary/5 p-8 text-center shadow-lg">
+        <div className="mt-16 rounded-3xl border border-primary/20 bg-linear-to-r from-primary/10 via-background to-primary/5 p-8 text-center shadow-lg">
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-md">
             <Sparkles className="h-6 w-6" />
           </div>

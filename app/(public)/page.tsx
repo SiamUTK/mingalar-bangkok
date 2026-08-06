@@ -11,8 +11,7 @@ import {
   EventsSection,
   LatestNewsSection,
   TestimonialSection,
-  CTASection,
-} from "@/components/home";
+  CTASection } from "@/components/home";
 
 export default function HomePage() {
   return (

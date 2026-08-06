@@ -15,7 +15,7 @@ const benefits = [
 
 export function CTASection() {
   return (
-    <AnimatedSection className="py-20 bg-gradient-to-b from-background via-primary/5 to-background">
+    <AnimatedSection className="py-20 bg-linear-to-b from-background via-primary/5 to-background">
       <div className="container mx-auto px-6">
         <div className="mx-auto max-w-4xl rounded-3xl border border-primary/20 bg-card p-8 md:p-12 text-center shadow-2xl relative overflow-hidden">
           <div className="absolute inset-0 bg-radial-gradient(circle_at_top,rgba(59,130,246,0.1),transparent_70%) pointer-events-none" />
@@ -26,7 +26,7 @@ export function CTASection() {
 
           <h2 className="text-3xl font-black tracking-tight text-foreground md:text-5xl">
             Start Your Life in Thailand with{" "}
-            <span className="bg-gradient-to-r from-primary via-sky-500 to-cyan-500 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-primary via-sky-500 to-cyan-500 bg-clip-text text-transparent">
               Mingalar Bangkok
             </span>
           </h2>

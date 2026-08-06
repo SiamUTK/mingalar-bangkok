@@ -1,41 +1,37 @@
-'use client'
+"use client";
 
-import { Container, Card } from '@/components/ui'
-import { MessageSquare, Sparkles, CheckCircle } from 'lucide-react'
+import { Container, Card } from "@/components/ui";
+import { CheckCircle } from "lucide-react";
 
 export interface Step {
-  id: string
-  number: number
-  title: string
-  description: string
+  id: string;
+  number: number;
+  title: string;
+  description: string;
 }
 
 export interface HowItWorksProps {
-  steps?: Step[]
+  steps?: Step[];
 }
 
 export function HowItWorks({
   steps = [
     {
-      id: '1',
+      id: "1",
       number: 1,
-      title: 'Ask Your Question',
-      description: 'Type any question or prompt you want help with. Be as specific as you need.',
-    },
+      title: "Ask Your Question",
+      description: "Type any question or prompt you want help with. Be as specific as you need." },
     {
-      id: '2',
+      id: "2",
       number: 2,
-      title: 'AI Processes Your Request',
-      description: 'Our advanced AI analyzes your input and prepares a comprehensive response.',
-    },
+      title: "AI Processes Your Request",
+      description: "Our advanced AI analyzes your input and prepares a comprehensive response." },
     {
-      id: '3',
+      id: "3",
       number: 3,
-      title: 'Get Instant Results',
-      description: 'Receive detailed, accurate answers tailored to your needs in seconds.',
-    },
-  ],
-}: HowItWorksProps) {
+      title: "Get Instant Results",
+      description: "Receive detailed, accurate answers tailored to your needs in seconds." },
+  ] }: HowItWorksProps) {
   return (
     <section className="py-16 bg-muted/20">
       <Container>
@@ -52,7 +48,7 @@ export function HowItWorks({
               <div key={step.id} className="relative">
                 {/* Connector line */}
                 {idx < steps.length - 1 && (
-                  <div className="hidden md:block absolute top-12 left-1/2 w-full h-0.5 bg-gradient-to-r from-primary/50 to-transparent translate-x-1/2" />
+                  <div className="hidden md:block absolute top-12 left-1/2 w-full h-0.5 bg-linear-to-r from-primary/50 to-transparent translate-x-1/2" />
                 )}
 
                 {/* Card */}
@@ -64,7 +60,9 @@ export function HowItWorks({
 
                   {/* Content */}
                   <h3 className="text-lg font-semibold text-foreground mb-2">{step.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {step.description}
+                  </p>
                 </Card>
               </div>
             ))}
@@ -78,21 +76,27 @@ export function HowItWorks({
                 <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
                 <div>
                   <p className="font-medium text-sm">Built for Myanmar Community</p>
-                  <p className="text-xs text-muted-foreground">Understands local context and needs</p>
+                  <p className="text-xs text-muted-foreground">
+                    Understands local context and needs
+                  </p>
                 </div>
               </div>
               <div className="flex gap-3">
                 <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
                 <div>
                   <p className="font-medium text-sm">Always Learning</p>
-                  <p className="text-xs text-muted-foreground">Continuously improving from interactions</p>
+                  <p className="text-xs text-muted-foreground">
+                    Continuously improving from interactions
+                  </p>
                 </div>
               </div>
               <div className="flex gap-3">
                 <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
                 <div>
                   <p className="font-medium text-sm">Expert Knowledge</p>
-                  <p className="text-xs text-muted-foreground">Trained on specialized information</p>
+                  <p className="text-xs text-muted-foreground">
+                    Trained on specialized information
+                  </p>
                 </div>
               </div>
               <div className="flex gap-3">
@@ -107,6 +111,5 @@ export function HowItWorks({
         </div>
       </Container>
     </section>
-  )
+  );
 }
-

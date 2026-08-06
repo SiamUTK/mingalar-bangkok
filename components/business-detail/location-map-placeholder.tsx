@@ -1,7 +1,7 @@
 'use client'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui'
-import { MapPin, ExternalLink } from 'lucide-react'
+import { MapPin } from 'lucide-react'
 import { Button } from '@/components/ui'
 
 export interface LocationMapPlaceholderProps {
@@ -15,8 +15,7 @@ export function LocationMapPlaceholder({
   address,
   latitude,
   longitude,
-  onOpenMap,
-}: LocationMapPlaceholderProps) {
+  onOpenMap }: LocationMapPlaceholderProps) {
   const googleMapsUrl = latitude && longitude
     ? `https://maps.google.com/?q=${latitude},${longitude}`
     : `https://maps.google.com/maps/search/${encodeURIComponent(address)}`

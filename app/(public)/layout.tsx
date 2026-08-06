@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import { LayoutDashboard, Sparkles, ArrowRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
@@ -8,7 +9,7 @@ import { Navbar } from "@/components/navigation/navbar";
 import { Footer } from "@/components/navigation/footer";
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const supabase = createClient();

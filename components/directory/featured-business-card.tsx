@@ -52,7 +52,8 @@ export function FeaturedBusinessCard({
       <div className="grid gap-4 md:grid-cols-2">
         {/* Image Section */}
         <div className="relative h-64 md:h-full">
-          <img
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img 
             src={image}
             alt={name}
             className="h-full w-full object-cover"
@@ -73,7 +74,8 @@ export function FeaturedBusinessCard({
             <div className="mb-4 flex items-start justify-between gap-2">
               <div className="flex-1">
                 <div className="flex items-center gap-2">
-                  <img
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img 
                     src={logo}
                     alt={`${name} logo`}
                     className="h-10 w-10 rounded-full"

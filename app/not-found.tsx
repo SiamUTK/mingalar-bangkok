@@ -12,7 +12,8 @@ export default function NotFound() {
         <span className="text-4xl font-black text-primary">404</span>
         <h1 className="mt-2 text-2xl font-bold text-foreground">Page Not Found</h1>
         <p className="mt-2 text-xs text-muted-foreground">
-          Sorry, the page you are looking for doesn't exist or has been moved. Ask Mingalar AI or return home.
+          Sorry, the page you are looking for doesn&apos;t exist or has been moved. Ask Mingalar AI
+          or return home.
         </p>
         <div className="mt-6 flex justify-center gap-3">
           <Link href="/">

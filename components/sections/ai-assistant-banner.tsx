@@ -1,35 +1,35 @@
-'use client'
+"use client";
 
-import { Container, Button } from '@/components/ui'
-import { Sparkles, ArrowRight } from 'lucide-react'
+import { Container, Button } from "@/components/ui";
+import { Sparkles, ArrowRight } from "lucide-react";
 
 export interface AIAssistantBannerProps {
-  title?: string
-  subtitle?: string
-  description?: string
-  features?: string[]
-  ctaLabel?: string
-  onCTA?: () => void
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  features?: string[];
+  ctaLabel?: string;
+  onCTA?: () => void;
 }
 
 const DEFAULT_FEATURES = [
-  'Instant job recommendations',
-  'Housing search assistance',
-  'Business information lookup',
-  'Event recommendations',
-  'Thai language tips',
-]
+  "Instant job recommendations",
+  "Housing search assistance",
+  "Business information lookup",
+  "Event recommendations",
+  "Thai language tips",
+];
 
 export function AIAssistantBanner({
-  title = 'AI Assistant',
-  subtitle = 'Your Personal Community Guide',
-  description = 'Get personalized recommendations and instant assistance powered by artificial intelligence. Ask anything about jobs, housing, businesses, or community events.',
+  title = "AI Assistant",
+  subtitle = "Your Personal Community Guide",
+  description = "Get personalized recommendations and instant assistance powered by artificial intelligence. Ask anything about jobs, housing, businesses, or community events.",
   features = DEFAULT_FEATURES,
-  ctaLabel = 'Start Chatting',
+  ctaLabel = "Start Chatting",
   onCTA = () => {},
 }: AIAssistantBannerProps) {
   return (
-    <section className="w-full py-16 md:py-24 bg-gradient-to-r from-accent via-accent/90 to-primary overflow-hidden">
+    <section className="w-full py-16 md:py-24 bg-linear-to-r from-accent via-accent/90 to-primary overflow-hidden">
       <Container>
         <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Decorative Elements */}
@@ -47,19 +47,13 @@ export function AIAssistantBanner({
             </div>
 
             {/* Title */}
-            <h2 className="text-5xl md:text-6xl font-bold text-white leading-tight">
-              {title}
-            </h2>
+            <h2 className="text-5xl md:text-6xl font-bold text-white leading-tight">{title}</h2>
 
             {/* Subtitle */}
-            <p className="text-xl font-semibold text-white/90">
-              {subtitle}
-            </p>
+            <p className="text-xl font-semibold text-white/90">{subtitle}</p>
 
             {/* Description */}
-            <p className="text-lg text-white/80 leading-relaxed">
-              {description}
-            </p>
+            <p className="text-lg text-white/80 leading-relaxed">{description}</p>
 
             {/* Features List */}
             <ul className="space-y-3 pt-4">
@@ -123,6 +117,5 @@ export function AIAssistantBanner({
         </div>
       </Container>
     </section>
-  )
+  );
 }
-

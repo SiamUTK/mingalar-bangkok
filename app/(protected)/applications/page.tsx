@@ -9,11 +9,7 @@ import {
   ShieldCheck,
   Clock,
   CheckCircle2,
-  AlertCircle,
-  Building2,
-  ChevronRight,
-  Sparkles,
-} from "lucide-react";
+  AlertCircle } from "lucide-react";
 
 import { AnimatedPage } from "@/components/ui/AnimatedPage";
 import { Button } from "@/components/ui/button";
@@ -26,8 +22,7 @@ const mockJobApplications = [
     appliedDate: "Jul 28, 2026",
     status: "Interview Scheduled",
     statusType: "success", // pending, success, in_review
-    note: "Interview scheduled on Aug 5, 2026 at 10:00 AM.",
-  },
+    note: "Interview scheduled on Aug 5, 2026 at 10:00 AM." },
   {
     id: "app-102",
     jobTitle: "Warehouse Staff & Logistics Helper",
@@ -35,8 +30,7 @@ const mockJobApplications = [
     appliedDate: "Jul 20, 2026",
     status: "Under Review",
     statusType: "in_review",
-    note: "Application submitted and received by HR team.",
-  },
+    note: "Application submitted and received by HR team." },
 ];
 
 const mockVisaRequests = [
@@ -46,16 +40,14 @@ const mockVisaRequests = [
     submittedDate: "Jul 25, 2026",
     status: "Completed",
     statusType: "success",
-    note: "Receipt generated and approved by Thai Immigration.",
-  },
+    note: "Receipt generated and approved by Thai Immigration." },
   {
     id: "req-202",
     serviceName: "MOU Work Permit Extension Renewal",
     submittedDate: "Jul 15, 2026",
     status: "Processing Documents",
     statusType: "in_review",
-    note: "Document verification in progress at Department of Employment.",
-  },
+    note: "Document verification in progress at Department of Employment." },
 ];
 
 export default function ApplicationsPage() {
@@ -222,8 +214,7 @@ function StatusBadge({ type, text }: { type: string; text: string }) {
 function EmptyState({
   label,
   href,
-  buttonText,
-}: {
+  buttonText }: {
   label: string;
   href: string;
   buttonText: string;

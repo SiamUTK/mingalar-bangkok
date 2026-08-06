@@ -56,7 +56,8 @@ export function PhotoLightbox({ isOpen, photos, initialIndex, onClose }: PhotoLi
         </button>
 
         <div className="relative w-full max-w-4xl mx-auto px-4">
-          <img
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img 
             src={currentPhoto.url}
             alt={currentPhoto.alt}
             className="w-full h-auto max-h-[80vh] object-contain"

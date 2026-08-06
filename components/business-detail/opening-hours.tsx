@@ -1,56 +1,39 @@
-'use client'
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui'
-import { Clock } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui";
 
-export interface HourEntry {
-  day: string
-  open: string
-  close: string
-  closed?: boolean
+export interface OpeningHour {
+  day: string;
+  open: string;
+  close: string;
+  closed?: boolean;
 }
 
-export interface OpeningHoursProps {
-  hours: HourEntry[]
-  openNow: boolean
+interface OpeningHoursProps {
+  hours: OpeningHour[];
 }
 
-export function OpeningHours({ hours, openNow }: OpeningHoursProps) {
+export function OpeningHours({ hours }: OpeningHoursProps) {
   return (
     <Card>
       <CardHeader>
-        <div className="flex items-center justify-between">
-          <CardTitle>Opening Hours</CardTitle>
-          <div
-            className={`text-sm font-medium px-2 py-1 rounded-full ${
-              openNow
-                ? 'bg-success/20 text-success'
-                : 'bg-danger/20 text-danger'
-            }`}
-          >
-            {openNow ? 'Open' : 'Closed'}
-          </div>
-        </div>
+        <CardTitle>Opening Hours</CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="space-y-3">
-          {hours.map((entry) => (
-            <div key={entry.day} className="flex items-center justify-between text-sm">
-              <span className="font-medium text-foreground">{entry.day}</span>
-              <span className="text-muted-foreground">
-                {entry.closed ? (
-                  <span className="font-medium">Closed</span>
-                ) : (
-                  <span>
-                    {entry.open} - {entry.close}
-                  </span>
-                )}
-              </span>
-            </div>
-          ))}
-        </div>
+
+      <CardContent className="space-y-3">
+        {hours.map((item) => (
+          <div
+            key={item.day}
+            className="flex items-center justify-between border-b border-border pb-2 last:border-none last:pb-0"
+          >
+            <span className="font-medium">{item.day}</span>
+
+            <span className="text-muted-foreground">
+              {item.closed ? "Closed" : `${item.open} - ${item.close}`}
+            </span>
+          </div>
+        ))}
       </CardContent>
     </Card>
-  )
+  );
 }
-

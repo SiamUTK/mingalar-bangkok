@@ -8,9 +8,8 @@ import {
   CardTitle,
   Badge,
   Button,
-  Avatar,
-} from "@/components/ui";
-import { MapPin, DollarSign, Clock, Briefcase } from "lucide-react";
+  Avatar } from "@/components/ui";
+import { MapPin, DollarSign, Clock } from "lucide-react";
 
 export interface Job {
   id: string;
@@ -41,8 +40,7 @@ const DEFAULT_JOBS: Job[] = [
     type: "Full-time",
     description: "Seeking experienced software engineer with expertise in cloud technologies",
     postedAt: "2 days ago",
-    initials: "TC",
-  },
+    initials: "TC" },
   {
     id: "2",
     title: "Marketing Manager",
@@ -52,8 +50,7 @@ const DEFAULT_JOBS: Job[] = [
     type: "Full-time",
     description: "Lead marketing campaigns for regional expansion",
     postedAt: "3 days ago",
-    initials: "DS",
-  },
+    initials: "DS" },
   {
     id: "3",
     title: "English Teacher",
@@ -63,8 +60,7 @@ const DEFAULT_JOBS: Job[] = [
     type: "Full-time",
     description: "Teach English to secondary students in a reputable institution",
     postedAt: "1 day ago",
-    initials: "BI",
-  },
+    initials: "BI" },
   {
     id: "4",
     title: "Freelance Web Developer",
@@ -74,8 +70,7 @@ const DEFAULT_JOBS: Job[] = [
     type: "Freelance",
     description: "Develop responsive websites for international clients",
     postedAt: "5 days ago",
-    initials: "GA",
-  },
+    initials: "GA" },
   {
     id: "5",
     title: "Business Development Executive",
@@ -85,8 +80,7 @@ const DEFAULT_JOBS: Job[] = [
     type: "Full-time",
     description: "Expand business relationships with Southeast Asian partners",
     postedAt: "1 day ago",
-    initials: "MI",
-  },
+    initials: "MI" },
   {
     id: "6",
     title: "Content Writer",
@@ -96,16 +90,14 @@ const DEFAULT_JOBS: Job[] = [
     type: "Part-time",
     description: "Create engaging content for multiple platforms",
     postedAt: "4 days ago",
-    initials: "DM",
-  },
+    initials: "DM" },
 ];
 
 export function LatestJobs({
   jobs = DEFAULT_JOBS,
   title = "Latest Job Opportunities",
   subtitle = "Find your next career opportunity in Thailand",
-  onViewAll = () => {},
-}: LatestJobsProps) {
+  onViewAll = () => {} }: LatestJobsProps) {
   const getTypeColor = (type: Job["type"]): "success" | "warning" | "danger" | "secondary" => {
     switch (type) {
       case "Full-time":

@@ -1,40 +1,57 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Search, X } from 'lucide-react'
-import { Button } from '@/components/ui'
-import { DesktopSearchModal } from './desktop-search-modal'
-import { MobileFullscreenSearch } from './mobile-fullscreen-search'
+import { useEffect, useState } from "react";
+import { Search } from "lucide-react";
+
+import { Button } from "@/components/ui";
+import { DesktopSearchModal } from "./desktop-search-modal";
+import { MobileFullscreenSearch } from "./mobile-fullscreen-search";
 
 interface GlobalSearchOverlayProps {
-  isOpen?: boolean
-  onClose?: () => void
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
 export function GlobalSearchOverlay({ isOpen = false, onClose }: GlobalSearchOverlayProps) {
-  const [searchOpen, setSearchOpen] = useState(isOpen)
-  const [query, setQuery] = useState('')
-  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth < 768)
+  const [searchOpen, setSearchOpen] = useState(isOpen);
+  const [query, setQuery] = useState("");
+  const [isMobile, setIsMobile] = useState(false);
+
+  // useEffect removed to prevent cascading renders
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkScreenSize();
+
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => {
+      window.removeEventListener("resize", checkScreenSize);
+    };
+  }, []);
 
   const handleClose = () => {
-    setSearchOpen(false)
-    setQuery('')
-    onClose?.()
-  }
+    setSearchOpen(false);
+    setQuery("");
+    onClose?.();
+  };
 
   if (!searchOpen) {
-    return null
+    return null;
   }
 
   return isMobile ? (
     <MobileFullscreenSearch query={query} onQueryChange={setQuery} onClose={handleClose} />
   ) : (
     <DesktopSearchModal query={query} onQueryChange={setQuery} onClose={handleClose} />
-  )
+  );
 }
 
 export function SearchTrigger() {
-  const [searchOpen, setSearchOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false);
 
   return (
     <>
@@ -47,8 +64,8 @@ export function SearchTrigger() {
         <Search className="h-4 w-4" />
         <span>Search...</span>
       </Button>
-      {searchOpen && <GlobalSearchOverlay isOpen={true} onClose={() => setSearchOpen(false)} />}
-    </>
-  )
-}
 
+      <GlobalSearchOverlay isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+    </>
+  );
+}
