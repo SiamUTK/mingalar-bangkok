@@ -11,12 +11,13 @@ import {
   EventsSection,
   LatestNewsSection,
   TestimonialSection,
-  CTASection } from "@/components/home";
+  CTASection,
+} from "@/components/home";
 
 export default function HomePage() {
   return (
     <AnimatedPage>
-      <main className="min-h-screen">
+      <main className="min-h-screen" suppressHydrationWarning>
         <FloatingSearch />
 
         {/* 1. Hero & Universal Search */}
