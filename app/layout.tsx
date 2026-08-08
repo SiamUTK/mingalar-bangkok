@@ -94,7 +94,7 @@ export default function RootLayout({
           {/* Universal Sticky Floating AI Chat Widget */}
           <StickyAiWidget />
 
-          <Toaster richColors position="top-right" />
+          <Toaster richColors position="top-right" offset="24px" />
         </ThemeProvider>
       </body>
     </html>

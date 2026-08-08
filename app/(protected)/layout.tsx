@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
@@ -76,12 +77,20 @@ export default function ProtectedLayout({ children }: { children: React.ReactNod
   return (
     <div className="min-h-screen bg-muted/20 flex flex-col md:flex-row">
       {/* Mobile Header */}
-      <div className="md:hidden sticky top-0 z-50 flex h-16 items-center justify-between border-b border-border/80 bg-background px-4 shadow-sm">
-        <Link href="/dashboard" className="flex items-center gap-2 font-black text-lg text-primary">
-          <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
-            M
+      <div className="md:hidden sticky top-0 z-50 flex h-16 items-center justify-between border-b border-border/80 bg-background px-4 shadow-xs">
+        <Link href="/dashboard" className="flex items-center gap-2.5">
+          <Image
+            src="/logo/logo-dashboard.svg"
+            alt="Mingalar Bangkok"
+            width={200}
+            height={60}
+            priority
+            className="h-11 w-auto"
+          />
+
+          <span className="text-lg font-black tracking-tight text-foreground whitespace-nowrap">
+            Mingalar <span className="text-[#aa2429]">Bangkok</span>
           </span>
-          <span>Mingalar BKK</span>
         </Link>
         <Button
           variant="ghost"
@@ -101,11 +110,21 @@ export default function ProtectedLayout({ children }: { children: React.ReactNod
       >
         <div className="space-y-6">
           {/* Brand Logo Section */}
-          <div className="hidden md:flex items-center gap-2 font-black text-xl text-primary px-2 py-1">
-            <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-md">
-              M
-            </span>
-            <span>Mingalar BKK</span>
+          <div className="hidden md:flex items-center px-2 py-1">
+            <Link href="/dashboard" className="flex items-center gap-2.5">
+              <Image
+                src="/logo/logo-dashboard.svg"
+                alt="Mingalar Bangkok"
+                width={200}
+                height={60}
+                priority
+                className="h-11 w-auto"
+              />
+
+              <span className="text-lg font-black tracking-tight text-foreground whitespace-nowrap">
+                Mingalar <span className="text-[#aa2429]">Bangkok</span>
+              </span>
+            </Link>
           </div>
 
           {/* Account Overview Navigation */}
@@ -123,7 +142,7 @@ export default function ProtectedLayout({ children }: { children: React.ReactNod
                   onClick={() => setSidebarOpen(false)}
                   className={`flex items-center gap-2.5 rounded-2xl px-3 py-2 text-xs font-bold transition-all ${
                     isActive
-                      ? "bg-primary text-primary-foreground shadow-sm"
+                      ? "bg-primary text-primary-foreground shadow-xs"
                       : "text-muted-foreground hover:bg-muted hover:text-foreground"
                   }`}
                 >
