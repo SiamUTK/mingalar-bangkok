@@ -17,7 +17,7 @@ function DigestSection({
   items,
 }: {
   title: string;
-  items: WeeklyDigestItem[];
+  items: readonly WeeklyDigestItem[];
 }): React.JSX.Element | null {
   if (!items || items.length === 0) {
     return null;
@@ -79,7 +79,7 @@ export default function WeeklyDigestEmail({
 
         {unsubscribeUrl ? (
           <MutedText style={styles.unsubscribeText}>
-            Don't want to receive these emails?{" "}
+            Don&apos;t want to receive these emails?{" "}
             <a href={unsubscribeUrl} style={styles.footerLink}>
               Unsubscribe from weekly digest
             </a>

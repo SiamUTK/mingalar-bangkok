@@ -19,10 +19,6 @@ export function GlobalSearchOverlay({ isOpen = false, onClose }: GlobalSearchOve
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    setSearchOpen(isOpen);
-  }, [isOpen]);
-
-  useEffect(() => {
     const checkScreenSize = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -33,7 +29,7 @@ export function GlobalSearchOverlay({ isOpen = false, onClose }: GlobalSearchOve
     return () => {
       window.removeEventListener("resize", checkScreenSize);
     };
-  }, []);
+  }, [searchOpen]);
 
   const handleClose = () => {
     setSearchOpen(false);

@@ -13,6 +13,7 @@ export interface SectionProps {
   readonly borderRadius?: number;
   readonly border?: string;
   readonly align?: "left" | "center" | "right" | "justify";
+  readonly style?: React.CSSProperties;
 }
 
 export function Section({
@@ -26,6 +27,7 @@ export function Section({
   borderRadius,
   border,
   align = "left",
+  style,
 }: SectionProps): React.JSX.Element {
   return (
     <table
@@ -53,6 +55,7 @@ export function Section({
               border,
               fontFamily:
                 "Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+              ...style,
             }}
           >
             {children}

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
 import { ArrowLeft, Store, MapPin, Phone, Star, Search, Lock, Heart, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
@@ -71,6 +72,7 @@ const mockBusinesses = [
 ];
 
 export default function DirectoryPage() {
+  const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 

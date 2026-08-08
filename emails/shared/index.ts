@@ -12,3 +12,9 @@ export type { TextProps } from "./text";
 
 export { Heading } from "./heading";
 export type { HeadingProps } from "./heading";
+
+export { Button } from "../partials/button";
+export type { ButtonProps } from "../partials/button";
+
+export { Divider } from "../partials/divider";
+export type { DividerProps } from "../partials/divider";

@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
+import Image from "next/image";
 import Link from "next/link";
 import { LayoutDashboard, LogIn, UserPlus, Bot } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
@@ -37,11 +38,15 @@ export function Navbar() {
     <header className="sticky top-0 z-50 border-b border-border/80 bg-background/80 backdrop-blur-md">
       <div className="container mx-auto flex h-16 items-center justify-between px-6">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 font-black text-xl text-primary">
-          <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-xs">
-            M
-          </span>
-          <span>Mingalar BKK</span>
+        <Link href="/" className="flex items-center gap-3" aria-label="Mingalar Bangkok home">
+          <Image
+            src="/logo/logo-navbar.svg"
+            alt="Mingalar Bangkok"
+            width={140}
+            height={42}
+            priority
+            className="h-9 w-auto"
+          />
         </Link>
 
         {/* Public Navigation Menu */}

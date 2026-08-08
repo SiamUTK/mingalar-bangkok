@@ -2,20 +2,20 @@ import { render } from "@react-email/render";
 import { Resend } from "resend";
 import type { CreateEmailOptions } from "resend";
 
-import VerificationEmail from "@/emails/verification";
-import WelcomeEmail from "@/emails/welcome";
-import ForgotPasswordEmail from "@/emails/forgot-password";
-import ResetPasswordEmail from "@/emails/reset-password";
-import ChangeEmailEmail from "@/emails/change-email";
-import MembershipUpgradedEmail from "@/emails/membership-upgraded";
-import MembershipExpiredEmail from "@/emails/membership-expired";
-import BusinessApprovedEmail from "@/emails/business-approved";
-import BusinessRejectedEmail from "@/emails/business-rejected";
-import ReviewNotificationEmail from "@/emails/review-notification";
-import WeeklyDigestEmail from "@/emails/weekly-digest";
-import InvoiceEmail from "@/emails/invoice";
-import PaymentSuccessEmail from "@/emails/payment-success";
-import PaymentFailedEmail from "@/emails/payment-failed";
+import VerificationEmail from "@/emails/verification-email";
+import WelcomeEmail from "@/emails/welcome-email";
+import ForgotPasswordEmail from "@/emails/forgot-password-email";
+import ResetPasswordEmail from "@/emails/reset-password-email";
+import ChangeEmailEmail from "@/emails/change-email-email";
+import MembershipUpgradedEmail from "@/emails/membership-upgraded-email";
+import MembershipExpiredEmail from "@/emails/membership-expired-email";
+import BusinessApprovedEmail from "@/emails/business-approved-email";
+import BusinessRejectedEmail from "@/emails/business-rejected-email";
+import ReviewNotificationEmail from "@/emails/review-notification-email";
+import WeeklyDigestEmail from "@/emails/weekly-digest-email";
+import InvoiceEmail from "@/emails/invoice-email";
+import PaymentSuccessEmail from "@/emails/payment-success-email";
+import PaymentFailedEmail from "@/emails/payment-failed-email";
 
 import type {
   EmailTemplateName,
@@ -23,7 +23,7 @@ import type {
   EmailRecipient,
   SendEmailOptions,
   SendEmailResult,
-} from "./types/email";
+} from "./types";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const DEFAULT_FROM = process.env.EMAIL_FROM || "noreply@example.com";
@@ -48,7 +48,7 @@ const TEMPLATE_REGISTRY: {
 };
 
 export function normalizeRecipients(
-  recipient: EmailRecipient | EmailRecipient[] | string | string[]
+  recipient: EmailRecipient | readonly EmailRecipient[] | string | readonly string[]
 ): string[] {
   const recipients = Array.isArray(recipient) ? recipient : [recipient];
 
@@ -84,19 +84,24 @@ export async function buildPayload<TName extends EmailTemplateName>(
     render(element, { plainText: true }),
   ]);
 
-  return {
+  const payload: CreateEmailOptions = {
     from: options.from || DEFAULT_FROM,
     to: normalizeRecipients(options.to),
     ...(options.cc ? { cc: normalizeRecipients(options.cc) } : {}),
     ...(options.bcc ? { bcc: normalizeRecipients(options.bcc) } : {}),
     ...(options.replyTo ? { replyTo: options.replyTo } : {}),
-    subject: options.subject,
+    subject: options.subject ?? "Mingalar Bangkok",
     html,
     text,
-    ...(options.headers ? { headers: options.headers } : {}),
-    ...(options.tags ? { tags: options.tags } : {}),
-    ...(options.attachments ? { attachments: options.attachments } : {}),
+    react: element,
+    ...(options.headers ? { headers: { ...options.headers } } : {}),
+    ...(options.tags
+      ? { tags: Object.entries(options.tags).map(([name, value]) => ({ name, value })) }
+      : {}),
+    ...(options.attachments ? { attachments: [...options.attachments] } : {}),
   };
+
+  return payload;
 }
 
 export async function sendEmail<TName extends EmailTemplateName>(

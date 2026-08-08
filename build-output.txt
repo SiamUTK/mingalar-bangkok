@@ -1,0 +1,75 @@
+
+> mingalar-bangkok@0.1.0 prebuild
+> npm run verify
+
+
+> mingalar-bangkok@0.1.0 verify
+> npm run lint && npm run typecheck
+
+
+> mingalar-bangkok@0.1.0 lint
+> eslint .
+
+
+> mingalar-bangkok@0.1.0 typecheck
+> tsc --noEmit
+
+
+> mingalar-bangkok@0.1.0 build
+> next build
+
+โ–ฒ Next.js 16.2.6 (Turbopack)
+- Environments: .env.local, .env
+
+  Creating an optimized production build ...
+โ“ Compiled successfully in 7.4s
+  Skipping validation of types
+  Finished TypeScript config validation in 15ms ...
+  Collecting page data using 5 workers ...
+  Generating static pages using 5 workers (0/33) ...
+  Generating static pages using 5 workers (8/33) 
+  Generating static pages using 5 workers (16/33) 
+  Generating static pages using 5 workers (24/33) 
+โ“ Generating static pages using 5 workers (33/33) in 1302ms
+  Finalizing page optimization ...
+
+Route (app)
+โ” โ— /
+โ” โ— /_not-found
+โ” โ— /about
+โ” โ— /ai
+โ” ฦ’ /api/auth/callback
+โ” ฦ’ /api/auth/logout
+โ” ฦ’ /api/auth/register
+โ” ฦ’ /api/auth/sync
+โ” ฦ’ /api/test-db
+โ” ฦ’ /api/user/profile
+โ” โ— /applications
+โ” โ— /contact
+โ” โ— /dashboard
+โ” โ— /directory
+โ” โ— /events
+โ” โ— /forgot-password
+โ” โ— /housing
+โ” โ— /jobs
+โ” โ— /login
+โ” โ— /money
+โ” โ— /news
+โ” โ— /privacy
+โ” โ— /profile
+โ” โ— /register
+โ” โ— /reset-password
+โ” โ— /saved
+โ” โ— /settings
+โ” ฦ’ /supabase-test
+โ” โ— /support
+โ” โ— /terms
+โ” โ— /travel
+โ”” โ— /visa
+
+
+ฦ’ Proxy (Middleware)
+
+โ—  (Static)   prerendered as static content
+ฦ’  (Dynamic)  server-rendered on demand
+

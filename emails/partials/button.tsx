@@ -8,6 +8,7 @@ export interface ButtonProps {
   readonly variant?: "primary" | "secondary" | "outline";
   readonly width?: number | string;
   readonly align?: "left" | "center" | "right";
+  readonly style?: React.CSSProperties;
 }
 
 export function Button({
@@ -16,6 +17,7 @@ export function Button({
   variant = "primary",
   width,
   align = "center",
+  style,
 }: ButtonProps): React.JSX.Element {
   const styles = {
     primary: {
@@ -42,7 +44,7 @@ export function Button({
     }
   >;
 
-  const style = styles[variant];
+  const variantStyle = styles[variant];
 
   return (
     <table
@@ -75,9 +77,9 @@ export function Button({
                   boxSizing: "border-box",
                   padding: "14px 28px",
                   borderRadius: "10px",
-                  backgroundColor: style.backgroundColor,
-                  color: style.color,
-                  border: style.border,
+                  backgroundColor: variantStyle.backgroundColor,
+                  color: variantStyle.color,
+                  border: variantStyle.border,
                   textDecoration: "none",
                   textAlign: "center",
                   fontFamily:
@@ -88,6 +90,7 @@ export function Button({
                   letterSpacing: "-0.01em",
                   WebkitTextSizeAdjust: "100%",
                   msoLineHeightRule: "exactly",
+                  ...style,
                 } as React.CSSProperties
               }
             >

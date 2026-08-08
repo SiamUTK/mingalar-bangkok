@@ -13,6 +13,8 @@ import { HeroStats } from "@/components/home/hero/hero-stats";
 import { HeroQuickActions } from "@/components/home/hero/hero-quick-actions";
 import { HeroMemberBenefits } from "@/components/home/hero/hero-member-benefits";
 
+export type HeroSectionProps = Record<string, never>;
+
 export function HeroSection() {
   const shouldReduceMotion = useReducedMotion();
 

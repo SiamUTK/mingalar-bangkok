@@ -30,7 +30,10 @@ export default function ForgotPasswordEmail({
         </Text>
 
         <Section style={styles.buttonContainer}>
-          <Button href={resetUrl} style={styles.button}>
+          <Button
+            href={resetUrl ?? "https://mingalarbangkok.com/forgot-password"}
+            style={styles.button}
+          >
             Reset Password
           </Button>
         </Section>
@@ -44,8 +47,8 @@ export default function ForgotPasswordEmail({
         <Divider style={styles.divider} />
 
         <MutedText style={styles.mutedText}>
-          If you're having trouble clicking the button, copy and paste the URL below into your web
-          browser:
+          If you&apos;re having trouble clicking the button, copy and paste the URL below into your
+          web browser:
         </MutedText>
 
         <SmallText style={styles.linkText}>{resetUrl}</SmallText>

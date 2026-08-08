@@ -98,10 +98,13 @@ export function Footer({
 
   return (
     <footer
-      className={cn("relative overflow-hidden border-t border-border bg-background", className)}
+      className={cn(
+        "relative overflow-hidden border-t border-white/10 bg-[#aa2429] text-white",
+        className
+      )}
     >
       {/* Brand Gradient Bar */}
-      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#AA2429] via-[#D9A441] to-[#1F2D49]" />
+      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#f4b85b] via-[#f7d58b] to-[#ffffff]" />
 
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
         {/* Main Grid Container */}
@@ -115,7 +118,7 @@ export function Footer({
                 className="inline-flex shrink-0 transition-transform duration-300 hover:scale-[1.02]"
               >
                 <Image
-                  src="/logo/logo-footer.svg"
+                  src="/logo/logo-white.svg"
                   alt="Mingalar Bangkok"
                   width={140}
                   height={140}
@@ -126,21 +129,21 @@ export function Footer({
 
               <div className="hidden sm:block h-12 w-px bg-border shrink-0" />
 
-              <p className="text-xs leading-relaxed text-muted-foreground">{description}</p>
+              <p className="text-xs leading-relaxed text-white/75">{description}</p>
             </div>
 
             {/* Quick Company Contact Info */}
-            <div className="space-y-2 rounded-2xl border border-border/60 bg-card/60 p-4 text-xs text-muted-foreground">
+            <div className="space-y-2 rounded-2xl border border-white/15 bg-white/10 p-4 text-xs text-white/80 backdrop-blur-sm">
               <div className="flex items-center gap-2">
-                <MapPin className="h-3.5 w-3.5 text-primary shrink-0" />
+                <MapPin className="h-3.5 w-3.5 text-white shrink-0" />
                 <span>Pathumwan, Bangkok 10330, Thailand</span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone className="h-3.5 w-3.5 text-primary shrink-0" />
+                <Phone className="h-3.5 w-3.5 text-white shrink-0" />
                 <span>+66 00 000 1234, +66 00 000 5678</span>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="h-3.5 w-3.5 text-primary shrink-0" />
+                <Mail className="h-3.5 w-3.5 text-white shrink-0" />
                 <span>info@mingalarbangkok.com</span>
               </div>
             </div>
@@ -157,9 +160,9 @@ export function Footer({
                     aria-label={item.label}
                     className={cn(
                       "flex h-9 w-9 items-center justify-center rounded-xl",
-                      "border border-border bg-card text-muted-foreground",
+                      "border border-white/20 bg-white/10 text-white/80",
                       "transition-all duration-300",
-                      "hover:-translate-y-1 hover:border-primary hover:bg-primary hover:text-primary-foreground hover:shadow-md"
+                      "hover:-translate-y-1 hover:border-white/40 hover:bg-white/20 hover:text-white hover:shadow-md"
                     )}
                   >
                     {item.icon}
@@ -172,7 +175,7 @@ export function Footer({
           {/* Navigation Link Columns */}
           {activeSections.map((section) => (
             <div key={section.title}>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-foreground">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-white">
                 {section.title}
               </h3>
 
@@ -182,9 +185,9 @@ export function Footer({
                     <Link
                       href={link.href}
                       className={cn(
-                        "group inline-flex items-center text-xs text-muted-foreground",
+                        "group inline-flex items-center text-xs text-white/75",
                         "transition-all duration-300",
-                        "hover:translate-x-1 hover:text-primary"
+                        "hover:translate-x-1 hover:text-white"
                       )}
                     >
                       <ArrowRight className="mr-0 h-3 w-0 opacity-0 text-primary transition-all duration-300 group-hover:mr-1.5 group-hover:w-3 group-hover:opacity-100" />
@@ -198,12 +201,12 @@ export function Footer({
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-16 border-t border-border pt-8">
+        <div className="mt-16 border-t border-white/15 pt-8">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             {/* Left Side: Language Switcher & Copyright */}
             <div className="space-y-2">
               <LanguageSwitcher variant="inline" className="text-xs" />
-              <p className="text-xs text-muted-foreground">{copyright}</p>
+              <p className="text-xs text-white/70">{copyright}</p>
             </div>
 
             {/* Right Side: Essential Bottom Links */}
@@ -213,28 +216,28 @@ export function Footer({
             >
               <Link
                 href="/privacy"
-                className="text-muted-foreground transition-colors duration-300 hover:text-primary"
+                className="text-white/75 transition-colors duration-300 hover:text-white"
               >
                 Privacy Policy
               </Link>
 
               <Link
                 href="/terms"
-                className="text-muted-foreground transition-colors duration-300 hover:text-primary"
+                className="text-white/75 transition-colors duration-300 hover:text-white"
               >
                 Terms of Service
               </Link>
 
               <Link
                 href="/support"
-                className="text-muted-foreground transition-colors duration-300 hover:text-primary"
+                className="text-white/75 transition-colors duration-300 hover:text-white"
               >
                 Help Center
               </Link>
 
               <Link
                 href="/contact"
-                className="text-muted-foreground transition-colors duration-300 hover:text-primary"
+                className="text-white/75 transition-colors duration-300 hover:text-white"
               >
                 Contact
               </Link>

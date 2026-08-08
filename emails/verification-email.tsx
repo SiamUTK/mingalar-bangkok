@@ -1,14 +1,6 @@
 import * as React from "react";
-import {
-  EmailLayout,
-  Heading,
-  Section,
-  Text,
-  MutedText,
-  SmallText,
-  Divider,
-  Button,
-} from "@/lib/email/components";
+import { EmailLayout } from "./layouts/email-layout";
+import { Heading, Section, Text, MutedText, SmallText, Divider, Button } from "./shared/index";
 import { EMAIL_BRAND, EMAIL_COLORS } from "@/lib/email/constants";
 import type { VerificationEmailProps } from "@/lib/email/types/email-props";
 
@@ -16,7 +8,7 @@ export default function VerificationEmail({
   name,
   verificationUrl,
   expiresInMinutes = 30,
-}: VerificationEmailProps): React.JSX.Element {
+}: VerificationEmailProps & { name?: string }): React.JSX.Element {
   return (
     <EmailLayout previewText={`Verify your email address for ${EMAIL_BRAND.name}`}>
       <Section style={styles.container}>
@@ -43,8 +35,8 @@ export default function VerificationEmail({
         <Divider style={styles.divider} />
 
         <MutedText style={styles.mutedText}>
-          If you're having trouble clicking the button, copy and paste the URL below into your web
-          browser:
+          If you&apos;re having trouble clicking the button, copy and paste the URL below into your
+          web browser:
         </MutedText>
 
         <SmallText style={styles.linkText}>{verificationUrl}</SmallText>
@@ -53,7 +45,7 @@ export default function VerificationEmail({
   );
 }
 
-const styles = {
+const styles: Record<string, React.CSSProperties> = {
   container: {
     padding: "0 24px",
   },
@@ -61,7 +53,7 @@ const styles = {
     color: EMAIL_COLORS.textPrimary,
     fontSize: "24px",
     fontWeight: "bold",
-    textAlign: "left" as const,
+    textAlign: "left",
     margin: "0 0 20px",
   },
   text: {
@@ -72,7 +64,7 @@ const styles = {
   },
   buttonContainer: {
     margin: "24px 0",
-    textAlign: "center" as const,
+    textAlign: "center",
   },
   button: {
     backgroundColor: EMAIL_COLORS.primary,
@@ -81,7 +73,7 @@ const styles = {
     fontSize: "16px",
     fontWeight: "bold",
     textDecoration: "none",
-    textAlign: "center" as const,
+    textAlign: "center",
     display: "inline-block",
     padding: "12px 24px",
   },
@@ -98,7 +90,7 @@ const styles = {
   linkText: {
     color: EMAIL_COLORS.primary,
     fontSize: "12px",
-    wordBreak: "break-all" as const,
+    wordBreak: "break-all",
     margin: "0",
   },
 };

@@ -43,7 +43,7 @@ export default function ReviewNotificationEmail({
             {stars} <span style={styles.ratingNumber}>({rating}/5)</span>
           </Text>
 
-          {reviewComment ? <Text style={styles.commentText}>"{reviewComment}"</Text> : null}
+          {reviewComment ? <Text style={styles.commentText}>&ldquo;{reviewComment}&rdquo;</Text> : null}
 
           {reviewDate ? <Text style={styles.dateText}>Posted on {reviewDate}</Text> : null}
         </Section>

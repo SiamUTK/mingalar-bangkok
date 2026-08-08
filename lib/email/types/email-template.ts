@@ -80,9 +80,10 @@ export interface EmailAttachment {
 }
 
 export interface SendEmailOptions<T extends EmailTemplateName = EmailTemplateName> {
-  readonly to: EmailRecipient | readonly EmailRecipient[];
-  readonly cc?: readonly EmailRecipient[];
-  readonly bcc?: readonly EmailRecipient[];
+  readonly from?: string;
+  readonly to: EmailRecipient | readonly EmailRecipient[] | string | readonly string[];
+  readonly cc?: EmailRecipient | readonly EmailRecipient[] | string | readonly string[];
+  readonly bcc?: EmailRecipient | readonly EmailRecipient[] | string | readonly string[];
   readonly replyTo?: string;
   readonly subject?: string;
   readonly template: T;
@@ -90,6 +91,12 @@ export interface SendEmailOptions<T extends EmailTemplateName = EmailTemplateNam
   readonly attachments?: readonly EmailAttachment[];
   readonly tags?: Readonly<Record<string, string>>;
   readonly headers?: Readonly<Record<string, string>>;
+}
+
+export interface SendEmailResult {
+  readonly success: boolean;
+  readonly data?: { readonly id: string };
+  readonly error?: Error;
 }
 
 export interface EmailQueueJob<T extends EmailTemplateName = EmailTemplateName> {

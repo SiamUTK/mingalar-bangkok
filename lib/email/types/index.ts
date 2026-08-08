@@ -16,6 +16,7 @@ export type {
   InvoiceEmailProps,
   PaymentSuccessEmailProps,
   PaymentFailedEmailProps,
+  EmailPropsMap,
   EmailTemplateProps,
 } from "./email-props";
 
@@ -28,6 +29,7 @@ export type {
   EmailRecipient,
   EmailAttachment,
   SendEmailOptions,
+  SendEmailResult,
   EmailQueueJob,
   EmailContext,
 } from "./email-template";

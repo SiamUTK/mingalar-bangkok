@@ -25,33 +25,35 @@ export function Text({
 }: TextProps): React.JSX.Element {
   return (
     <p
-      style={{
-        margin: 0,
-        marginTop,
-        marginBottom,
-        color,
-        fontSize,
-        fontWeight,
-        lineHeight,
-        textAlign: align,
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-        msoLineHeightRule: "exactly",
-        ...style,
-      }}
+      style={
+        {
+          margin: 0,
+          marginTop,
+          marginBottom,
+          color,
+          fontSize,
+          fontWeight,
+          lineHeight,
+          textAlign: align,
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+          msoLineHeightRule: "exactly",
+          ...style,
+        } as React.CSSProperties
+      }
     >
       {children}
     </p>
   );
 }
 
-export interface MutedTextProps extends Omit<TextProps, "color"> {}
+export type MutedTextProps = TextProps;
 
 export function MutedText(props: MutedTextProps): React.JSX.Element {
   return <Text {...props} color="#6B7280" />;
 }
 
-export interface SmallTextProps extends Omit<TextProps, "fontSize" | "lineHeight"> {}
+export type SmallTextProps = Omit<TextProps, "fontSize" | "lineHeight">;
 
 export function SmallText(props: SmallTextProps): React.JSX.Element {
   return <Text {...props} fontSize={13} lineHeight="20px" />;

@@ -11,7 +11,7 @@ import {
   Search,
   Bell,
   CheckCircle2,
-  AlertCircle,
+  
   ArrowRight,
   Bot,
   MapPin,

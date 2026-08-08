@@ -1,6 +1,7 @@
 export interface BaseEmailProps {
   readonly recipientEmail: string;
   readonly recipientName: string;
+  readonly name?: string;
   readonly locale?: "en" | "th" | "my";
 }
 
@@ -11,10 +12,12 @@ export interface VerificationEmailProps extends BaseEmailProps {
 
 export interface WelcomeEmailProps extends BaseEmailProps {
   readonly dashboardUrl: string;
+  readonly supportEmail?: string;
 }
 
 export interface ForgotPasswordEmailProps extends BaseEmailProps {
   readonly resetPasswordUrl: string;
+  readonly resetUrl?: string;
   readonly expiresInMinutes: number;
 }
 
@@ -26,11 +29,13 @@ export interface ResetPasswordEmailProps extends BaseEmailProps {
 export interface ChangeEmailEmailProps extends BaseEmailProps {
   readonly newEmail: string;
   readonly confirmEmailUrl: string;
+  readonly confirmationUrl?: string;
   readonly expiresInMinutes: number;
 }
 
 export interface MembershipUpgradedEmailProps extends BaseEmailProps {
-  readonly newPlanName: string;
+  readonly newPlanName?: string;
+  readonly planName?: string;
   readonly effectiveDate: string;
   readonly nextBillingDate?: string;
   readonly dashboardUrl: string;
@@ -38,6 +43,7 @@ export interface MembershipUpgradedEmailProps extends BaseEmailProps {
 
 export interface MembershipExpiredEmailProps extends BaseEmailProps {
   readonly previousPlanName: string;
+  readonly planName?: string;
   readonly expirationDate: string;
   readonly renewUrl: string;
 }
@@ -52,7 +58,9 @@ export interface BusinessApprovedEmailProps extends BaseEmailProps {
 export interface BusinessRejectedEmailProps extends BaseEmailProps {
   readonly businessName: string;
   readonly rejectionReason?: string;
+  readonly reason?: string;
   readonly editListingUrl: string;
+  readonly supportUrl?: string;
   readonly rejectionDate?: string;
 }
 
@@ -81,6 +89,12 @@ export interface WeeklyDigestEmailProps extends BaseEmailProps {
   readonly unsubscribeUrl?: string;
 }
 
+export interface InvoiceItem {
+  readonly description: string;
+  readonly quantity: number;
+  readonly unitPrice: number;
+}
+
 export interface InvoiceEmailProps extends BaseEmailProps {
   readonly invoiceNumber: string;
   readonly issueDate: string;
@@ -90,6 +104,8 @@ export interface InvoiceEmailProps extends BaseEmailProps {
   readonly description?: string;
   readonly invoiceUrl?: string;
   readonly paymentUrl?: string;
+  readonly downloadUrl?: string;
+  readonly items?: readonly InvoiceItem[];
 }
 
 export interface PaymentSuccessEmailProps extends BaseEmailProps {
@@ -98,6 +114,7 @@ export interface PaymentSuccessEmailProps extends BaseEmailProps {
   readonly transactionId: string;
   readonly paymentDate: string;
   readonly planName?: string;
+  readonly invoiceId?: string;
   readonly receiptUrl: string;
   readonly dashboardUrl: string;
 }
@@ -106,7 +123,8 @@ export interface PaymentFailedEmailProps extends BaseEmailProps {
   readonly amount: number;
   readonly currency?: string;
   readonly planName?: string;
-  readonly failureReason: string;
+  readonly failureReason?: string;
+  readonly reason?: string;
   readonly updatePaymentUrl: string;
   readonly retryDate?: string;
 }

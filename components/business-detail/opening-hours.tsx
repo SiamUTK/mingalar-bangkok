@@ -2,14 +2,16 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui";
 
-export interface OpeningHour {
+export interface HourEntry {
   day: string;
   open: string;
   close: string;
   closed?: boolean;
 }
 
-interface OpeningHoursProps {
+export type OpeningHour = HourEntry;
+
+export interface OpeningHoursProps {
   hours: OpeningHour[];
 }
 
@@ -37,4 +39,3 @@ export function OpeningHours({ hours }: OpeningHoursProps) {
     </Card>
   );
 }
-

@@ -56,7 +56,10 @@ export default function InvoiceEmail({
         </Text>
 
         <Section style={styles.buttonContainer}>
-          <Button href={downloadUrl} style={styles.button}>
+          <Button
+            href={downloadUrl ?? "https://mingalarbangkok.com/dashboard"}
+            style={styles.button}
+          >
             View & Download Invoice
           </Button>
         </Section>

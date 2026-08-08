@@ -45,7 +45,7 @@ export default function BusinessRejectedEmail({
         </Text>
 
         <Section style={styles.buttonContainer}>
-          <Button href={supportUrl} style={styles.button}>
+          <Button href={supportUrl ?? "https://mingalarbangkok.com/support"} style={styles.button}>
             Contact Support
           </Button>
         </Section>

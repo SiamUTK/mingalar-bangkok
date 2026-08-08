@@ -28,6 +28,8 @@ export const EMAIL_COLORS = Object.freeze({
 
   text: "#0F172A",
   textMuted: "#64748B",
+  textPrimary: "#0F172A",
+  textSecondary: "#475569",
 
   success: "#16A34A",
   warning: "#D97706",

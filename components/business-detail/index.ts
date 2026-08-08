@@ -1,10 +1,10 @@
 export { Breadcrumb, type BreadcrumbProps, type BreadcrumbItem } from './breadcrumb'
 export { BusinessHero, type BusinessHeroProps } from './business-hero'
-export { ImageGallery, type ImageGalleryProps, type Image } from './image-gallery'
+export { ImageGallery, type ImageGalleryProps } from './image-gallery'
 export { PhotoLightbox, type PhotoLightboxProps, type Photo } from './photo-lightbox'
 export { BusinessInformation, type BusinessInformationProps } from './business-information'
 export { ContactInformationCard, type ContactInformationCardProps } from './contact-information-card'
-export { OpeningHours, type OpeningHoursProps, type HourEntry } from './opening-hours'
+export { OpeningHours, type OpeningHoursProps, type HourEntry as OpeningHourEntry } from './opening-hours'
 export { ServicesAmenities, type ServicesAmenitiesProps } from './services-amenities'
 export { BusinessDescription, type BusinessDescriptionProps } from './business-description'
 export { LocationMapPlaceholder, type LocationMapPlaceholderProps } from './location-map-placeholder'
@@ -14,4 +14,3 @@ export { CustomerReviewsList, type CustomerReviewsListProps } from './customer-r
 export { SimilarBusinesses, type SimilarBusinessesProps, type SimilarBusiness } from './similar-businesses'
 export { StickyMobileActionBar, type StickyMobileActionBarProps } from './sticky-mobile-action-bar'
 export { DesktopStickyContactCard, type DesktopStickyContactCardProps } from './desktop-sticky-contact-card'
-

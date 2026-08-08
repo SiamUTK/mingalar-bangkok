@@ -7,6 +7,7 @@ export interface DividerProps {
   readonly thickness?: number;
   readonly spacing?: number;
   readonly width?: string | number;
+  readonly style?: React.CSSProperties;
 }
 
 export function Divider({
@@ -14,6 +15,7 @@ export function Divider({
   thickness = 1,
   spacing = 24,
   width = "100%",
+  style,
 }: DividerProps): React.JSX.Element {
   return (
     <table
@@ -54,6 +56,7 @@ export function Divider({
                       backgroundColor: color,
                       fontSize: 0,
                       lineHeight: 0,
+                      ...style,
                     }}
                   >
                     &nbsp;

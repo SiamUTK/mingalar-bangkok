@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
   Banknote,
@@ -57,6 +58,7 @@ const remittanceProviders = [
 
 export default function MoneyPage() {
   const [amountThb, setAmountThb] = useState<number | "">(1000);
+  const router = useRouter();
   const isAuthenticated = false; // guest status simulation
 
   const calculatedMmk =

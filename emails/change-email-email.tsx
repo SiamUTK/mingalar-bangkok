@@ -32,7 +32,10 @@ export default function ChangeEmailEmail({
         </Text>
 
         <Section style={styles.buttonContainer}>
-          <Button href={confirmationUrl} style={styles.button}>
+          <Button
+            href={confirmationUrl ?? "https://mingalarbangkok.com/login"}
+            style={styles.button}
+          >
             Confirm Email Change
           </Button>
         </Section>
@@ -46,8 +49,8 @@ export default function ChangeEmailEmail({
         <Divider style={styles.divider} />
 
         <MutedText style={styles.mutedText}>
-          If you're having trouble clicking the button, copy and paste the URL below into your web
-          browser:
+          If you&apos;re having trouble clicking the button, copy and paste the URL below into your
+          web browser:
         </MutedText>
 
         <SmallText style={styles.linkText}>{confirmationUrl}</SmallText>

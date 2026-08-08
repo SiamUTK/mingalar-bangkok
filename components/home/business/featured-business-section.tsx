@@ -48,8 +48,8 @@ const businesses = [
 
 export function FeaturedBusinessSection() {
   return (
-    <AnimatedSection className="section">
-      <div className="container-page">
+    <AnimatedSection className="py-20 bg-muted/20">
+      <div className="container mx-auto px-6">
         <div className="flex items-end justify-between">
           <div>
             <span className="section-badge">Featured Businesses</span>
@@ -78,4 +78,3 @@ export function FeaturedBusinessSection() {
     </AnimatedSection>
   );
 }
-

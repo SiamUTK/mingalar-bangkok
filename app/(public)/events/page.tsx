@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
   Calendar,
@@ -89,6 +90,7 @@ const mockEvents = [
 export default function EventsPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
 
   const isAuthenticated = false; // guest status simulation
 
@@ -180,7 +182,7 @@ export default function EventsPage() {
               {/* Event Image */}
               <div className="relative aspect-[16/10] sm:w-52 shrink-0 overflow-hidden rounded-2xl">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img                   src={evt.image}
+                <img src={evt.image}
                   alt={evt.title}
                   className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                 />

@@ -3,12 +3,14 @@ import * as React from "react";
 import { EMAIL_BRAND, EMAIL_COLORS } from "@/lib/email";
 import { Footer, Header } from "../partials";
 import { Container } from "../shared";
+import { Head } from "@react-email/components";
 
 export interface EmailLayoutProps {
   readonly children: React.ReactNode;
   readonly title?: string;
   readonly subtitle?: string;
   readonly preview?: string;
+  readonly previewText?: string;
   readonly showHeader?: boolean;
   readonly showFooter?: boolean;
   readonly showLogo?: boolean;
@@ -22,6 +24,7 @@ export function EmailLayout({
   title,
   subtitle,
   preview,
+  previewText,
   showHeader = true,
   showFooter = true,
   showLogo = true,
@@ -31,34 +34,36 @@ export function EmailLayout({
 }: EmailLayoutProps): React.JSX.Element {
   return (
     <html lang="en">
-      <head>
+      <Head>
         <meta charSet="UTF-8" />
         <meta name="color-scheme" content="light" />
         <meta name="supported-color-schemes" content="light" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{title ?? EMAIL_BRAND.name}</title>
 
-        {preview && (
+        {(preview ?? previewText) && (
           <>
-            <meta name="description" content={preview} />
-            <meta name="preview" content={preview} />
+            <meta name="description" content={preview ?? previewText ?? ""} />
+            <meta name="preview" content={preview ?? previewText ?? ""} />
           </>
         )}
-      </head>
+      </Head>
 
       <body
-        style={{
-          margin: 0,
-          padding: 0,
-          width: "100%",
-          backgroundColor,
-          WebkitTextSizeAdjust: "100%",
-          msTextSizeAdjust: "100%",
-          fontFamily:
-            "Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-        }}
+        style={
+          {
+            margin: 0,
+            padding: 0,
+            width: "100%",
+            backgroundColor,
+            WebkitTextSizeAdjust: "100%",
+            msTextSizeAdjust: "100%",
+            fontFamily:
+              "Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+          } as React.CSSProperties
+        }
       >
-        {preview && (
+        {(preview ?? previewText) && (
           <div
             style={
               {
@@ -75,7 +80,7 @@ export function EmailLayout({
               } as React.CSSProperties
             }
           >
-            {preview}
+            {preview ?? previewText}
           </div>
         )}
 

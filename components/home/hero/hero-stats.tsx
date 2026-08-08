@@ -4,7 +4,7 @@ import * as React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Users, BriefcaseBusiness, Building2, Bot } from "lucide-react";
 
-import { fadeMotion, hoverScale, staggerContainer, staggerItem } from "@/lib/motion";
+import { hoverScale, staggerContainer, staggerItem } from "@/lib/motion";
 
 const stats = [
   {

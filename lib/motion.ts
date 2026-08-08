@@ -279,3 +279,22 @@ export const liftMotionProps: MotionProps = {
   whileHover: hoverLift,
   whileTap: tapScale,
 };
+
+export const floatingSearchMotion = {
+  initial: { opacity: 0, y: 20, scale: 0.98 },
+  animate: { opacity: 1, y: 0, scale: 1 },
+  exit: { opacity: 0, y: -10, scale: 0.98 },
+  transition: createTransition({ duration: "fast", ease: "springSmooth" }),
+};
+
+export const hoverCardMotion = {
+  whileHover: hoverScale,
+  whileTap: tapScale,
+};
+
+export const fadeInViewport = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.2 },
+  transition: createTransition({ duration: "normal", ease: "springSmooth" }),
+};

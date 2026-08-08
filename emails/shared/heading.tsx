@@ -9,6 +9,7 @@ export interface HeadingProps {
   readonly align?: React.CSSProperties["textAlign"];
   readonly marginTop?: number;
   readonly marginBottom?: number;
+  readonly style?: React.CSSProperties;
 }
 
 const HEADING_STYLES: Record<
@@ -58,10 +59,11 @@ export function Heading({
   align = "left",
   marginTop = 0,
   marginBottom = 20,
+  style,
 }: HeadingProps): React.JSX.Element {
   const Tag = `h${level}` as keyof React.JSX.IntrinsicElements;
 
-  const style = HEADING_STYLES[level];
+  const headingStyle = HEADING_STYLES[level];
 
   return React.createElement(
     Tag,
@@ -70,15 +72,16 @@ export function Heading({
         margin: `${marginTop}px 0 ${marginBottom}px`,
         padding: 0,
         color,
-        fontSize: `${style.fontSize}px`,
-        lineHeight: `${style.lineHeight}px`,
-        fontWeight: style.fontWeight,
+        fontSize: `${headingStyle.fontSize}px`,
+        lineHeight: `${headingStyle.lineHeight}px`,
+        fontWeight: headingStyle.fontWeight,
         textAlign: align,
         letterSpacing: "-0.02em",
         fontFamily:
           "Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         msoLineHeightRule: "exactly",
         WebkitTextSizeAdjust: "100%",
+        ...style,
       } as React.CSSProperties,
     },
     children
