@@ -2,6 +2,7 @@
 "use client";
 
 import * as React from "react";
+import dynamic from "next/dynamic";
 import { motion, useReducedMotion, TargetAndTransition, Transition } from "framer-motion";
 import { pageTransition } from "@/lib/motion";
 
@@ -10,7 +11,7 @@ export interface AnimatedPageProps {
   className?: string;
 }
 
-export function AnimatedPage({ children, className }: AnimatedPageProps) {
+function AnimatedPageContent({ children, className }: AnimatedPageProps) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
@@ -31,3 +32,8 @@ export function AnimatedPage({ children, className }: AnimatedPageProps) {
     </motion.div>
   );
 }
+
+// Disable SSR for the animation wrapper to eliminate hydration mismatches completely
+export const AnimatedPage = dynamic(() => Promise.resolve(AnimatedPageContent), {
+  ssr: false,
+});

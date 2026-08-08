@@ -1,3 +1,4 @@
+// components/navigation/footer.tsx
 "use client";
 
 import * as React from "react";
@@ -75,6 +76,7 @@ const defaultSections: FooterSection[] = [
       { label: "Contact Us", href: "/contact" },
       { label: "Privacy Policy", href: "/privacy" },
       { label: "Terms of Service", href: "/terms" },
+      { label: "Cookie Policy", href: "/cookie" },
     ],
   },
 ];
@@ -99,19 +101,20 @@ export function Footer({
   return (
     <footer
       className={cn(
-        "relative overflow-hidden border-t border-white/10 bg-[#aa2429] text-white",
+        "relative overflow-hidden border-t border-white/10 bg-[#aa2429] text-white flex flex-col",
         className
       )}
     >
       {/* Brand Gradient Bar */}
       <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#f4b85b] via-[#f7d58b] to-[#ffffff]" />
 
-      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+      <div className="mx-auto max-w-7xl px-6 py-10 lg:px-8 w-full">
         {/* Main Grid Container */}
-        <div className="grid gap-12 lg:grid-cols-[2fr_1fr_1fr_1fr]">
+        <div className="grid gap-8 lg:grid-cols-[2fr_1fr_1fr_1fr]">
           {/* Brand & Info Section */}
-          <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+          <div className="space-y-4">
+            {/* Logo and Description Stacked */}
+            <div className="space-y-3">
               <Link
                 href="/"
                 aria-label="Mingalar Bangkok"
@@ -120,20 +123,18 @@ export function Footer({
                 <Image
                   src="/logo/logo-white.svg"
                   alt="Mingalar Bangkok"
-                  width={140}
-                  height={140}
+                  width={100}
+                  height={100}
                   priority
-                  className="h-20 w-auto sm:h-24"
+                  className="h-10 w-auto sm:h-12"
                 />
               </Link>
 
-              <div className="hidden sm:block h-12 w-px bg-border shrink-0" />
-
-              <p className="text-xs leading-relaxed text-white/75">{description}</p>
+              <p className="text-xs leading-relaxed text-white/75 max-w-sm">{description}</p>
             </div>
 
             {/* Quick Company Contact Info */}
-            <div className="space-y-2 rounded-2xl border border-white/15 bg-white/10 p-4 text-xs text-white/80 backdrop-blur-sm">
+            <div className="space-y-1.5 rounded-xl border border-white/15 bg-white/10 p-3 text-xs text-white/80 backdrop-blur-sm">
               <div className="flex items-center gap-2">
                 <MapPin className="h-3.5 w-3.5 text-white shrink-0" />
                 <span>Pathumwan, Bangkok 10330, Thailand</span>
@@ -150,7 +151,7 @@ export function Footer({
 
             {/* Social Links */}
             {activeSocials.length > 0 && (
-              <div className="flex flex-wrap gap-2.5 pt-1">
+              <div className="flex flex-wrap gap-2 pt-0.5">
                 {activeSocials.map((item) => (
                   <a
                     key={item.href}
@@ -159,7 +160,7 @@ export function Footer({
                     rel="noopener noreferrer"
                     aria-label={item.label}
                     className={cn(
-                      "flex h-9 w-9 items-center justify-center rounded-xl",
+                      "flex h-8 w-8 items-center justify-center rounded-lg",
                       "border border-white/20 bg-white/10 text-white/80",
                       "transition-all duration-300",
                       "hover:-translate-y-1 hover:border-white/40 hover:bg-white/20 hover:text-white hover:shadow-md"
@@ -179,7 +180,7 @@ export function Footer({
                 {section.title}
               </h3>
 
-              <ul className="mt-5 space-y-3">
+              <ul className="mt-3 space-y-2">
                 {section.links.map((link) => (
                   <li key={link.href}>
                     <Link
@@ -199,50 +200,36 @@ export function Footer({
             </div>
           ))}
         </div>
+      </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-16 border-t border-white/15 pt-8">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-            {/* Left Side: Language Switcher & Copyright */}
-            <div className="space-y-2">
-              <LanguageSwitcher variant="inline" className="text-xs" />
-              <p className="text-xs text-white/70">{copyright}</p>
-            </div>
-
-            {/* Right Side: Essential Bottom Links */}
-            <nav
-              aria-label="Legal Links"
-              className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-medium"
-            >
-              <Link
-                href="/privacy"
-                className="text-white/75 transition-colors duration-300 hover:text-white"
-              >
-                Privacy Policy
-              </Link>
-
-              <Link
-                href="/terms"
-                className="text-white/75 transition-colors duration-300 hover:text-white"
-              >
-                Terms of Service
-              </Link>
-
-              <Link
-                href="/support"
-                className="text-white/75 transition-colors duration-300 hover:text-white"
-              >
-                Help Center
-              </Link>
-
-              <Link
-                href="/contact"
-                className="text-white/75 transition-colors duration-300 hover:text-white"
-              >
-                Contact
-              </Link>
-            </nav>
+      {/* Bottommost Dark Strip (#1f2d49) containing everything on one unified line */}
+      <div className="w-full bg-[#1f2d49] py-4 px-6 text-xs text-white/75">
+        <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+          {/* Copyright & Language Switcher inline */}
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-2">
+            <p className="text-white/70">{copyright}</p>
+            <span className="text-white/30 hidden sm:inline">|</span>
+            <LanguageSwitcher variant="inline" className="text-xs text-white" />
           </div>
+
+          {/* Essential Legal Links (Privacy, Terms, Cookie, Support) */}
+          <nav
+            aria-label="Legal Links"
+            className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-medium text-white/75"
+          >
+            <Link href="/privacy" className="transition-colors duration-300 hover:text-white">
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className="transition-colors duration-300 hover:text-white">
+              Terms of Service
+            </Link>
+            <Link href="/cookie" className="transition-colors duration-300 hover:text-white">
+              Cookie Policy
+            </Link>
+            <Link href="/support" className="transition-colors duration-300 hover:text-white">
+              Help Center
+            </Link>
+          </nav>
         </div>
       </div>
     </footer>
